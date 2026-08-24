@@ -1,8 +1,9 @@
 # System Design Playbook
 
-**A DSA-sheet for design interviews.** Low-level and high-level design, arranged
-the way a problem sheet is: a pattern, the signal that tells you to reach for it,
-one worked example you can actually run, and three problems to practise on.
+**A design interview guide you can run.** Low-level and high-level design,
+arranged as a practice sheet: every pattern gets a folder with the signal that
+tells you to reach for it, one worked example in dependency-free Java, and three
+problems to practise on.
 
 ![Java](https://img.shields.io/badge/Java-17%2B-orange)
 ![Dependencies](https://img.shields.io/badge/dependencies-none-brightgreen)
@@ -66,9 +67,9 @@ Then pick a track:
 - **[hld/](hld/README.md)** — 11 folders. The delivery framework, seven scaling
   patterns, technology deep dives, and building one signature design.
 
-There's also a browser version of the same sheet with progress tracking at
-[web/design-sheet.html](web/design-sheet.html) — open it directly, your ticks
-save locally.
+There's also a browser version of the same sheet with progress tracking, live at
+**[abhishek-gola.github.io/system-design-playbook](https://abhishek-gola.github.io/system-design-playbook/)**
+— your ticks save locally in the browser.
 
 ## What's inside
 

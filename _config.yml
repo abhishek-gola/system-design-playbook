@@ -1,0 +1,27 @@
+# GitHub Pages build config.
+#
+# index.html (the design sheet) has no front matter, so Jekyll copies it
+# through untouched and it keeps its own styling. The markdown files still
+# build as sub-pages: /lld/, /hld/, /lld/02-strategy/, and so on.
+#
+# jekyll-sitemap matters here: the sheet at / links out to solutions, not
+# inward to the pattern pages, so sitemap.xml is how crawlers find them.
+
+title: System Design Playbook
+description: >-
+  System design interview preparation for low-level design (LLD) and high-level
+  design (HLD), with runnable dependency-free Java for every pattern, plus
+  concurrency and timed machine-coding drills.
+
+url: https://abhishek-gola.github.io
+baseurl: /system-design-playbook
+
+theme: jekyll-theme-primer
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+exclude:
+  - run.sh
+  - build/
