@@ -25,17 +25,22 @@ public class Demo {
         System.out.println("Two gates admitting at the same time:");
         Optional<Ticket> bike = north.admit(new Vehicle("KA-01-AB-1234", VehicleType.MOTORBIKE), t0);
         Optional<Ticket> car  = south.admit(new Vehicle("KA-05-XY-9876", VehicleType.CAR), t0);
-        north.admit(new Vehicle("KA-09-TR-4444", VehicleType.TRUCK), t0);
         lot.printOccupancy();
 
         System.out.println();
-        System.out.println("A second truck needs a LARGE spot and there is only one:");
-        south.admit(new Vehicle("KA-09-TR-5555", VehicleType.TRUCK), t0);
-
-        System.out.println();
-        System.out.println("A second car, though, fits in the truck bay:");
+        System.out.println("A second car. The medium bay is gone, so it takes the truck bay,");
+        System.out.println("because a bigger spot can hold a smaller vehicle:");
         Optional<Ticket> car2 = south.admit(new Vehicle("KA-03-CD-1111", VehicleType.CAR), t0);
         lot.printOccupancy();
+
+        System.out.println();
+        System.out.println("And now a truck arrives:");
+        north.admit(new Vehicle("KA-09-TR-4444", VehicleType.TRUCK), t0);
+        System.out.println("  A car is sitting in the only bay a truck can use. Smallest-fit is");
+        System.out.println("  greedy, and greedy allocation starves the large vehicles.");
+        System.out.println("  Worth saying out loud in an interview: the fix is reserving bays");
+        System.out.println("  by type, or an allocation policy that looks ahead. That is the");
+        System.out.println("  second place a Strategy would earn its keep.");
 
         System.out.println();
         System.out.println("Settling up:");
@@ -57,7 +62,8 @@ public class Demo {
         System.out.println("Second pass — where a pattern would now earn its keep:");
         System.out.println("  PricingRule  -> Strategy, the moment weekend or member rates appear");
         System.out.println("  Spot status  -> a two-state machine, and it stays that small");
-        System.out.println("  findFree     -> a Strategy too, if 'nearest to the lift' is ever asked for");
+        System.out.println("  findFree     -> a Strategy, and the demo above shows why:");
+        System.out.println("                  smallest-fit is one policy among several");
         System.out.println("  Nothing else. Adding patterns anywhere else here is decoration.");
     }
 }

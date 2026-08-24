@@ -1,0 +1,10 @@
+# run.sh compiles into here
+build/
+
+# macOS
+.DS_Store
+
+# editors
+.idea/
+.vscode/
+*.iml

@@ -112,11 +112,17 @@ tickets do."
 ./run.sh lld/00-modelling
 ```
 
-The demo parks three vehicles, rejects one when the floor is full, and prints a
-fee on exit. No patterns anywhere in it — that's the point. When you've read it,
-do a second pass on paper and mark where a pattern would actually earn its keep.
-(Answers: pricing wants Strategy, the gate wants a Factory for tickets, and the
-spot-status transitions are a very small State machine.)
+The demo parks a bike and two cars, watches the second car take the only truck
+bay because nothing smaller is free, and then turns a truck away. That last bit
+is not a contrivance — smallest-fit allocation is greedy and starves large
+vehicles, and noticing it unprompted is exactly the kind of thing that separates
+a modelled design from a copied one.
+
+No patterns anywhere in the code, which is the point. When you've read it, do a
+second pass on paper and mark where a pattern would actually earn its keep.
+(Answers: pricing wants Strategy, spot allocation wants a second Strategy for
+the reason above, and the spot-status transitions are a very small State
+machine. Nothing else.)
 
 ## Practice
 

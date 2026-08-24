@@ -128,7 +128,7 @@ public final class Demo {
         for (Map.Entry<String, List<SessionWindowAggregator.Session>> e : sessions.sessions().entrySet()) {
             StringBuilder sb = new StringBuilder();
             for (SessionWindowAggregator.Session s : e.getValue()) {
-                sb.append(fmt("  [%s..%s %d clicks]", mmss(s.start), mmss(s.end), s.count));
+                sb.append(fmt("  [%s..%s %d %s]", mmss(s.start), mmss(s.end), s.count, s.count == 1 ? "click" : "clicks"));
             }
             System.out.println(fmt("   %-8s %s", e.getKey(), sb.toString()));
         }
@@ -202,10 +202,18 @@ public final class Demo {
         if (windower.sideOutput().isEmpty()) {
             System.out.println("   none");
         }
-        for (ClickEvent e : windower.sideOutput()) {
-            System.out.println(fmt("   %-9s %-7s event time %s, arrived when the watermark was already %s",
-                    e.adId(), e.userId(), mmss(e.eventTimeMs()), mmss(windower.watermarkMs())));
+        for (EventTimeWindower.LateArrival late : windower.sideOutput()) {
+            ClickEvent e = late.event();
+            System.out.println(fmt("   %-9s %-7s event time %s, arrived when the watermark had reached %s",
+                    e.adId(), e.userId(), mmss(e.eventTimeMs()), mmss(late.watermarkAtArrivalMs())));
         }
+        System.out.println();
+        System.out.println("The second of those is worth a second look. It was only four positions late");
+        System.out.println("in arrival order, which the thirty second tolerance would normally absorb.");
+        System.out.println("What killed it was the gap between bursts: the next event to arrive was from");
+        System.out.println("three minutes later in event time, so the watermark jumped straight past its");
+        System.out.println("window. A quiet stream punishes stragglers much harder than a busy one, and");
+        System.out.println("that is not obvious until you have watched it happen.");
         System.out.println();
         System.out.println("Flink's default is to drop those silently. Routing them to a side output");
         System.out.println("instead is what lets you count them, alert when the rate moves, and hand");
@@ -240,9 +248,9 @@ public final class Demo {
             System.out.println("   every window agrees");
         }
         System.out.println();
-        System.out.println(fmt("Exactly %d click is missing, and it is the one in the side output. That",
-                lost));
-        System.out.println("is the trade laid out honestly: the streaming path is fast and slightly");
+        System.out.println(fmt("Exactly %d %s missing, and %s the side output. That is",
+                lost, lost == 1 ? "click is" : "clicks are", lost == 1 ? "it is the one in" : "they are the ones in"));
+        System.out.println("the trade laid out honestly: the streaming path is fast and slightly");
         System.out.println("wrong, you know precisely how wrong and about which events, and the batch");
         System.out.println("path repairs it later. Raising the tolerance from 30s buys back that click");
         System.out.println("and costs every result 30 more seconds of staleness.");

@@ -24,11 +24,22 @@ if [[ ! -f "$dir/Demo.java" ]]; then
   exit 1
 fi
 
-if ! command -v javac >/dev/null 2>&1 || ! javac -version >/dev/null 2>&1; then
-  echo "No JDK found. Install one first:" >&2
+# On macOS /usr/bin/javac is a stub that reports no runtime, so check it actually
+# works, and fall back to a Homebrew JDK (which is keg-only and not on PATH).
+if ! javac -version >/dev/null 2>&1; then
+  for candidate in /opt/homebrew/opt/openjdk@21/bin /opt/homebrew/opt/openjdk/bin \
+                   /usr/local/opt/openjdk@21/bin /usr/local/opt/openjdk/bin; do
+    if [[ -x "$candidate/javac" ]]; then
+      PATH="$candidate:$PATH"
+      break
+    fi
+  done
+fi
+
+if ! javac -version >/dev/null 2>&1; then
+  echo "No working JDK found. Install one with:" >&2
   echo "  brew install openjdk@21" >&2
-  echo "  sudo ln -sfn /opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk \\" >&2
-  echo "               /Library/Java/JavaVirtualMachines/openjdk-21.jdk" >&2
+  echo "and this script will pick it up automatically." >&2
   exit 1
 fi
 

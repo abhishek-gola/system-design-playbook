@@ -40,6 +40,15 @@ public final class EventTimeWindower {
     public record Firing(long windowStart, long windowEnd, long count, boolean lateCorrection) {
     }
 
+    /**
+     * A side-output event, carrying the watermark as it stood when the event
+     * turned up. That second number is the useful one operationally: it tells
+     * you how far past the tolerance the event actually was, which is what you
+     * need before deciding whether to raise the tolerance or accept the loss.
+     */
+    public record LateArrival(ClickEvent event, long watermarkAtArrivalMs) {
+    }
+
     private final long sizeMs;
     private final long maxOutOfOrdernessMs;
     private final long allowedLatenessMs;
@@ -47,7 +56,7 @@ public final class EventTimeWindower {
     private final TreeMap<Long, Long> openWindows = new TreeMap<>();
     private final Set<Long> alreadyFired = new HashSet<>();
     private final List<Firing> firings = new ArrayList<>();
-    private final List<ClickEvent> sideOutput = new ArrayList<>();
+    private final List<LateArrival> sideOutput = new ArrayList<>();
 
     private long maxEventTimeMs = -1;
 
@@ -70,7 +79,7 @@ public final class EventTimeWindower {
         if (end + allowedLatenessMs <= watermarkMs) {
             // The window's state was already dropped. There is no counter left
             // to increment, which is precisely why this branch exists.
-            sideOutput.add(e);
+            sideOutput.add(new LateArrival(e, watermarkMs));
             return;
         }
 
@@ -117,7 +126,7 @@ public final class EventTimeWindower {
         return firings;
     }
 
-    public List<ClickEvent> sideOutput() {
+    public List<LateArrival> sideOutput() {
         return sideOutput;
     }
 

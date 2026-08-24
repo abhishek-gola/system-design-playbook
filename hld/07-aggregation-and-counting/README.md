@@ -6,9 +6,10 @@
 **What it fixes:** counting on the write path, which turns every event into a
 database contention problem.
 
-This is your home turf, and the step where two years of Kafka and Flink in
-production stops being a line on a resume and starts being an advantage.
-Prepare it until you can drive it cold.
+If you have run Kafka or a stream processor in production, this is the step
+where that stops being a line on a CV and starts being an advantage. Prepare it
+until you can drive it cold either way — it rewards depth more than any other
+pattern here.
 
 The reason it is worth more effort than the other patterns is that the ceiling
 is higher. Most candidates can describe the boxes — Kafka, a stream processor, a
@@ -344,12 +345,13 @@ crash so the double count is a printed number rather than an assertion.
 |---|---|
 | [Design an Ad Click Aggregator](https://www.hellointerview.com/learn/system-design/problem-breakdowns/ad-click-aggregator) **(core)** | The anchor. Windowing, watermarks, exactly-once, and the reprocessing path. |
 | [Design YouTube Top K](https://www.hellointerview.com/learn/system-design/problem-breakdowns/top-k) **(core)** | Sketches plus sorted sets. The one where approximate structures earn their keep. |
-| [Design a Distributed Rate Limiter](https://www.hellointerview.com/learn/system-design/problem-breakdowns/distributed-rate-limiter) **(core)** | Your specialism, at system scale. Make this an answer you can give without thinking. |
+| [Design a Distributed Rate Limiter](https://www.hellointerview.com/learn/system-design/problem-breakdowns/distributed-rate-limiter) **(core)** | The rate limiter from [lld/02-strategy](../../lld/02-strategy/), at system scale. Make this one an answer you can give without thinking. |
 
 The rate limiter is the one to over-prepare, because it is the cheapest bridge
-between this folder and both [lld/02-strategy](../../lld/02-strategy/) and your
-own production experience. Being able to switch between the algorithm, the
-distributed counter and the incident you remember, in one answer, is unusual.
+between this folder and [lld/02-strategy](../../lld/02-strategy/). Being able to
+move between the algorithm, the distributed counter and a concrete production
+story inside a single answer is unusual, and if you have a story for it, this is
+where it goes.
 
 ## Read
 
