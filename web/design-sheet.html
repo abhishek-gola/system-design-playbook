@@ -812,7 +812,7 @@ const HLD = [
     practice:[
       {n:"Write up caching strategies + stampede",h:"Cache-aside, write-through, write-back, and three ways to stop a stampede.",u:"https://algomaster.io/learn/system-design/caching-strategies",core:true},
       {n:"Write up sharding and consistent hashing",h:"Include what happens when you add a node, and what a virtual node is for.",u:"https://algomaster.io/learn/system-design/consistent-hashing",core:true},
-      {n:"Write up SQL vs NoSQL from access patterns",h:"Pick a real Swiggy table and argue both sides for it.",u:"https://algomaster.io/learn/system-design/sql-vs-nosql"}
+      {n:"Write up SQL vs NoSQL from access patterns",h:"Pick a real table from a system you have worked on and argue both sides for it.",u:"https://algomaster.io/learn/system-design/sql-vs-nosql"}
     ]
   }]
 },
@@ -1004,7 +1004,7 @@ GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
 },
 {
   n:"06", title:"Multi-step processes", week:"Weeks 8–10",
-  note:"Payments, order fulfilment, refunds, onboarding. Anything that spans services and can fail halfway. This is the pattern your Swiggy work maps onto most directly.",
+  note:"Payments, order fulfilment, refunds, onboarding. Anything that spans services and can fail halfway. If your background is delivery or commerce, this is the pattern your day job maps onto most directly.",
   items:[
   {
     id:"hld-saga", name:"Workflows that can fail halfway", core:true,
@@ -1212,7 +1212,7 @@ GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
 <h4>Build it out under the framework</h4>
 <ul>
 <li><b>Requirements.</b> Score a transaction in under 100ms on the synchronous path. Catch slow-burn patterns on the async path. Rules changeable by analysts without a deploy. Every decision auditable.</li>
-<li><b>Estimation.</b> Use your real Swiggy numbers — events per second, rules live, p99, value prevented. Go and dig them out of your dashboards; that task is worth more than a week of anything else on this sheet.</li>
+<li><b>Estimation.</b> Use your own real numbers — events per second, rules live, p99, value prevented. Go and dig them out of your dashboards; that task is worth more than a week of anything else on this sheet.</li>
 <li><b>The two paths.</b> Synchronous scoring in the request path with a strict budget, and asynchronous stream analysis over Kafka and Flink for anything needing history or aggregation. Explaining why some checks can't be synchronous is the sharpest part of the answer.</li>
 <li><b>Feature store.</b> Precomputed aggregates in Redis — velocity per user, per device, per card. The synchronous path reads, never computes.</li>
 <li><b>Rule engine.</b> Chain of responsibility, ordered by cost, loaded from config. Your LLD answer and your HLD answer become the same story at two zoom levels, which is unusual and memorable.</li>

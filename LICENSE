@@ -1,0 +1,65 @@
+This repository contains two kinds of material, and they are licensed
+differently. That split is deliberate: the code is meant to be copied into your
+own projects without ceremony, and the written material is meant to be shared
+and adapted with attribution.
+
+
+================================================================================
+SOURCE CODE — MIT License
+================================================================================
+
+Applies to all .java files, run.sh, and any other source code in this
+repository.
+
+Copyright (c) 2026 The System Design Playbook contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+================================================================================
+WRITTEN MATERIAL — Creative Commons Attribution 4.0 International (CC BY 4.0)
+================================================================================
+
+Applies to all .md files and web/design-sheet.html.
+
+Copyright (c) 2026 The System Design Playbook contributors
+
+This work is licensed under the Creative Commons Attribution 4.0 International
+License. You are free to share and adapt the material for any purpose, including
+commercially, provided you give appropriate credit, link to the licence, and
+indicate if changes were made.
+
+Full licence text: https://creativecommons.org/licenses/by/4.0/legalcode
+Human-readable summary: https://creativecommons.org/licenses/by/4.0/
+
+
+================================================================================
+THIRD-PARTY MATERIAL
+================================================================================
+
+This repository links out to explanations, problem statements and articles
+hosted elsewhere, including Refactoring Guru, Hello Interview, AlgoMaster and
+the awesome-low-level-design repository. Those works are the property of their
+respective owners and are not covered by the licences above. Nothing here
+reproduces them; the links are references, and the explanations and code in this
+repository are written from scratch.
+
+Where a problem statement is named — "Design a Parking Lot", "Design Bitly" —
+the name refers to the linked source. The design, the code and the commentary
+are original.

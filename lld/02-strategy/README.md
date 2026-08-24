@@ -8,7 +8,8 @@ looking at a `switch` that picks an algorithm.
 Without it, every new algorithm means editing the same class again.
 
 This is the single highest-value pattern on the track. Learn it first, and learn
-it on a rate limiter, because that's your ground.
+it on a rate limiter — it is small enough to finish, and the follow-up questions
+are the same ones every Strategy problem asks.
 
 ---
 
@@ -63,8 +64,8 @@ Say that boundary flaw out loud before the interviewer finds it.
 
 A `Comparator` passed to `sort`. A `Predicate` passed to `filter`. Spring
 injecting one of three beans by profile. `ThreadPoolExecutor` taking a
-`RejectedExecutionHandler`. You've been using this pattern for two years — the
-interview just wants you to name it.
+`RejectedExecutionHandler`. You have almost certainly been using this pattern
+for years without calling it that — the interview just wants you to name it.
 
 ## Strategy vs State
 

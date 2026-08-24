@@ -64,6 +64,12 @@ second is being tested.
 - [hld/README.md](hld/README.md) — the delivery framework, the seven scaling
   patterns, resume deep dives, and your signature design.
 
+## Licence
+
+Code is MIT, written material is CC BY 4.0. See [LICENSE](LICENSE) — the split
+is there so you can lift the Java into your own projects without ceremony, and
+share or adapt the notes with attribution.
+
 ## Credit
 
 The problem lists point at [awesome-low-level-design](https://github.com/ashishps1/awesome-low-level-design),

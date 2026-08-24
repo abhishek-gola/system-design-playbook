@@ -4,8 +4,8 @@ public class Demo {
 
     public static void main(String[] args) {
         System.out.println("== Simple factory: the switch, and it is fine ==");
-        NotifierFactory notifiers = new NotifierFactory("smtp.internal", "msg91", "com.swiggy.app");
-        Message m = new Message("abhishek", "Order confirmed", "Your biryani is 12 minutes away");
+        NotifierFactory notifiers = new NotifierFactory("smtp.internal", "sms-gw", "com.example.app");
+        Message m = new Message("customer-77", "Order confirmed", "Your order is 12 minutes away");
         for (Channel c : Channel.values()) {
             notifiers.of(c).send(m);
         }

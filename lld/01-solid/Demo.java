@@ -43,7 +43,7 @@ public class Demo {
         System.out.println("== O again: a new format is a new class, Logger is untouched ==");
         Logger audit = new Logger("audit", LogLevel.INFO, new JsonFormatter(),
                 List.of(new ConsoleSink("  json    | ")));
-        audit.with("actor", "abhishek").info("refund approved");
+        audit.with("actor", "ops-user-3").info("refund approved");
         audit.close();
 
         System.out.println();

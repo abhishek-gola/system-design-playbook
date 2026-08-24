@@ -54,8 +54,8 @@ Then add the operational parts:
   unavailable? Fail closed, it's cheap to retry. ML scorer timing out? Fail open,
   because a 200ms budget doesn't allow for waiting
 
-Say that and you're describing a system you've run, not a pattern you've read
-about. Lean on it.
+Say that and you are describing a system somebody operates, not a pattern from a
+book. If you have run something like it, this is the moment to say so.
 
 ## Three decisions, not two
 
@@ -77,7 +77,7 @@ a genuine customer is much higher than the cost of a human glance.
 
 ATM cash dispensing: a ₹2000 handler passes the remainder to ₹500, which passes
 to ₹200, then ₹100. Same structure, different domain, and it's the one they'll
-ask if they don't know your background. It's implemented here too, including the
+reach for by default. It's implemented here too, including the
 case everyone forgets — **the machine can't make the exact amount**, and you must
 not dispense a partial withdrawal.
 
