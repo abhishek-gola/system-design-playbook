@@ -1,6 +1,6 @@
 # Contention
 
-**The signal:** seats, inventory, auction bids, wallet balance, coupon codes —
+**The signal:** seats, inventory, auction bids, wallet balance, coupon codes:
 anything where two people can want the same unit.
 
 **What it fixes:** overselling. And the naive fix, a distributed lock held
@@ -43,7 +43,7 @@ you have run one.
 | Serialise by partition | route every operation for one event to one consumer | you already have a log, and per-key ordering is enough | a throughput ceiling per event, and rebalances to reason about |
 
 The bottom rung deserves more air time than it usually gets. A conditional
-update — `UPDATE seats SET owner = ? WHERE id = ? AND owner IS NULL` — is
+update, `UPDATE seats SET owner = ? WHERE id = ? AND owner IS NULL`, is
 atomic, is one round trip, needs no extra infrastructure, and is correct. If a
 single row can hold the contended state, that is the answer and you should say
 so before you say the word Redis.
@@ -61,7 +61,7 @@ to make.
 |---|---|---|
 | Cost when uncontended | almost nothing | a lock acquisition on every request |
 | Cost when contended | retries, and they get worse as load rises | queueing, which is at least bounded |
-| Failure mode | livelock — everyone retries, nobody finishes | a stuck lock holder blocks everybody |
+| Failure mode | livelock, so everyone retries and nobody finishes | a stuck lock holder blocks everybody |
 | Good fit | profile edits, warehouse counts, anything where two writers rarely meet | the last seat of a sold-out show |
 
 The rule I would give: optimistic when conflicts are the exception, pessimistic
@@ -94,7 +94,7 @@ built and runnable in [hld/06-multi-step-processes](../06-multi-step-processes/)
 **Is your distributed lock actually safe?** If they push here they want fencing
 tokens. The argument is short: a lock with a timeout assumes the holder cannot be
 paused for longer than the timeout, and that assumption is false. A garbage
-collection pause, a hypervisor freezing the VM, a network partition — any of
+collection pause, a hypervisor freezing the VM, a network partition: any of
 these can stall a client past its own lease. It wakes up believing it holds the
 lock, and it is wrong. No amount of TTL tuning fixes this, because the stall can
 always be longer than the TTL.
@@ -164,8 +164,17 @@ being refused by its stale fencing token.
 | [Design an Online Auction](https://www.hellointerview.com/learn/system-design/problem-breakdowns/online-auction) **(core)** **(premium)** | Bids arriving faster than you can serialise them. Batching in time windows is the escape hatch. |
 | [Design Robinhood](https://www.hellointerview.com/learn/system-design/problem-breakdowns/robinhood) **(premium)** | Order matching, where correctness under contention is the entire product. |
 
+A solution marked **(premium)** is behind Hello Interview's paywall. The problem
+itself is free to attempt, and the folder above is a worked answer to the same
+hard part.
+
 ## Read
 
-- [Pattern — dealing with contention](https://www.hellointerview.com/learn/system-design/patterns/dealing-with-contention) **(premium)**
-- [How to do distributed locking (Kleppmann)](https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html)
+Read the first two in order. Redlock is the proposal, Kleppmann is the rebuttal,
+and being able to give both sides is most of what this pattern is scored on.
+
+- [Distributed locks with Redis, the Redlock proposal](https://redis.io/docs/latest/develop/clients/patterns/distributed-locks/)
+- [How to do distributed locking, Kleppmann's rebuttal](https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html)
+- [Postgres explicit locking, for the single-node answer](https://www.postgresql.org/docs/current/explicit-locking.html)
 - [Read: Shopify inventory reservations](https://www.hellointerview.com/learn/system-design/in-the-wild/shopify-inventory-reservations)
+- [Pattern: dealing with contention](https://www.hellointerview.com/learn/system-design/patterns/dealing-with-contention) **(premium)**

@@ -31,7 +31,7 @@ That's the property to name: **the client is flat even though the data isn't.**
 
 ## The question that always follows
 
-Operations that only make sense on one type — `addChild` on a file. Two answers,
+Operations that only make sense on one type, such as `addChild` on a file. Two answers,
 and there's no clean winner:
 
 | Approach | Gain | Cost |
@@ -105,5 +105,5 @@ being caught rather than blowing the stack.
 
 ## Read
 
-- [Refactoring Guru — Composite](https://refactoring.guru/design-patterns/composite)
-- [AlgoMaster — Composite](https://algomaster.io/learn/lld/composite)
+- [Refactoring Guru: Composite](https://refactoring.guru/design-patterns/composite)
+- [AlgoMaster: Composite](https://algomaster.io/learn/lld/composite)

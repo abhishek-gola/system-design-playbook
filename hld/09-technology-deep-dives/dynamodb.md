@@ -1,7 +1,7 @@
 # DynamoDB, in my own words
 
 > **How to fill this in.** Write every section yourself, from your own head,
-> without a documentation tab open. Five lines maximum per section — if it takes
+> without a documentation tab open. Five lines maximum per section. If it takes
 > more than five, you are describing rather than explaining, and an interviewer
 > will stop you before line six anyway. For each section also name one
 > alternative and say when you would pick it. Then finish the file with one
@@ -58,7 +58,7 @@
 **What it cost:**
 
 *If you have no DynamoDB incident of your own, say so in the interview rather
-than borrowing one — "I've used it, I haven't been on call for it" is a
+than borrowing one. "I've used it, I haven't been on call for it" is a
 perfectly good answer and it protects the stories that are genuinely yours.
 Write down here instead the design decision you made in it and what you would do
 differently now.*

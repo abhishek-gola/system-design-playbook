@@ -21,7 +21,7 @@ fill in yourself.
 Pick a problem you've already studied. Set a 50-minute timer. Blank file, no
 notes, no AI, no reference solution open in another tab.
 
-Talk out loud as if someone's there. Record yourself if you can stand it —
+Talk out loud as if someone's there. Record yourself if you can stand it, because
 pacing problems are obvious on playback and invisible from the inside.
 
 When the timer stops, **stop**. Then spend ten minutes filling in a row of
@@ -31,7 +31,7 @@ differently. That note is worth more than the code.
 ## The rule about AI
 
 Closed during the block, open afterwards. Use it to review what you wrote and to
-explain what you got stuck on — never to produce the design.
+explain what you got stuck on, never to produce the design.
 
 The thing you're currently outsourcing is exactly the thing being tested. This is
 the rule that's easiest to break and most expensive to break, because breaking it
@@ -40,7 +40,7 @@ feels productive.
 ## The rotation
 
 Five problems cover most of the space. Do each **twice, a fortnight apart**,
-rather than ten problems once — the second run is where the fluency comes from,
+rather than ten problems once. The second run is where the fluency comes from,
 and the first run of a new problem mostly measures how fast you read.
 
 | Problem | What it drills | Link |

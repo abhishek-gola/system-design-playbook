@@ -1,8 +1,8 @@
-# Real-time fraud detection — design document
+# Real-time fraud detection: design document
 
 > **How to use this.** Write it out in full, in prose, as though it were a
 > document a colleague will read without you in the room. Not bullet points you
-> intend to expand while speaking — the expanding is the part that goes wrong
+> intend to expand while speaking, because the expanding is the part that goes wrong
 > under pressure. Every `[__ ]` is a blank you fill from your own dashboards,
 > your own config, or your own postmortems. Leave a blank as a blank until you
 > have looked it up. An invented number in here will come out of your mouth in
@@ -74,7 +74,7 @@ shrug there undoes the number.*
 
 ## 4. API and the decision record
 
-The endpoints — four to six at most:
+The endpoints, four to six at most:
 
 
 The decision record, field by field. Include the rules that ran, what each
@@ -89,7 +89,7 @@ Access patterns for it, and what storage that implies:
 - by rule, for "everything this rule blocked yesterday"
 
 
-## 5. High-level design — the two paths
+## 5. High-level design: the two paths
 
 Draw the diagram. Then write the walkthrough of one transaction end to end in
 prose, because the prose is what you will actually say.
@@ -116,9 +116,9 @@ What it writes back, and what it raises as a case:
 The three reasons, in your own words, with a concrete example of each from your
 own system:
 
-1. Time —
-2. Data that has not arrived —
-3. Cost —
+1. Time:
+2. Data that has not arrived:
+3. Cost:
 
 
 ## 6. Feature store
@@ -143,7 +143,7 @@ How it is loaded and changed, and what an analyst can and cannot do without an
 engineer:
 
 
-What each check does when its dependency is unreachable — fail open or fail
+What each check does when its dependency is unreachable, fail open or fail
 closed, per check, with the reason:
 
 
@@ -151,7 +151,7 @@ The decision types, and what review buys you that a boolean does not:
 
 
 *Cross-reference: [lld/07-chain-of-responsibility](../../lld/07-chain-of-responsibility/)
-is this component at code altitude. Keep the two consistent — if you change the
+is this component at code altitude. Keep the two consistent: if you change the
 story here, change it there.*
 
 
@@ -161,12 +161,12 @@ Where labels come from and how delayed each source is: `[__ typical chargeback
 delay for your payment mix ]`
 
 
-How a new rule or model is introduced — shadow mode, what you compare, and what
+How a new rule or model is introduced: shadow mode, what you compare, and what
 promotion requires:
 
 
-The bias in the labels — you only learn the outcome of transactions you allowed
-— and what, if anything, you do about it:
+The bias in the labels, since you only learn the outcome of transactions you
+allowed, and what, if anything, you do about it:
 
 
 ## 9. The trade-off
@@ -190,13 +190,13 @@ Why accuracy is the wrong headline number here:
 One paragraph each. The framing: this service is in the revenue path, so every
 failure has to resolve to a decision rather than to an error.
 
-- Feature store unavailable —
-- ML scorer slow or down —
-- A bad rule pushed to production, and time to revert —
-- Kafka lag on the async path, and how you notice —
-- Flink state growth and checkpoint failure —
-- Hot keys —
-- Audit write failure —
+- Feature store unavailable:
+- ML scorer slow or down:
+- A bad rule pushed to production, and time to revert:
+- Kafka lag on the async path, and how you notice:
+- Flink state growth and checkpoint failure:
+- Hot keys:
+- Audit write failure:
 
 **What breaks at ten times the load**, component by component, ending with the
 one that is not a machine: the review queue and the analysts behind it.

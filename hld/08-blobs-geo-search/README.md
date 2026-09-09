@@ -4,9 +4,9 @@ Three narrower patterns in one folder. Each shows up in a handful of specific
 problems, and each has exactly one non-obvious core idea worth carrying out of
 here:
 
-- **blobs** — cut on content, not on position
-- **proximity** — search nine cells, then filter by exact distance
-- **search** — shard by document, and rank in two stages
+- **blobs:** cut on content, not on position
+- **proximity:** search nine cells, then filter by exact distance
+- **search:** shard by document, and rank in two stages
 
 This is the only step on the [HLD track](../README.md) that is genuinely
 optional. Do it after the seven core patterns, not instead of one.
@@ -15,7 +15,7 @@ optional. Do it after the seven core patterns, not instead of one.
 
 # A. Large blobs
 
-**The signal:** files bigger than a request body — images, video, backups,
+**The signal:** files bigger than a request body: images, video, backups,
 documents.
 
 **What it fixes:** streaming gigabytes through application servers that should
@@ -52,7 +52,7 @@ The demo runs exactly that experiment and prints both numbers. Fixed-size
 re-uploads 100% of the file for a ten-byte insertion; content-defined re-uploads
 one chunk.
 
-Fixed-size is still the right answer for write-once media — a video that is
+Fixed-size is still the right answer for write-once media. A video that is
 uploaded and never edited gains nothing from content-defined boundaries and pays
 for the rolling hash. Say which case you are in.
 
@@ -62,16 +62,16 @@ The metadata database and the blob store are two systems that can disagree, and
 no transaction spans them. Four states you have to handle, and the demo produces
 all four:
 
-- **committed** — bytes uploaded, metadata flipped. Fine.
-- **crashed mid-upload** — metadata stuck `PENDING`, bytes present or partial.
-- **abandoned** — URL issued, user changed their mind, no bytes at all.
-- **a lying callback** — a client claims the upload finished when nothing is
+- **committed:** bytes uploaded, metadata flipped. Fine.
+- **crashed mid-upload:** metadata stuck `PENDING`, bytes present or partial.
+- **abandoned:** URL issued, user changed their mind, no bytes at all.
+- **a lying callback:** a client claims the upload finished when nothing is
   there. A callback is a claim, not a fact, so verify before committing.
 
 And the fourth direction: **orphaned bytes with no metadata row**, which happens
 on a reused URL and which nothing in the happy path will ever find.
 
-The answer is a sweeper that runs **in both directions** — expire stale
+The answer is a sweeper that runs **in both directions:** expire stale
 `PENDING` rows, and delete blobs with no row pointing at them. Candidates
 reliably describe the first and forget the second, and the second is the one
 that costs money every month.
@@ -90,10 +90,16 @@ the URL expires rather than the object becoming private.
 | [Instagram](https://www.hellointerview.com/learn/system-design/problem-breakdowns/instagram) **(premium)** | Media upload and delivery at consumer scale. |
 | [Distributed cloud storage like S3](https://www.youtube.com/watch?v=UmWtcgC96X8) | Building the object store rather than using it. |
 
+A solution marked **(premium)** is behind Hello Interview's paywall. The problem
+itself is free to attempt, and the folder above is a worked answer to the same
+hard part.
+
 ## Read
 
-- [Pattern — large blobs](https://www.hellointerview.com/learn/system-design/patterns/large-blobs) **(premium)**
+- [S3 multipart upload, the mechanism itself](https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html)
+- [S3 presigned URL uploads, so bytes skip your servers](https://docs.aws.amazon.com/AmazonS3/latest/userguide/PresignedUrlUploadObject.html)
 - [Canva scaling media uploads](https://www.canva.dev/blog/engineering/from-zero-to-50-million-uploads-per-day-scaling-media-at-canva/)
+- [Pattern: large blobs](https://www.hellointerview.com/learn/system-design/patterns/large-blobs) **(premium)**
 
 ---
 
@@ -108,7 +114,7 @@ handle badly.
 ## Worked: Yelp nearby search
 
 An index on latitude and one on longitude cannot answer "within 5km of here"
-efficiently — you would scan a stripe of the world on one axis and intersect.
+efficiently, because you would scan a stripe of the world on one axis and intersect.
 The move is to **turn 2D into 1D**.
 
 **Geohash** encodes a box as a string by interleaving latitude and longitude
@@ -120,7 +126,7 @@ why it is the default answer.
 enormous city far better than a uniform grid. Harder to distribute.
 
 **S2 and H3** are the production-grade cell systems. H3's hexagons have uniform
-neighbour distances, which genuinely matters for delivery zones — with squares,
+neighbour distances, which genuinely matters for delivery zones: with squares,
 your diagonal neighbour is 1.41 times further away than your edge neighbour, and
 every zone calculation has to account for it.
 
@@ -131,7 +137,7 @@ on the other side of one. When the high bits flip at a boundary, a nearby place
 gets a completely different prefix.
 
 The demo shows a place 556 metres away that a single-cell search cannot see. It
-does not throw, does not log, and looks like a slightly thin result set — which
+does not throw, does not log, and looks like a slightly thin result set, which
 is why it survives to production.
 
 **Search the target cell plus its eight neighbours, then filter by exact
@@ -146,7 +152,7 @@ seconds are a **write** problem with a geospatial index attached.
 Keep current positions in memory or Redis with a short TTL, and do not persist
 every ping. Say that unprompted and you have skipped ten minutes of being led
 there. The history, if you need it, goes to a time-series store on a separate
-path — which is [scaling writes](../02-scaling-writes/), not this pattern.
+path, which is [scaling writes](../02-scaling-writes/), not this pattern.
 
 ## Practice
 
@@ -155,6 +161,10 @@ path — which is [scaling writes](../02-scaling-writes/), not this pattern.
 | [Yelp](https://www.hellointerview.com/learn/system-design/problem-breakdowns/yelp) **(core)** **(premium)** | The anchor. Static locations, geohash or quadtree, radius queries. |
 | [Uber](https://www.hellointerview.com/learn/system-design/problem-breakdowns/uber) | Moving drivers, matching, and the write volume of location updates. |
 | [Tinder](https://www.hellointerview.com/learn/system-design/problem-breakdowns/tinder) | Proximity plus a recommendation and swipe-state problem on top. |
+
+A solution marked **(premium)** is behind Hello Interview's paywall. The problem
+itself is free to attempt, and the folder above is a worked answer to the same
+hard part.
 
 ## Read
 
@@ -199,7 +209,7 @@ is cheap.
 ## The write path is a pipeline
 
 Ingest, tokenise, normalise, index. Near-real-time indexing means **segment-based
-writes with periodic merges** — new documents go into a small new segment that
+writes with periodic merges**: new documents go into a small new segment that
 becomes searchable quickly, and background merges keep the segment count down.
 
 That is how Lucene works, and therefore how Elasticsearch works. Naming the
@@ -212,7 +222,7 @@ Cheap retrieval pulls a few thousand candidates; an expensive scorer ranks only
 the top few hundred.
 
 Trying to score everything is the mistake, and it is the one that makes a search
-system fall over under load — the expensive scorer's cost scales with corpus
+system fall over under load, because the expensive scorer's cost scales with corpus
 size instead of with result size. Two stages decouple them.
 
 ## Autocomplete is not search
@@ -223,7 +233,7 @@ error.
 A **trie held in memory** with the top-K completions precomputed at each node,
 rebuilt offline from query logs. The latency budget is single-digit
 milliseconds, so nothing touches a database on the request path and nothing is
-ranked at query time — the ranking already happened, offline, when the trie was
+ranked at query time. The ranking already happened, offline, when the trie was
 built.
 
 The demo builds one and walks a prefix down to its precomputed list.
@@ -233,8 +243,12 @@ The demo builds one and walks a prefix down to its precomputed list.
 | Problem | What to watch for |
 |---|---|
 | [Facebook Post Search](https://www.hellointerview.com/learn/system-design/problem-breakdowns/fb-post-search) **(core)** | The anchor. Inverted index, sharding strategy, two-stage ranking. |
-| [Google Search, focusing on typeahead](https://www.youtube.com/watch?v=CeGtqouT8eA) | Crawl, index, rank — then spend the deep dive on autocomplete: trie, precomputed top-K, offline rebuild from query logs. |
+| [Google Search, focusing on typeahead](https://www.youtube.com/watch?v=CeGtqouT8eA) | Crawl, index, rank, then spend the deep dive on autocomplete: trie, precomputed top-K, offline rebuild from query logs. |
 | [News Aggregator](https://www.hellointerview.com/learn/system-design/problem-breakdowns/google-news) **(premium)** | Ranking and personalisation over a fast-changing corpus. |
+
+A solution marked **(premium)** is behind Hello Interview's paywall. The problem
+itself is free to attempt, and the folder above is a worked answer to the same
+hard part.
 
 ## Read
 

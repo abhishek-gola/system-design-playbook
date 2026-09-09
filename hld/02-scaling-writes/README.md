@@ -20,8 +20,8 @@ shard key.
 Millions of data points per second, append-only, queried by time range and tag.
 A row per point in Postgres is the wrong answer and you should say why in one
 line: the index maintenance cost per insert dominates, and you never update a
-point once written. Everything a B+ tree is good at — updates in place, exact
-lookups, enforcing constraints — is something this workload never asks for, and
+point once written. Everything a B+ tree is good at, updates in place, exact
+lookups, enforcing constraints, is something this workload never asks for, and
 everything it is bad at is what this workload does all day.
 
 Say that early. It moves the conversation from "which database" to "what shape
@@ -37,8 +37,8 @@ of storage", which is where the interviewer wants you.
 
 The general rule worth stating out loud: **a good key spreads writes evenly and
 keeps the rows a single query needs on few nodes.** Those two goals pull against
-each other — perfect spread means every query is a scatter-gather, perfect
-locality means everything piles onto one node — and naming that tension is the
+each other: perfect spread means every query is a scatter-gather, and perfect
+locality means everything piles onto one node. Naming that tension is the
 answer. Candidates who only mention spread have half of it.
 
 The demo in this folder routes the same hundred thousand points through all
@@ -52,8 +52,8 @@ three keys across sixteen shards:
 
 The last column is the one to point at. A hot shard holding hundreds of keys is
 a capacity problem, and you fix it by rebalancing or adding shards. A hot shard
-holding **one** key is a design problem, and no placement scheme rescues it —
-consistent hashing, more nodes, better hardware, none of it moves a single key
+holding **one** key is a design problem, and no placement scheme rescues it.
+Consistent hashing, more nodes, better hardware: none of it moves a single key
 into two places.
 
 Notice too that the good key is not perfectly flat. It ranges from 5.2% to 7.7%
@@ -63,14 +63,14 @@ falls over while fifteen machines idle.
 
 ### Fixing the whale, when tenant is forced on you
 
-Sometimes tenant sharding is not your choice — data residency, per-customer
+Sometimes tenant sharding is not your choice. Data residency, per-customer
 encryption keys, or the ability to delete one customer cleanly can all force it.
 The standard escalations, in the order I would offer them:
 
 - **Composite key.** Shard on `tenant + host` rather than `tenant`. The whale
   spreads across many shards and small tenants still cluster.
-- **Split the whale explicitly.** Give the largest tenants a suffix — `acme#0`
-  through `acme#15` — chosen per write. This is the same key-splitting trick
+- **Split the whale explicitly.** Give the largest tenants a suffix, `acme#0`
+  through `acme#15`, chosen per write. This is the same key-splitting trick
   used for hot cache keys in [01-scaling-reads](../01-scaling-reads/), and it
   has the same cost: reads for that tenant now fan out.
 - **Dedicated shards.** Big customers get their own cluster. Ugly, operationally
@@ -98,7 +98,7 @@ than "I'd batch the writes".
 
 An LSM-based or time-series store underneath, because sequential appends are
 what it is built for. Writes go to an in-memory table and a write-ahead log,
-flush as sorted files, and compact in the background — so the write path is
+flush as sorted files, and compact in the background, so the write path is
 sequential and the cost is deferred to compaction, which you can schedule. The
 trade-off to say out loud is read amplification: a point lookup may touch
 several files, which is exactly why LSM stores put a Bloom filter in front of
@@ -112,7 +112,7 @@ itself is the aggregation path in
 [07-aggregation-and-counting](../07-aggregation-and-counting/).
 
 > **The bursts question.** "What happens at ten times the load?" Buffer in the
-> queue, let consumer lag grow, alert on it — and be willing to shed load
+> queue, let consumer lag grow, alert on it, and be willing to shed load
 > explicitly rather than fall over. Saying "I'd drop non-critical metrics before
 > I'd drop billing events" is the kind of answer that gets remembered.
 
@@ -124,8 +124,8 @@ happens during the move: dual writes to old and new, backfill, then cut reads
 over. Resharding a live system is the operational answer, not the algorithmic
 one, and interviewers know the difference.
 
-**"What if a write arrives twice?"** Metrics are usually idempotent by key —
-same series, same timestamp, same value — so a repeated write is harmless and
+**"What if a write arrives twice?"** Metrics are usually idempotent by key:
+same series, same timestamp, same value, so a repeated write is harmless and
 you should say so rather than reaching for exactly-once delivery. When the
 payload is not idempotent, give the producer a client-generated ID and dedupe on
 it. Promising exactly-once end to end is a claim you cannot defend.
@@ -133,7 +133,7 @@ it. Promising exactly-once end to end is a claim you cannot defend.
 **"What about out-of-order points?"** An agent's network drops for two minutes
 and then flushes. Your storage must accept a point older than the newest one it
 holds, which is fine for LSM and awkward for anything that assumes append-only
-in time order. Cap how late you'll accept — an hour, say — and count what you
+in time order. Cap how late you'll accept, an hour say, and count what you
 drop.
 
 **"Why not just add write replicas?"** Because replicas multiply reads, not
@@ -145,7 +145,7 @@ that having the one-line answer ready is worth real points.
 Sharding buys write throughput and sells you cross-shard queries. Every query
 that does not include the shard key becomes a scatter-gather across all N nodes,
 bounded by the slowest one, and that is where p99 latency goes to die. So the
-shard key is chosen by looking at the queries first, not the writes — and if two
+shard key is chosen by looking at the queries first, not the writes. If two
 query patterns want different keys, you either denormalise into two stores or
 you accept the fan-out for the rarer one. Say which, and why.
 
@@ -180,7 +180,7 @@ nobody runs.
 Everything is seeded with `new Random(42)` and the synthetic clock is a counter
 rather than the wall clock, so the histograms are identical on every machine and
 the numbers quoted above stay true. The batching section is a cost model, not a
-benchmark — a fixed price per round trip plus a variable price per row — and you
+benchmark: a fixed price per round trip plus a variable price per row, and you
 should label it that way if you use the shape of it in an interview.
 
 ## Practice
@@ -191,8 +191,13 @@ should label it that way if you use the shape of it in an interview.
 | [Design Strava](https://www.hellointerview.com/learn/system-design/problem-breakdowns/strava) **(premium)** | High-volume activity ingest plus geospatial queries on top. |
 | [Read: how Discord stores trillions of messages](https://discord.com/blog/how-discord-stores-trillions-of-messages) | A real write-scaling migration, with the reasoning intact. Worth more than three tutorials. |
 
+A solution marked **(premium)** is behind Hello Interview's paywall. The problem
+itself is free to attempt, and the folder above is a worked answer to the same
+hard part.
+
 ## Read
 
-- [Pattern — scaling writes](https://www.hellointerview.com/learn/system-design/patterns/scaling-writes) **(premium)**
 - [Database sharding](https://algomaster.io/learn/system-design/sharding)
+- [System Design Primer: sharding and federation](https://github.com/donnemartin/system-design-primer#sharding)
 - [Cassandra deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/cassandra)
+- [Pattern: scaling writes](https://www.hellointerview.com/learn/system-design/patterns/scaling-writes) **(premium)**

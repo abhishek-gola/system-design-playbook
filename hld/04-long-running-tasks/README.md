@@ -36,7 +36,7 @@ retry state. If the queue evaporated you could rebuild it from the table, and
 that is a property worth having rather than a coincidence.
 
 Progress reporting is the small follow-up nobody prepares. The worker writes
-progress back to the jobs row every few seconds — not every frame, or you have
+progress back to the jobs row every few seconds, not every frame, or you have
 turned a transcode into a write-heavy workload against your own database.
 
 ## Picking the queue, with reasons
@@ -49,7 +49,7 @@ turned a transcode into a write-heavy workload against your own database.
 
 SQS is the default for job processing and saying so quickly is a point in your
 favour. Kafka is overkill for a plain work queue, and saying *that* is worth
-another one — it is one of the few places where naming the less fashionable tool
+another one. It is one of the few places where naming the less fashionable tool
 signals more experience than naming the fashionable one. Kafka earns its place
 when the same events need several independent readers, or when replaying last
 Tuesday is a requirement rather than a wish.
@@ -75,9 +75,9 @@ death and redeliver. That guess is what makes the whole thing at-least-once.
 
 So key the output by job ID and make the second run a no-op. In this folder the
 handler keeps a `jobId → output` record and checks before it writes. The version
-that survives production expresses the same idea as one conditional write —
-`INSERT ... ON CONFLICT DO NOTHING`, an `UPDATE` guarded by the current state, a
-conditional PUT keyed on the job id — so that the database decides who won rather
+that survives production expresses the same idea as one conditional write:
+`INSERT ... ON CONFLICT DO NOTHING`, an `UPDATE` guarded by the current state, or a
+conditional PUT keyed on the job id, so that the database decides who won rather
 than two workers both reading "not done yet" and both proceeding.
 
 The half people skip: this only works if the whole handler is safe to repeat. A
@@ -98,7 +98,7 @@ Four things, and you want all four in the answer:
 
 Jitter is the one to mention unprompted. Plain doubling synchronises the herd,
 which is how a partial outage becomes a full one. The code here uses equal
-jitter — half the delay fixed, half random — which keeps a floor under the delay
+jitter, half the delay fixed and half random, which keeps a floor under the delay
 while still smearing the retries across a window.
 
 And then say what a human actually does when something lands in the DLQ, because
@@ -111,7 +111,7 @@ lost work with a reassuring name.
 ## The visibility timeout, and how to set it
 
 The mechanism is simpler than it sounds. A received message is not removed, it is
-hidden — the queue stamps it with a "visible again at" timestamp and hands it
+hidden. The queue stamps it with a "visible again at" timestamp and hands it
 out. Nothing is locked, nothing blocks, and nobody is notified when the lease
 expires. The message simply becomes visible again and the next poll finds it.
 
@@ -123,7 +123,7 @@ Setting it is a real trade-off and the interviewer may push:
   window before anyone retries it. Your p99 becomes the timeout.
 
 The rule that works: set it to a comfortable multiple of the p99 job duration,
-then have long-running workers extend the lease as they go — SQS calls this
+then have long-running workers extend the lease as they go. SQS calls this
 changing message visibility, and it is how you support a job whose duration you
 cannot bound in advance. Extending a lease you still hold is cheap; guessing a
 timeout that covers the worst case is not.
@@ -134,7 +134,7 @@ Transcode, then thumbnail, then captions, then publish, with each step able to
 fail. That is a workflow, not a job, and it is where you name Temporal, Step
 Functions or Airflow rather than hand-rolling state in a database column.
 
-The reason to reach for one is not that hand-rolling is impossible — it is that
+The reason to reach for one is not that hand-rolling is impossible. It is that
 you will end up writing the same four things badly: durable state per execution,
 resumption after a crash halfway through, per-step retry policy, and a way to
 answer "where is execution 8817 right now" without reading logs. That is a
@@ -142,14 +142,14 @@ workflow engine, and building it accidentally is worse than adopting one on
 purpose.
 
 Where the failure means undoing earlier steps rather than retrying the current
-one, you are in saga territory instead — see
+one, you are in saga territory instead: see
 [hld/06-multi-step-processes](../06-multi-step-processes/).
 
 ## The follow-ups, and how to answer them
 
 | They ask | The answer |
 |---|---|
-| "How does the client know when it's done?" | Polling with a backoff is the honest default. A webhook is nicer and adds retry, signing and delivery-failure handling as your problem. WebSocket or SSE if the client is already holding a connection — see [hld/03-realtime-updates](../03-realtime-updates/). |
+| "How does the client know when it's done?" | Polling with a backoff is the honest default. A webhook is nicer and adds retry, signing and delivery-failure handling as your problem. WebSocket or SSE if the client is already holding a connection, see [hld/03-realtime-updates](../03-realtime-updates/). |
 | "How do you scale the workers?" | Autoscale on queue depth or oldest-message age, not on worker CPU. Queue depth is the signal that leads; CPU is the signal that lags. |
 | "What if one tenant floods the queue?" | Separate queues per priority or per tenant class. A single queue means your biggest customer's bulk import delays everyone's interactive jobs, and no amount of worker scaling fixes head-of-line blocking. |
 | "Can you guarantee exactly-once?" | No, and neither can anyone else. What you get is at-least-once delivery plus idempotent handlers, which is indistinguishable from exactly-once from the outside. Say it plainly. |
@@ -160,14 +160,14 @@ one, you are in saga territory instead — see
 Queue depth versus worker count is a latency-versus-cost dial, and it is worth
 naming because it is the one the business actually cares about. A deep queue with
 few workers is cheap and slow; a shallow queue with many workers is fast and
-mostly idle. Pick based on what the job is for — a user watching a progress bar
-needs the second, an overnight report needs the first — and note that the same
+mostly idle. Pick based on what the job is for: a user watching a progress bar
+needs the second, an overnight report needs the first. Note that the same
 system can have both if the queues are separate.
 
 ## The common mistake
 
 Describing the happy path in loving detail and then treating retries as an
-implementation detail. Accept, enqueue, workers pull, done — that is thirty
+implementation detail. Accept, enqueue, workers pull, done. That is thirty
 seconds of the answer, and if it is most of what you say the conversation stalls.
 
 The second mistake is claiming exactly-once. It is a transport lie, the
@@ -204,7 +204,7 @@ run.
 
 One job goes through cleanly. One stalls on its first attempt, overruns its
 lease, gets handed to a second worker, and the original worker eventually
-finishes and finds the work already done — that is the duplicate delivery, and
+finishes and finds the work already done, and that is the duplicate delivery, and
 the output is written exactly once. One fails twice with something transient and
 succeeds on its third attempt, with the backoff visible between them. One is a
 corrupt upload that fails every time, exhausts its retry limit and ends up in the
@@ -216,11 +216,16 @@ sent, which is at-least-once working correctly rather than a bug.
 | Problem | What to watch for |
 |---|---|
 | [Design YouTube](https://www.hellointerview.com/learn/system-design/problem-breakdowns/youtube) **(core)** | The anchor. Upload, transcode pipeline, and delivery. Also covers large blobs. |
-| [Design a Distributed Job Scheduler](https://www.hellointerview.com/learn/system-design/problem-breakdowns/job-scheduler) **(core)** **(premium)** | Cron at scale — leader election, missed-run handling, and exactly-once triggering. |
+| [Design a Distributed Job Scheduler](https://www.hellointerview.com/learn/system-design/problem-breakdowns/job-scheduler) **(core)** **(premium)** | Cron at scale: leader election, missed-run handling, and exactly-once triggering. |
 | [Design a Distributed Web Crawler](https://www.hellointerview.com/learn/system-design/problem-breakdowns/web-crawler) | Politeness, deduplication, frontier management, and a very long tail of failures. |
+
+A solution marked **(premium)** is behind Hello Interview's paywall. The problem
+itself is free to attempt, and the folder above is a worked answer to the same
+hard part.
 
 ## Read
 
-- [Pattern — long-running tasks](https://www.hellointerview.com/learn/system-design/patterns/long-running-tasks) **(premium)**
 - [Message queues](https://algomaster.io/learn/system-design/message-queues)
+- [System Design Primer: asynchronism, task queues and back pressure](https://github.com/donnemartin/system-design-primer#asynchronism)
 - [Kafka vs RabbitMQ](https://www.hellointerview.com/blog/kafka-vs-rabbitmq)
+- [Pattern: long-running tasks](https://www.hellointerview.com/learn/system-design/patterns/long-running-tasks) **(premium)**

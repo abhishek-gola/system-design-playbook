@@ -21,7 +21,7 @@ you know what each rung costs and the jump only shows you know a word.
 |---|---|---|---|
 | **Polling** | client asks | a dashboard that refreshes every 30 seconds, or a client you don't control | wasteful at any interval short enough to feel live |
 | **Long polling** | client asks, server holds | you want push semantics with no new infrastructure | a held request per client, and reconnect churn after every message |
-| **Server-sent events** | server to client | notifications, live feeds, a stock ticker — anything one-directional | no client-to-server channel, so writes still go over normal HTTP |
+| **Server-sent events** | server to client | notifications, live feeds, a stock ticker, anything one-directional | no client-to-server channel, so writes still go over normal HTTP |
 | **WebSocket** | both ways | chat, collaborative editing, anything with a fast write path | you now own connection state, and that is the whole rest of this page |
 
 The honest summary: SSE is underrated and gets you most of the way for feeds and
@@ -70,7 +70,7 @@ strictly better:
 The ring tells you where a connection *should* be. It does not open the
 connection. A phone dials in through a load balancer that knows nothing about
 your ring, so either you add a routing tier that redirects clients to the node
-the ring picked, or you accept that the ring and reality can disagree — which is
+the ring picked, or you accept that the ring and reality can disagree, which is
 the same stale-route problem, minus the TTL that solved it.
 
 For chat I would take the registry and pay for the lookup. Consistent hashing
@@ -95,7 +95,7 @@ fail, and that is what makes the crash case boring.
 
 The cursor is an index into the log, not a flag per message. A reconnecting
 client sends nothing but its user id and the server replays from the cursor. Keep
-the client dumb here — a client that tracks "last message I saw" and asks for
+the client dumb here. A client that tracks "last message I saw" and asks for
 everything after it is a client that can lie, and a client on a phone that has
 been off for a week is a client whose state you should not trust.
 
@@ -114,7 +114,7 @@ code here drains the inbox on every successful push for exactly this reason.
 **Duplicates.** Client-generated message IDs, so a retry after a flaky network is
 idempotent. The id has to come from the phone, before the message is sent. A
 server-generated id cannot work, because the client has no way to tell a lost
-request from a lost response — it retries either way, and a server-side id makes
+request from a lost response. It retries either way, and a server-side id makes
 the second attempt look like a brand new message.
 
 The server keeps a dedup table of ids it has accepted. It doesn't need to be
@@ -140,7 +140,7 @@ asked before you start designing, because the two answers share almost nothing.
 The rule of thumb that survives contact: fan out on write for small groups,
 because pushing to 50 sockets is nothing; fan out on read for large ones, because
 pushing to 100,000 sockets on every message is a self-inflicted denial of
-service. Live comments on a stream are the extreme case — one writer, a million
+service. Live comments on a stream are the extreme case: one writer, a million
 readers, and the sane design pushes to a pub-sub topic per stream and lets the
 edge handle multiplexing.
 
@@ -149,9 +149,9 @@ edge handle multiplexing.
 Delivery guarantees. You cannot have exactly-once over a network, so pick your
 side and say which:
 
-- Advance the cursor when you *send* and you get at-most-once — a socket that
+- Advance the cursor when you *send* and you get at-most-once. A socket that
   dies between the write and the phone loses that message silently.
-- Advance it when the device *acknowledges* and you get at-least-once — a
+- Advance it when the device *acknowledges* and you get at-least-once. A
   reconnect can replay a message the user already saw.
 
 Chat picks at-least-once every time, because showing a message twice is
@@ -177,7 +177,7 @@ not a lost message.
 
 - [lld/05-observer](../../lld/05-observer/) is this pattern in one process: a
   publisher, per-subscriber bounded queues, and an explicit policy for what
-  happens when one falls behind. The vocabulary transfers directly — an inbox is
+  happens when one falls behind. The vocabulary transfers directly: an inbox is
   a subscriber queue, and a device that has been off for a week is consumer lag.
 - [hld/04-long-running-tasks](../04-long-running-tasks/) is the other half of the
   push story. When the work behind an update takes minutes rather than
@@ -208,8 +208,13 @@ the backlog in order, and the consistent-hashing alternative for contrast.
 | [Design Facebook Live Comments](https://www.hellointerview.com/learn/system-design/problem-breakdowns/fb-live-comments) **(core)** | Massive fan-out to viewers of one stream. Different shape from chat. |
 | [Design Google Docs](https://www.hellointerview.com/learn/system-design/problem-breakdowns/google-docs) **(premium)** | Collaborative editing, so operational transforms or CRDTs. The hardest one in this group. |
 
+A solution marked **(premium)** is behind Hello Interview's paywall. The problem
+itself is free to attempt, and the folder above is a worked answer to the same
+hard part.
+
 ## Read
 
-- [Pattern — real-time updates](https://www.hellointerview.com/learn/system-design/patterns/realtime-updates) **(premium)**
 - [Long polling vs WebSockets](https://blog.algomaster.io/p/long-polling-vs-websockets)
+- [MDN: using server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events)
 - [Read: real-time messaging at Slack](https://slack.engineering/real-time-messaging/)
+- [Pattern: real-time updates](https://www.hellointerview.com/learn/system-design/patterns/realtime-updates) **(premium)**

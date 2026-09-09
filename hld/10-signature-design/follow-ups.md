@@ -21,7 +21,7 @@ fluency; the rest to the point of not being surprised.
 They are asking two things at once: can you handle an incident, and do you
 understand that this incident costs money in both directions.
 
-A strong answer has an order to it. Detection comes first — what alerted you,
+A strong answer has an order to it. Detection comes first: what alerted you,
 and whether it was your own monitoring or a complaint from the business, which
 is an uncomfortable but honest thing to say if it is true. Then containment
 before diagnosis: the rule goes into shadow mode or off entirely, and that has
@@ -37,7 +37,7 @@ decision record stores feature values as they were at scoring time.
 
 Finish on the customers already affected, because engineers forget this half:
 the transactions wrongly blocked are recoverable business, and somebody needs a
-list of them. Then what you changed so the next rule cannot do this — shadow
+list of them. Then what you changed so the next rule cannot do this: shadow
 mode by default, a block-rate alert per rule rather than in aggregate, a staged
 rollout.
 
@@ -48,8 +48,8 @@ serve it.
 
 Start by separating what can be repaired from what cannot. Decisions already
 returned to customers are final; transactions were allowed or blocked and the
-world moved on. What you can repair is the derived state — aggregates, features,
-review cases, anything downstream that was computed from bad scores — and being
+world moved on. What you can repair is the derived state: aggregates, features,
+review cases, anything downstream that was computed from bad scores. Being
 clear about that boundary is the first thing a strong answer does.
 
 Then the mechanics: replay from Kafka, which is why your retention is derived
@@ -62,7 +62,7 @@ while the backfill is running.
 Two details that mark experience. First, event time versus processing time
 matters here specifically: a replay must produce the same aggregates it would
 have produced the first time, and that only holds if the pipeline was built on
-event time. Second, point-in-time correctness — when you rebuild training data,
+event time. Second, point-in-time correctness. When you rebuild training data,
 each row must use the feature values as they were at that moment, not as they
 are now, or you have leaked the future into your training set and the new model
 will look excellent in evaluation and worse in production.
@@ -97,7 +97,7 @@ signal.
 
 ### "Why not just run the ML model on every transaction and skip the rules?"
 
-Cover cost and latency at your transaction volume, but do not stop there — the
+Cover cost and latency at your transaction volume, but do not stop there. The
 stronger half is explainability. You have to tell a customer, an analyst, or a
 regulator why a transaction was blocked, and "the model said 0.93" is not an
 answer anyone accepts. Rules also let a human respond to a new pattern within
@@ -106,7 +106,7 @@ honestly: they accumulate, they interact, and nobody wants to delete one.
 
 ### "How do you know the model is still good six months later?"
 
-Cover drift, and be precise about which kind — the traffic changes, or the
+Cover drift, and be precise about which kind: the traffic changes, or the
 fraudsters change in response to you, which is drift with an adversary behind
 it. Cover the monitoring that catches it without labels, since labels arrive
 late: score distribution, rule fire rates, the mix of decisions. Then what
@@ -114,13 +114,13 @@ triggers a retrain and who decides.
 
 ### "Your labels arrive weeks or months late. How do you train on them?"
 
-Cover the label delay explicitly and what it does to evaluation — a model
+Cover the label delay explicitly and what it does to evaluation. A model
 evaluated on recent data is being evaluated on an incomplete label set, and it
 will look better than it is. Cover point-in-time correctness when building the
 training set. Cover the selection bias: you only learn outcomes for transactions
 you allowed, so the model never sees what the blocked ones would have done. If
-you do anything about that — a small random allow-through, or using review
-outcomes as a proxy — say so; if you do not, say that too, and say what it
+you do anything about that, a small random allow-through or using review
+outcomes as a proxy, say so; if you do not, say that too, and say what it
 costs you.
 
 ### "An analyst pushes a rule at two in the morning. What stops it taking down checkout?"
@@ -133,8 +133,8 @@ Say who is allowed to push, and whether that is enforced or conventional.
 
 ### "Two rules disagree. Who wins?"
 
-Cover precedence and terminal decisions — a block that stops the chain, an
-explicit allow that skips the rest — and why that ordering is a policy decision
+Cover precedence and terminal decisions, a block that stops the chain and an
+explicit allow that skips the rest, and why that ordering is a policy decision
 rather than an implementation detail. Then the operational consequence: because
 the chain short-circuits, the decision record shows which rules ran and which
 never got the chance, and that matters when you are trying to work out why
@@ -149,7 +149,7 @@ fraudsters respond once the rule is real.
 
 ### "The feature store is empty after a failover. What does the system do?"
 
-Cover the cold-start behaviour honestly — a velocity counter that has lost its
+Cover the cold-start behaviour honestly. A velocity counter that has lost its
 history reads as zero, which looks exactly like a well-behaved customer, so an
 empty store fails open silently unless you have made it detectable. Cover how
 you tell "no activity" from "no data", warm-up from the async path, and whether
@@ -174,8 +174,8 @@ not be able to shop for a better answer.
 
 ### "What is your p99 actually made of?"
 
-Cover the breakdown by stage — the feature read, the cheap checks, the model
-call, the audit write — with real numbers if you have tracing. Then say which
+Cover the breakdown by stage, the feature read, the cheap checks, the model
+call and the audit write, with real numbers if you have tracing. Then say which
 stage owns the tail and why, because p99 is nearly always one dependency rather
 than everything being slightly slow. If your audit write is on the synchronous
 path, expect to defend that.
@@ -184,7 +184,7 @@ path, expect to defend that.
 
 Cover running both, comparing decisions on live traffic, and migrating rule by
 rule rather than in one cut. The point to make is that this is the same shadow
-mode machinery you built for new rules, applied to a whole component — a system
+mode machinery you built for new rules, applied to a whole component: a system
 that can safely introduce one rule can safely introduce a replacement engine,
 and noticing that is worth saying.
 

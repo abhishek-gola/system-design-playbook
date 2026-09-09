@@ -7,8 +7,8 @@ can honestly steer toward risk, payments or abuse.
 where operating experience counts double, because it cannot be revised for.
 
 Real-time fraud detection is the worked example throughout this folder. If your
-own production experience is somewhere else — a scheduler, an ingestion
-pipeline, a search tier, a billing system — substitute it. The structure below
+own production experience is somewhere else, whether a scheduler, an ingestion
+pipeline, a search tier or a billing system, substitute it. The structure below
 does not change; only the nouns do.
 
 ---
@@ -28,8 +28,8 @@ something you built", it fits a behavioural round on a difficult trade-off, and
 it fits a straight design prompt about payments, abuse, rate limiting or
 anything with a decision in the request path.
 
-Two warnings before you start. First, it only works if it is genuinely yours —
-the moment you present a system you have read about as one you ran, you are one
+Two warnings before you start. First, it only works if it is genuinely yours.
+The moment you present a system you have read about as one you ran, you are one
 follow-up away from a very bad ten minutes, so the parts you did not build are
 parts you say you did not build. Second, this is a design document you write
 once and rehearse, not a story you improvise. Improvised, it comes out as a tour
@@ -48,13 +48,13 @@ apart the moment someone multiplies two of them together.
 | Number | Where to find it |
 |---|---|
 | Events per second on the scoring path, average and peak | Service request-rate dashboard. Take the peak from a promotion or a weekend dinner rush, not a Tuesday afternoon. |
-| Rules live in production right now | The rule config itself. Count them, and note how many were added in the last quarter — the growth rate is a more interesting number than the total. |
+| Rules live in production right now | The rule config itself. Count them, and note how many were added in the last quarter, since the growth rate is a more interesting number than the total. |
 | p99 latency of a scoring call, and the budget you hold yourself to | Service latency dashboard. Get p50 and p99, and get the breakdown by stage if your tracing gives you one. |
 | Value of fraud prevented, over a period you can name | Risk or finance reporting. Whatever the team reports upward is the number to use, and say which definition it uses. |
 | False positive rate, however your team measures it | Manual review outcomes or the chargeback reconciliation. Note the measurement method, because the interviewer will ask how you know. |
 
 Write them into [design-doc-template.md](design-doc-template.md) as you find
-them. Until then, that file has blanks in it, and blanks are correct — a
+them. Until then, that file has blanks in it, and blanks are correct. A
 template with plausible-looking invented metrics is worse than useless, because
 under pressure you will repeat one in an interview and then have to defend it.
 
@@ -69,7 +69,7 @@ precision that dissolves on contact.
 
 The same clock as [hld/00-framework](../00-framework/), run against this
 problem. Rehearse to these boundaries, because the failure mode here is not
-running out of things to say — it is loving your own system too much and
+running out of things to say. It is loving your own system too much and
 arriving at minute thirty with the interesting parts still unsaid.
 
 ## 0–5 · Requirements
@@ -123,7 +123,7 @@ arithmetic out, do not carry it in your head.
   retention. Retention here is not arbitrary: it is however far back you need to
   be able to replay when a model or a rule turns out to be wrong, so derive it
   from the backfill requirement rather than picking a round number of days.
-- **Flink state.** Keyed state is driven by key cardinality, not by throughput —
+- **Flink state.** Keyed state is driven by key cardinality, not by throughput:
   distinct keys × state per key. Say which key has the highest cardinality and
   what bounds it, because that is the question that follows.
 
@@ -133,8 +133,8 @@ deep dive.
 ## 10–15 · API and the decision record
 
 Small surface, and it is worth showing because it makes the two paths concrete.
-One synchronous endpoint that takes a transaction and returns a decision —
-allow, review or block — along with a reason and a decision ID. One event
+One synchronous endpoint that takes a transaction and returns a decision,
+allow, review or block, along with a reason and a decision ID. One event
 stream that the same transaction is published to regardless of the decision. One
 read path for the audit record.
 
@@ -142,7 +142,7 @@ The entity that matters is the **decision record**: the transaction ID, the
 rules that ran, what each returned, the feature values as they were at scoring
 time, the final decision, and the model version. Storing the feature values as
 they were is the part people miss, and it is what makes the record actually
-useful six weeks later — recomputing a velocity counter today tells you nothing
+useful six weeks later. Recomputing a velocity counter today tells you nothing
 about what the system saw then.
 
 Access patterns: look up a decision by transaction ID, list decisions for a user
@@ -165,7 +165,7 @@ timeout.
 them in Flink, with windows over hours and days. It does the work that needs
 history: velocity across a rolling window, patterns across a device or a card
 that only emerge over many transactions, graph-shaped signals where one account
-connects to others. Its outputs are of two kinds — aggregates written back into
+connects to others. Its outputs are of two kinds: aggregates written back into
 the feature store so the synchronous path can read them next time, and alerts or
 review cases for anything it finds after the fact.
 
@@ -192,7 +192,7 @@ places where your experience shows immediately.
 
 ### The feature store
 
-Precomputed aggregates in Redis — velocity per user, per device, per card, over
+Precomputed aggregates in Redis: velocity per user, per device, per card, over
 several windows. **The synchronous path reads, it never computes.** That is the
 rule the whole latency budget rests on, and it is worth saying as a rule rather
 than as a description, because it tells the interviewer you know where the
@@ -201,8 +201,8 @@ budget went.
 Points worth making:
 
 - Writes come from the Flink jobs on the async path, so the store is
-  deliberately slightly stale. Name the staleness — the lag between an event
-  happening and its aggregate being visible — and say why that is acceptable for
+  deliberately slightly stale. Name the staleness, the lag between an event
+  happening and its aggregate being visible, and say why that is acceptable for
   a velocity counter, and where it would not be.
 - Every key has a TTL matched to its window. Aggregates without a TTL are the
   most common way this component turns into an incident.
@@ -219,7 +219,7 @@ Points worth making:
 ### The rule engine
 
 A chain of responsibility, **ordered by cost, loaded from config**. Cheap
-in-memory checks — blacklist, amount threshold — run before the network call to
+in-memory checks, blacklist and amount threshold, run before the network call to
 the ML scorer, so the expensive check only ever sees traffic that survived
 everything else. That ordering is where most of your latency budget is actually
 won.
@@ -230,7 +230,7 @@ pattern:
 - Each handler records which rule fired and what it returned, which is what
   makes a false positive debuggable six weeks later without a deploy.
 - The chain is loaded from config, so analysts reorder it, add to it and disable
-  parts of it without shipping code — which is requirement three, delivered.
+  parts of it without shipping code, which is requirement three, delivered.
 - A check that cannot reach its dependency fails open or closed **explicitly**,
   and which one it is depends on the check rather than on a global setting.
 - The decision is not a boolean. Allow, review and block are three different
@@ -240,8 +240,8 @@ pattern:
 
 ### The feedback loop
 
-Chargebacks and manual review outcomes flow back as labels. Both are delayed —
-a chargeback can arrive weeks or months after the transaction — so the training
+Chargebacks and manual review outcomes flow back as labels. Both are delayed, and
+a chargeback can arrive weeks or months after the transaction, so the training
 set for any given day is not complete until well after that day, and any
 evaluation you do before then is measuring an incomplete picture. Say that;
 almost nobody does.
@@ -270,14 +270,14 @@ Take it further than the framing, because the follow-up is always "so how do you
 pick it": the two costs are not symmetric and they are not stable. A blocked
 genuine customer at checkout may never come back, so the cost is not the value
 of that order; the cost of a missed fraud is the chargeback plus the goods. And
-the ratio moves — during a promotion, both the volume and the mix of fraud
+the ratio moves: during a promotion, both the volume and the mix of fraud
 change, so a threshold tuned in a quiet week is the wrong threshold on the
 biggest day of the quarter.
 
 Which means the honest answer to "what accuracy do you get" is that accuracy is
 the wrong measure, and you would rather talk about what each kind of error costs
 and who owns that decision. It is a business decision that the risk team makes
-and engineering implements, and saying so is not a dodge — it is the correct
+and engineering implements, and saying so is not a dodge. It is the correct
 division of responsibility, and interviewers at senior level recognise it.
 
 ## 40–45 · Failure modes and bottlenecks
@@ -290,7 +290,7 @@ error at checkout is a lost order either way.
 **The feature store is unavailable.** Per-check policy, not a global switch.
 Checks whose features are missing degrade to a documented behaviour, and the
 chain still returns a decision inside the budget. Say what the degraded rule set
-is and roughly what proportion of your detection you keep in that mode — and if
+is and roughly what proportion of your detection you keep in that mode, and if
 you have never tested it, say that too, because it is the honest answer and the
 next sentence is what you would do about it.
 
@@ -320,7 +320,7 @@ story from [hld/09-technology-deep-dives](../09-technology-deep-dives/) reappear
 a different room.
 
 **The audit write fails.** You have already made a decision and the customer is
-waiting, so the decision cannot block on durably recording it — but the record
+waiting, so the decision cannot block on durably recording it, but the record
 cannot be lost either, because it is a compliance obligation. Publishing the
 decision record to a log and consuming it into storage is the shape here, and
 being clear about the window where a record could be lost is better than
@@ -351,7 +351,7 @@ cost, loaded from config, with per-check fail-open or fail-closed policy and a
 feature store interface behind the precomputed aggregates.
 
 Read the two together and rehearse the crossover, because it gives you something
-almost nobody has — one system you can zoom into until you are writing the
+almost nobody has: one system you can zoom into until you are writing the
 `handle()` method and zoom out of until you are drawing Kafka and Flink on a
 whiteboard, without ever changing story. If your LLD round asks for chain of
 responsibility, you can answer with the same domain you designed in your HLD
@@ -361,17 +361,17 @@ into the interface that makes it possible.
 The joins to point at when you do it: the chain's cost ordering is the latency
 budget from the HLD; the feature store interface in the code is the Redis
 component on the diagram; per-check fail-open policy is the degraded mode in the
-failure section; and the four-way decision — allow, block, review, continue — is
+failure section; and the four-way decision, allow, block, review or continue, is
 what makes the false-positive trade-off implementable rather than just
 describable.
 
 ## The files here
 
-- [design-doc-template.md](design-doc-template.md) — the document to actually
+- [design-doc-template.md](design-doc-template.md): the document to actually
   write, section by section, with prompts and blanks where your numbers go.
-- [follow-ups.md](follow-ups.md) — the hardest questions that come after the
+- [follow-ups.md](follow-ups.md): the hardest questions that come after the
   design, and what a strong answer needs.
-- [rehearsal-log.md](rehearsal-log.md) — three timed runs, tracked. The design
+- [rehearsal-log.md](rehearsal-log.md): three timed runs, tracked. The design
   is not finished until this table is full.
 
 Do them in that order. The document first, because you cannot rehearse what you
@@ -380,8 +380,9 @@ the document; then the runs.
 
 ## Read
 
-- [Pattern — scaling writes, the nearest one they have to step 07](https://www.hellointerview.com/learn/system-design/patterns/scaling-writes) **(premium)**
 - [Ad click aggregator, as a structural template](https://www.hellointerview.com/learn/system-design/problem-breakdowns/ad-click-aggregator)
+- [Saga pattern, for the compensation vocabulary](https://microservices.io/patterns/data/saga.html)
+- [Pattern: scaling writes, the nearest one they have to step 07](https://www.hellointerview.com/learn/system-design/patterns/scaling-writes) **(premium)**
 - [Payment system, for the vocabulary](https://www.hellointerview.com/learn/system-design/problem-breakdowns/payment-system) **(premium)**
 
 ## Practice
@@ -391,3 +392,7 @@ the document; then the runs.
 | [Write the full design document](https://www.hellointerview.com/learn/system-design/in-a-hurry/delivery) **(core)** | Requirements through failure modes, with your real numbers in it. |
 | [Present it out loud, timed, three times](https://www.hellointerview.com/learn/system-design/in-a-hurry/delivery) **(core)** | Record the third. Fix whatever makes you wince. |
 | [Prepare the three hardest follow-ups](https://www.hellointerview.com/learn/system-design/deep-dives/flink) **(core)** **(premium)** | How do you handle a rule that starts false-positiving in production? How do you backfill after a bad model? What breaks at 10x? |
+
+A solution marked **(premium)** is behind Hello Interview's paywall. The problem
+itself is free to attempt, and the folder above is a worked answer to the same
+hard part.

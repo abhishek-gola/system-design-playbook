@@ -1,7 +1,7 @@
 # Scorecard
 
 Copy this block into your notes for each run and fill it in immediately after.
-Same rubric every time — the trend is the point, not the number.
+Same rubric every time, because the trend is the point, not the number.
 
 ---
 
@@ -39,7 +39,7 @@ Same rubric every time — the trend is the point, not the number.
 **The `if` statements I wrote that a pattern should have absorbed:**
 
 
-**What I'd have to edit to add one new type or rule — one file, or several?**
+**What I'd have to edit to add one new type or rule: one file, or several?**
 
 
 ### The honest bit
@@ -50,6 +50,6 @@ Same rubric every time — the trend is the point, not the number.
 **Where I lost time and why:**
 
 
-**One thing to fix before the next run** (exactly one — a list of five is a list
+**One thing to fix before the next run** (exactly one; a list of five is a list
 you'll ignore):
 

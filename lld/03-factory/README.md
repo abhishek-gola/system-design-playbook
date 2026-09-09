@@ -8,7 +8,7 @@ place so adding a type touches one file.
 
 ---
 
-## Three things share this name — say which one you mean
+## Three things share this name, so say which one you mean
 
 Most candidates use all three words interchangeably. Interviewers notice when
 you don't.
@@ -17,14 +17,14 @@ you don't.
 what ninety percent of interviews actually want.
 
 **Factory Method.** A base class defines `createX()` and each subclass decides
-what to return. Use when the creating class is itself part of a hierarchy — the
+what to return. Use when the creating class is itself part of a hierarchy, the
 classic being a `Dialog` whose subclasses each build their own kind of button.
 
 **Abstract Factory.** A factory that produces a *family* of related objects that
 must match each other.
 
 ```java
-// Simple factory — the one you'll write
+// Simple factory: the one you'll write
 interface Notifier { void send(Message m); }
 
 class NotifierFactory {
@@ -37,7 +37,7 @@ class NotifierFactory {
     }
 }
 
-// Abstract factory — a family that must stay consistent
+// Abstract factory: a family that must stay consistent
 interface PaymentProviderFactory {
     Charger charger();
     Refunder refunder();
@@ -49,12 +49,12 @@ class RazorpayFactory implements PaymentProviderFactory { ... }
 ## When abstract factory is justified, and when it's showing off
 
 It earns its complexity only when **mixing families would be a bug**. A Razorpay
-charger paired with a Stripe webhook verifier is nonsense — it would verify
+charger paired with a Stripe webhook verifier is nonsense. It would verify
 signatures against the wrong secret and silently reject every callback. The
 factory makes that combination unrepresentable.
 
 If there's no such constraint, you're over-engineering, and saying so is worth
-marks. "I'd use a simple factory here — there's no consistency requirement
+marks. "I'd use a simple factory here, since there's no consistency requirement
 between these objects, so an abstract factory would be ceremony" is a better
 answer than producing one.
 
@@ -94,7 +94,7 @@ factory. If the return type is fixed and the parameter list is long, that's a
 ./run.sh lld/03-factory
 ```
 
-Shows the simple factory, the registry variant, and the abstract factory —
+Shows the simple factory, the registry variant, and the abstract factory,
 including a deliberate attempt to mix two providers, so you can see what the
 abstract factory is preventing.
 
@@ -108,6 +108,6 @@ abstract factory is preventing.
 
 ## Read
 
-- [Refactoring Guru — Factory Method](https://refactoring.guru/design-patterns/factory-method)
-- [Refactoring Guru — Abstract Factory](https://refactoring.guru/design-patterns/abstract-factory)
-- [AlgoMaster — Factory Method](https://algomaster.io/learn/lld/factory-method)
+- [Refactoring Guru: Factory Method](https://refactoring.guru/design-patterns/factory-method)
+- [Refactoring Guru: Abstract Factory](https://refactoring.guru/design-patterns/abstract-factory)
+- [AlgoMaster: Factory Method](https://algomaster.io/learn/lld/factory-method)

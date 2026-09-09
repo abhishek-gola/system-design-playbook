@@ -4,7 +4,7 @@ Not a GoF pattern, and the axis that decides more LLD rounds than any single
 pattern does. Anything with booking, inventory, balance or a counter lands here.
 
 **The signal:** the problem mentions booking, seats, inventory, wallet balance
-or a counter — or the interviewer asks "what if two users do this at the same
+or a counter, or the interviewer asks "what if two users do this at the same
 time?"
 
 **What it fixes:** double-booking, lost updates, and the answer "I'd add
@@ -27,8 +27,8 @@ correctness.
 
 ## The four options, cheapest first
 
-**Compare-and-set on a concurrent map.** `seatHolds.putIfAbsent(seatId, token)`
-— exactly one caller gets `null` back and wins. No lock, no blocking, and it
+**Compare-and-set on a concurrent map.** `seatHolds.putIfAbsent(seatId, token)`,
+and exactly one caller gets `null` back and wins. No lock, no blocking, and it
 works beautifully for the single-process version of this question. Start here.
 
 **Optimistic concurrency.** A version column; the update says
@@ -39,7 +39,7 @@ work.
 **Pessimistic locking.** `synchronized` on the show, a per-seat `ReentrantLock`,
 or `SELECT ... FOR UPDATE`. Correct, and it serialises everything behind that
 lock. If you lock several seats for a group booking, **acquire them in a fixed
-global order or you'll deadlock** — say that unprompted, because it's the
+global order or you'll deadlock**. Say that unprompted, because it's the
 follow-up.
 
 **Serialise by partition.** Route all operations for one show to one consumer or
@@ -54,14 +54,14 @@ once and costs you a map of locks plus the deadlock risk above.
 The rule worth stating: **lock the smallest thing that makes the invariant
 true.** If the invariant is "this seat has one owner", lock the seat. If it's
 "this show never sells more than capacity", you need something that covers the
-whole show — and that's a counter, not a lock.
+whole show, and that's a counter, not a lock.
 
 ## What actually ships: hold, then confirm
 
 Reserve the seat with a ten-minute TTL, take payment, then confirm.
 
 This is the key insight and it's worth stating explicitly: it converts a lock
-held for minutes across a payment call — which you must never do — into a
+held for minutes across a payment call, which you must never do, into a
 database row with an expiry. Nothing is held while you wait on a third party.
 
 You then need a sweeper or a delay queue to release abandoned holds, and *that's
@@ -69,8 +69,8 @@ the follow-up question*, so have the answer ready. Two ways:
 
 - a background sweeper that scans for expired holds, which is simple and has a
   window where an expired hold still looks live
-- lazy expiry at read time — treat any hold past its TTL as absent the moment
-  someone asks — which has no window and no background job, and is what the code
+- lazy expiry at read time: treat any hold past its TTL as absent the moment
+  someone asks, which has no window and no background job, and is what the code
   here does
 
 Say both. The lazy version is the one that's actually correct under a crash,
@@ -83,13 +83,13 @@ because it doesn't depend on a sweeper being alive.
 | `synchronized` vs `ReentrantLock` | `ReentrantLock` gives you `tryLock` with a timeout, which is how you avoid hanging forever, plus fairness and multiple conditions. `synchronized` is simpler and JIT-friendlier. Use `synchronized` unless you need one of those. |
 | `ConcurrentHashMap` vs `Collections.synchronizedMap` | Lock striping and lock-free reads versus one global lock around every operation. Also: `synchronizedMap` still needs external synchronisation for check-then-act, which is the bug this whole folder is about. |
 | What does CAS actually do | A single hardware instruction that compares a memory location to an expected value and swaps only if it matches. It's how `AtomicInteger` works, and why it can fail and retry rather than block. |
-| Why doesn't `volatile` make `count++` safe | `volatile` gives visibility, not atomicity. `count++` is read-modify-write — three steps — and two threads can interleave inside it. Use `AtomicInteger`. |
+| Why doesn't `volatile` make `count++` safe | `volatile` gives visibility, not atomicity. `count++` is read-modify-write, three steps, and two threads can interleave inside it. Use `AtomicInteger`. |
 | What's a happens-before edge | Unlocking a monitor happens-before locking it, and a `volatile` write happens-before a subsequent read. It's the guarantee that makes anything one thread wrote visible to another. |
 
 ## The mistake that fails the round
 
 Answering "I'd make the method `synchronized`" and stopping. It's not wrong, and
-that's what makes it dangerous — the candidate thinks they've answered. What's
+that's what makes it dangerous, because the candidate thinks they've answered. What's
 missing is any statement about **what it costs** and **what it doesn't cover**.
 
 A synchronized method on a single instance does nothing once you run two
@@ -111,8 +111,8 @@ hold-then-confirm with a manual clock so expiry is visible without waiting ten
 minutes.
 
 The race section prints how many threads believed they'd won the same seat. If
-it happens to come out as one on your machine, it says so rather than pretending
-— a race that doesn't reproduce on this run is still a bug, and that's a useful
+it happens to come out as one on your machine, it says so rather than pretending.
+A race that doesn't reproduce on this run is still a bug, and that's a useful
 thing to see stated.
 
 ## Practice

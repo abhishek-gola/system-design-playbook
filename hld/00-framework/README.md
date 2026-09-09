@@ -5,8 +5,8 @@ candidates who don't run one lose the round on pacing rather than on knowledge.
 This folder is the script, plus the vocabulary you have to be able to defend
 once you start putting boxes on the board.
 
-There is no code here. Nothing about pacing gets better by running a program —
-it gets better by doing the thing on a clock, out loud, four or five times. The
+There is no code here. Nothing about pacing gets better by running a program.
+It gets better by doing the thing on a clock, out loud, four or five times. The
 [estimation cheatsheet](estimation-cheatsheet.md) next to this file is the one
 thing worth memorising rather than deriving.
 
@@ -24,7 +24,7 @@ no design, or a box diagram with no reasoning behind any box.
 | Minutes | What you produce | The failure if you skip it |
 |---|---|---|
 | 0–5 | Three to five functional requirements in the interviewer's words, written where they can see them. Non-functional ones **as numbers**: p99 under 200ms, 99.9% availability, two years of retention. And what's out of scope. | You design the wrong system, politely, for forty minutes. |
-| 5–10 | DAU to QPS to storage — only the numbers that will change a decision. | You pick a database with no evidence, and can't defend it later. |
+| 5–10 | DAU to QPS to storage, and only the numbers that will change a decision. | You pick a database with no evidence, and can't defend it later. |
 | 10–15 | Four to six endpoints, then the core entities and their **access patterns**. | You pick the data model from the entity list instead of from the queries, which is backwards. |
 | 15–25 | Boxes and arrows, happy path only. Then walk one request end to end out loud. | The interviewer doesn't know what you're building, so every later question lands as an interruption. |
 | 25–40 | The deep dive. Either they choose or you offer the two hardest parts. | This is where your level is decided. Losing this time is the single most expensive mistake available to you. |
@@ -37,7 +37,7 @@ not be ambushed about it at minute thirty.
 
 > **The estimation trap.** Never spend more than eight minutes on
 > back-of-envelope maths. Candidates who enjoy it burn fifteen, lose the deep
-> dive, and get down-levelled for "lacked depth" — which reads as unfair and
+> dive, and get down-levelled for "lacked depth", which reads as unfair and
 > isn't. If knowing the write rate doesn't change your database choice, don't
 > compute the write rate.
 
@@ -81,7 +81,7 @@ next.
 **"How would you scale this to ten times the traffic?"** Name the component that
 breaks first and why, not a generic "add more servers". Usually it is the
 primary database or a single hot key. Then give the ladder: index, cache,
-replicas, shard — cheapest first.
+replicas, shard, cheapest first.
 
 **"What happens if this component dies?"** For each box, say what the client
 sees. Cache dies: latency spikes and the database takes full load, which is
@@ -113,7 +113,7 @@ just chose and be able to say why it was the right one for these requirements.
 ### The mistakes that actually cost rounds
 
 Drawing before scoping is the big one, and it is nearly always fatal. The second
-is designing for a scale nobody asked for — a hundred users does not need
+is designing for a scale nobody asked for. A hundred users does not need
 Kafka, and reaching for it anyway is marked down as poor judgement rather than
 rewarded as ambition. The third is going silent while you think. Ten seconds of
 silence is fine, ninety is a data point about how you work.
@@ -134,7 +134,7 @@ undoes three good ones.
 
 For each item below you should be able to explain it in five lines of your own
 writing, name one alternative, and say when you'd pick the alternative. That is
-the bar. Reading about it doesn't get you there — writing it does.
+the bar. Reading about it doesn't get you there. Writing it does.
 
 | Concept | What you must be able to say | The alternative, and when you'd take it |
 |---|---|---|
@@ -147,7 +147,7 @@ the bar. Reading about it doesn't get you there — writing it does.
 | **Indexing** | B+ tree keeps sorted pages and pays on write; LSM buffers in memory and writes sequential sorted files, paying later in compaction. | LSM for write-heavy and append-only workloads; B+ tree for read-heavy with range scans and updates in place. |
 | **Sharding** | Key choice, hot partitions, resharding, consistent hashing and what a virtual node is for. | Vertical partitioning or a read replica first, if the pressure is reads rather than volume. See [02-scaling-writes](../02-scaling-writes/). |
 | **Replication** | Sync costs latency but loses nothing; async is fast but has a window where a failover loses writes. Replication lag and read-your-writes. | Sync for money; async for almost everything else, with reads pinned to the primary for a few seconds after a write. |
-| **Consistency** | Strong vs eventual, and CAP as a statement about behaviour during a partition specifically — not a general licence to pick two. | Strong where a stale read is a correctness bug; eventual where it's a cosmetic one. |
+| **Consistency** | Strong vs eventual, and CAP as a statement about behaviour during a partition specifically, not a general licence to pick two. | Strong where a stale read is a correctness bug; eventual where it's a cosmetic one. |
 | **ID generation** | Snowflake, ticket server, UUID, and why monotonic IDs matter for index locality. | UUIDv4 when you need offline generation and don't care about index fragmentation; Snowflake when you want roughly time-sortable IDs. |
 | **Bloom filters** | Probabilistic set membership: no false negatives, tunable false positives, tiny. The one probabilistic structure that comes up constantly. | An exact index, when the set is small enough to hold and a false positive costs a real lookup you can't afford. |
 
@@ -182,12 +182,17 @@ write up one vocabulary item in your own words.
 | [Write up sharding and consistent hashing](https://algomaster.io/learn/system-design/consistent-hashing) **(core)** | Include what happens when you add a node, and what a virtual node is for. |
 | [Write up SQL vs NoSQL from access patterns](https://algomaster.io/learn/system-design/sql-vs-nosql) | Pick a real table from a system you have worked on and argue both sides for it. |
 
+A solution marked **(premium)** is behind Hello Interview's paywall. The problem
+itself is free to attempt, and the folder above is a worked answer to the same
+hard part.
+
 ## Read
 
-- [Hello Interview — delivery framework](https://www.hellointerview.com/learn/system-design/in-a-hurry/delivery)
-- [AlgoMaster — answering framework](https://algomaster.io/learn/system-design-interviews/answering-framework)
-- [Numbers to know](https://www.hellointerview.com/learn/system-design/core-concepts/numbers-to-know) **(premium)**
+- [Hello Interview: delivery framework](https://www.hellointerview.com/learn/system-design/in-a-hurry/delivery)
+- [AlgoMaster: answering framework](https://algomaster.io/learn/system-design-interviews/answering-framework)
 - [30 core concepts](https://blog.algomaster.io/p/30-system-design-concepts)
 - [Top 15 trade-offs](https://blog.algomaster.io/p/system-design-top-15-trade-offs)
-- [Hello Interview — core concepts](https://www.hellointerview.com/learn/system-design/in-a-hurry/core-concepts)
+- [Hello Interview: core concepts](https://www.hellointerview.com/learn/system-design/in-a-hurry/core-concepts)
 - [Full resource index](https://github.com/ashishps1/awesome-system-design-resources)
+- [Numbers to know](https://www.hellointerview.com/learn/system-design/core-concepts/numbers-to-know) **(premium)**. The
+  [estimation cheatsheet](estimation-cheatsheet.md) next to this file has the same numbers, free.

@@ -39,8 +39,8 @@ bug in a hand-rolled chain.
 
 ## The sentence that separates you from a textbook answer
 
-**Order the chain by cost.** Cheap in-memory checks — blacklist lookup, amount
-threshold — run before the network call to the ML scorer, so the expensive one
+**Order the chain by cost.** Cheap in-memory checks, blacklist lookup and amount
+threshold, run before the network call to the ML scorer, so the expensive one
 only ever sees traffic that survived everything else.
 
 Then add the operational parts:
@@ -49,7 +49,7 @@ Then add the operational parts:
   six weeks later without redeploying anything
 - the chain is **loaded from config**, so risk analysts reorder it without a
   deploy
-- a check that can't reach its dependency **fails open or closed explicitly** —
+- a check that can't reach its dependency **fails open or closed explicitly**,
   and which one it is depends on the check, not on a global setting. Blacklist
   unavailable? Fail closed, it's cheap to retry. ML scorer timing out? Fail open,
   because a 200ms budget doesn't allow for waiting
@@ -78,7 +78,7 @@ a genuine customer is much higher than the cost of a human glance.
 ATM cash dispensing: a ₹2000 handler passes the remainder to ₹500, which passes
 to ₹200, then ₹100. Same structure, different domain, and it's the one they'll
 reach for by default. It's implemented here too, including the
-case everyone forgets — **the machine can't make the exact amount**, and you must
+case everyone forgets: **the machine can't make the exact amount**, and you must
 not dispense a partial withdrawal.
 
 ## Chain vs a list of validators
@@ -87,7 +87,7 @@ Honest question, and worth answering out loud before they ask.
 
 A plain `for (Validator v : validators)` loop does most of this and is simpler.
 Chain of Responsibility earns the extra structure when handlers need to
-**decide whether the rest of the chain runs at all** — a whitelist hit that skips
+**decide whether the rest of the chain runs at all**: a whitelist hit that skips
 everything downstream, or a handler that transforms the request before passing it
 on.
 
@@ -102,8 +102,8 @@ pattern when the lighter one fits is marked down.
 ./run.sh lld/07-chain-of-responsibility
 ```
 
-Five transactions through the risk chain — clean, blocked on blacklist,
-review-flagged on velocity, whitelisted, and blocked by the ML scorer — then the
+Five transactions through the risk chain: clean, blocked on blacklist,
+review-flagged on velocity, whitelisted, and blocked by the ML scorer. Then the
 chain reordered from "config" so you can see the expensive check stop being
 called. Then the ATM dispenser, including a request it has to refuse.
 
@@ -112,10 +112,10 @@ called. Then the ATM dispenser, including a request it has to refuse.
 | Problem | What to watch for |
 |---|---|
 | [ATM cash dispenser chain](https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/atm.md) **(core)** | Denomination handlers passing the remainder down. Handle the case where the machine can't make the exact amount. |
-| [Logging Framework — level chain](https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/logging-framework.md) | Debug passes to info passes to error. Same shape, different domain. |
+| [Logging Framework: level chain](https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/logging-framework.md) | Debug passes to info passes to error. Same shape, different domain. |
 | [Digital Wallet Service](https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/digital-wallet-service.md) | Build the transaction validation chain: balance, limits, KYC status, velocity, blocklist. |
 
 ## Read
 
-- [Refactoring Guru — Chain of Responsibility](https://refactoring.guru/design-patterns/chain-of-responsibility)
-- [AlgoMaster — Chain of Responsibility](https://algomaster.io/learn/lld/chain-of-responsibility)
+- [Refactoring Guru: Chain of Responsibility](https://refactoring.guru/design-patterns/chain-of-responsibility)
+- [AlgoMaster: Chain of Responsibility](https://algomaster.io/learn/lld/chain-of-responsibility)

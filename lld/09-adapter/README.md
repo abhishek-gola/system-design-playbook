@@ -33,11 +33,11 @@ Candidates get the request translation right and then hand the vendor's
 response object back to the caller, which defeats the entire exercise. The
 adapter has to map:
 
-- **the happy path** — vendor's order object to your `ChargeResult`
-- **the error codes** — Razorpay's `BAD_REQUEST_ERROR` and Stripe's
+- **the happy path:** vendor's order object to your `ChargeResult`
+- **the error codes:** Razorpay's `BAD_REQUEST_ERROR` and Stripe's
   `card_declined` both become your `DECLINED`, and a vendor code you've never
   seen becomes `UNKNOWN` rather than leaking through
-- **the units** — one provider takes paise, another takes rupees with decimals,
+- **the units:** one provider takes paise, another takes rupees with decimals,
   and getting this wrong is a hundred-fold billing error rather than a crash
 
 That last one is worth saying out loud. Money in a domain type with an explicit
@@ -63,7 +63,7 @@ The demo implements both.
 |---|---|
 | **Adapter** | make an incompatible interface fit one you already have |
 | **Facade** | put a simple front on a complicated subsystem you own |
-| **Anti-corruption layer** | the same idea as adapter, applied to a whole bounded context rather than one class — the DDD name for it |
+| **Anti-corruption layer** | the same idea as adapter, applied to a whole bounded context rather than one class, which is the DDD name for it |
 
 If the interviewer uses the phrase "anti-corruption layer", they're testing
 whether you know it's the same instinct at a larger scale. Say so.
@@ -76,7 +76,7 @@ class adapter inherits from the adaptee instead, which Java only half supports
 
 Prefer composition. If asked why, the answer is that you can adapt a `final`
 class, adapt several objects into one interface, and swap the adaptee at
-runtime — none of which inheritance gives you.
+runtime, none of which inheritance gives you.
 
 ## Where it goes wrong
 
@@ -103,9 +103,9 @@ order test against a fake with no network in sight.
 |---|---|
 | [Digital Wallet Service](https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/digital-wallet-service.md) | Several payment service providers behind one gateway interface, with failover. |
 | [Ride-Sharing Service](https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/ride-sharing-service.md) | Swap map and routing providers without the matching engine noticing. |
-| [Logging Framework](https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/logging-framework.md) | Adapt third-party sinks — Datadog, CloudWatch, Kafka — to your `Sink` interface. See [lld/01-solid](../01-solid/), which already has the `Sink` this would plug into. |
+| [Logging Framework](https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/logging-framework.md) | Adapt third-party sinks (Datadog, CloudWatch, Kafka) to your `Sink` interface. See [lld/01-solid](../01-solid/), which already has the `Sink` this would plug into. |
 
 ## Read
 
-- [Refactoring Guru — Adapter](https://refactoring.guru/design-patterns/adapter)
-- [AlgoMaster — Adapter](https://algomaster.io/learn/lld/adapter)
+- [Refactoring Guru: Adapter](https://refactoring.guru/design-patterns/adapter)
+- [AlgoMaster: Adapter](https://algomaster.io/learn/lld/adapter)

@@ -2,7 +2,7 @@
 
 The design is not finished when the document is written. It is finished when you
 have presented it out loud, timed, three times. Reading it back to yourself does
-not count and neither does thinking it through on a walk — the failures this
+not count and neither does thinking it through on a walk. The failures this
 catches are pacing failures, and pacing only breaks when you are actually
 talking.
 
@@ -44,6 +44,6 @@ minutes, that is what the fix column is for.
 Two things. Write down the three sentences that came out best and keep them
 word for word, because those are the ones worth saying identically every time.
 Then take whatever you fumbled and check whether the fault is in the delivery or
-in the document — if you keep stumbling in the same place, the document is
+in the document: if you keep stumbling in the same place, the document is
 wrong there, and the fix belongs in
 [design-doc-template.md](design-doc-template.md) rather than in more practice.

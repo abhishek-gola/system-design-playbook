@@ -8,12 +8,12 @@ database contention problem.
 
 If you have run Kafka or a stream processor in production, this is the step
 where that stops being a line on a CV and starts being an advantage. Prepare it
-until you can drive it cold either way — it rewards depth more than any other
+until you can drive it cold either way. It rewards depth more than any other
 pattern here.
 
 The reason it is worth more effort than the other patterns is that the ceiling
-is higher. Most candidates can describe the boxes — Kafka, a stream processor, a
-read store — and most of them stall the moment somebody asks how exactly-once
+is higher. Most candidates can describe the boxes: Kafka, a stream processor, a
+read store. Most of them stall the moment somebody asks how exactly-once
 actually works, or what a watermark is a statement about. You can go past that
 point, and the difference is very visible from the other side of the table.
 
@@ -39,8 +39,8 @@ partition, so one operator instance owns that ad's running count and no shuffle
 is needed to aggregate it. Key by userId instead and each ad's clicks are spread
 across every partition, which means a network shuffle before you can count
 anything. The cost of keying by adId is that a viral ad becomes a hot partition,
-and the fix for that is a composite key — `adId:bucket` with a small random
-bucket suffix — plus a second aggregation step that sums the buckets. Say that
+and the fix for that is a composite key, `adId:bucket` with a small random
+bucket suffix, plus a second aggregation step that sums the buckets. Say that
 before they ask.
 
 **The raw events go to object storage as well.** Not as a backup, as a
@@ -52,7 +52,7 @@ is faster than describing it.
 
 **The read store is chosen for the query, not for the write.** Aggregated
 counts by ad and minute is a small, wide, append-mostly dataset with a
-predictable access pattern, so almost anything works — Cassandra keyed by
+predictable access pattern, so almost anything works: Cassandra keyed by
 `(adId, minute)`, or DynamoDB with the same key, or Redis if the retention is
 short. Note out loud that this store handles a tiny fraction of the write volume
 the raw topic does, because the aggregation already collapsed a million clicks
@@ -62,14 +62,14 @@ into sixty rows. That collapse is the entire value of the pattern.
 
 | | Boundaries | Each event lands in | Watch for |
 |---|---|---|---|
-| **Tumbling** | fixed, non-overlapping | exactly one window | nothing much — this is the cheap one, and counts across windows sum to the event total |
+| **Tumbling** | fixed, non-overlapping | exactly one window | nothing much; this is the cheap one, and counts across windows sum to the event total |
 | **Sliding** | fixed, overlapping | `size / slide` windows | state and write amplification multiply by that ratio. Five minutes sliding every thirty seconds is 10x |
 | **Session** | inactivity gaps | one session, which may merge two existing ones | the assigner is not a function of the timestamp alone, so state changes shape rather than only growing |
 
 Tumbling is the default and you should say so. Sliding is what you reach for
 when the question is "in the last five minutes" rather than "in the minute of
 14:03", and the honest engineering answer when the ratio gets expensive is to
-keep per-slide buckets and sum the last N on read — which works because counts
+keep per-slide buckets and sum the last N on read, which works because counts
 and sums are invertible, and does not work for maxima or distinct counts.
 
 Session windows are the one that behaves differently. An event does not simply
@@ -88,14 +88,14 @@ interesting property of a streaming system comes from how you handle the gap.
 The demo runs both over identical events and the shapes are completely
 different. Event time shows three bursts of clicks with quiet minutes between
 them, which is what the users actually did. Processing time shows a flat smear,
-because the consumer was reading at a steady rate — a fact about your
+because the consumer was reading at a steady rate, a fact about your
 infrastructure, not about your advertisers. Replay the same topic tomorrow after
 a backlog and the processing-time numbers change while the event-time numbers do
 not.
 
 For anything you bill on, that settles it. Processing time is still correct for
-some questions — a consumer's own throughput, or a window whose meaning
-genuinely is "in the last minute of wall-clock time" — and knowing when it is
+some questions: a consumer's own throughput, or a window whose meaning
+genuinely is "in the last minute of wall-clock time". Knowing when it is
 acceptable is usually the follow-up.
 
 ## Watermarks, allowed lateness and side outputs
@@ -132,7 +132,7 @@ know precisely which one.
 The other reason allowed lateness matters is memory. A window's state can only
 be released once the watermark has passed its end plus the lateness, so those
 two settings are what bound your state size. "Why is this job's state
-unbounded" is almost always a window that never gets a watermark past its end —
+unbounded" is almost always a window that never gets a watermark past its end,
 usually an idle partition, since the watermark of an operator with several
 inputs is the *minimum* across them, and one silent partition holds the whole
 job back. The fix is an idleness timeout, and it is a good thing to have opinions
@@ -167,7 +167,7 @@ same N are already durable, so replay can never publish anything twice.
 matter of opinion. The naive sink writes on every record and finishes over by
 exactly the number of replayed records. The two-phase-commit sink finishes
 exactly right, having aborted one transaction on restore. Both jobs recovered
-their own state correctly — the difference is entirely about what the sink had
+their own state correctly. The difference is entirely about what the sink had
 already made visible.
 
 | Guarantee | How you get it | What it costs |
@@ -202,7 +202,7 @@ distinct values you have seen. Split the hash so the top bits pick one of m
 registers, keep the longest run per register, and take a harmonic mean across
 them to damp the outliers. The two properties worth naming are that the error
 depends only on the register count and not on the cardinality, and that two
-sketches merge by taking the per-register maximum — which is why every large
+sketches merge by taking the per-register maximum, which is why every large
 distinct-count system shards on sketches rather than on exact sets. The demo
 merges two shards with overlapping audiences and shows the naive sum roughly
 doubling the true answer while the merge gets it right.
@@ -218,7 +218,7 @@ absolute overcount being noise on one and a large relative error on the other.
 
 Top K is the pairing, and the gap it fills is worth being precise about: a
 Count-Min Sketch cannot list anything, because there are no keys inside it. So
-you carry a bounded candidate set alongside — in production a Redis sorted set,
+you carry a bounded candidate set alongside: in production a Redis sorted set,
 `ZADD` the estimate then `ZREMRANGEBYRANK` to trim back to K. If the ordering
 has to be right, use the sketch to shortlist a few hundred candidates and count
 that shortlist exactly.
@@ -234,7 +234,7 @@ interface with an injected clock.
 The real question at this level is always the same: where does the counter live
 when fifty API servers are enforcing one limit? The answer is a shared store
 with a local fast path that accepts some overcounting at the edges, and the
-demo puts numbers on it — how many requests get through above the limit, and how
+demo puts numbers on it: how many requests get through above the limit, and how
 many calls to the shared store each approach costs. Turning the sync interval
 down shrinks the overshoot and raises the call volume. There is no setting that
 gives you both.
@@ -247,7 +247,7 @@ and you pay for the round trip on every request.
 One more thing to have an answer ready for: what the gateway does when Redis is
 unreachable. Fail open and an outage becomes a free-for-all; fail closed and a
 Redis blip takes the product down. For rate limiting the usual answer is fail
-open, because the limiter protects you from load rather than from fraud — but
+open, because the limiter protects you from load rather than from fraud, but
 have decided it in advance, and say which and why.
 
 ## The follow-ups they actually ask
@@ -263,7 +263,7 @@ a single partition's lag climbing while the others are flat is the signature.
 **"Your job is falling behind. What do you look at?"** Consumer lag first, per
 partition, because it tells you whether the problem is skew or the whole job.
 Then backpressure, which in Flink propagates upstream from whichever operator is
-the bottleneck — the last operator that is *not* backpressured is the culprit,
+the bottleneck: the last operator that is *not* backpressured is the culprit,
 and the ones behind it are just victims. Then checkpoint duration, since a
 checkpoint that has started taking minutes usually means state has outgrown
 memory or alignment is stalling on a slow input.
@@ -271,14 +271,14 @@ memory or alignment is stalling on a slow input.
 **"State stopped fitting in memory. Now what?"** Switch the state backend to
 RocksDB, which spills to local disk and keeps only a working set in memory. What
 changes is that every state access becomes a serialise-and-deserialise, so
-throughput drops noticeably, and checkpoints become incremental — you ship
+throughput drops noticeably, and checkpoints become incremental, so you ship
 changed SST files rather than the whole state. Before doing that, check whether
 the state is large because it needs to be or because a window never closes.
 
 **"How do you fix a day of numbers after finding a bug in the job?"** Reprocess
 from object storage into a separate output table, verify, then swap. Do not
 mutate the live table in place, and do not try to make the streaming job
-backfill — it is optimised for a completely different access pattern. This is
+backfill, because it is optimised for a completely different access pattern. This is
 the one place where having the raw events in S3 stops being theoretical.
 
 **"How fresh are these counts?"** Checkpoint interval plus watermark tolerance,
@@ -316,7 +316,7 @@ design. Where they go, who notices, and what repairs the number is most of what
 separates a real answer from a diagram.
 
 Reaching for HyperLogLog when the cardinality is small. If you can hold the set,
-hold the set — the sketch is for when you cannot, and using it to count a
+hold the set. The sketch is for when you cannot, and using it to count a
 thousand things is a worse answer, not a cleverer one.
 
 Sliding windows without mentioning the multiplier. Anyone who has operated one
@@ -355,7 +355,11 @@ where it goes.
 
 ## Read
 
-- [Flink deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/flink) **(premium)**
+- [Flink: timely stream processing, which is event time and watermarks](https://nightlies.apache.org/flink/flink-docs-stable/docs/concepts/time/)
+- [Flink: stateful stream processing, which is checkpoints and barriers](https://nightlies.apache.org/flink/flink-docs-stable/docs/concepts/stateful-stream-processing/)
 - [Kafka deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/kafka)
 - [Rate limiting algorithms with code](https://blog.algomaster.io/p/rate-limiting-algorithms-explained-with-code)
+- [Redis HyperLogLog, with the error bound stated](https://redis.io/docs/latest/develop/data-types/probabilistic/hyperloglogs/)
+- [Count-Min Sketch, explained from scratch](https://florian.github.io/count-min-sketch/)
+- [Flink deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/flink) **(premium)**
 - [Data structures for big data](https://www.hellointerview.com/learn/system-design/deep-dives/data-structures-for-big-data) **(premium)**

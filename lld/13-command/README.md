@@ -24,7 +24,7 @@ class MoveCommand implements Command {
 class Game { private final Deque<Command> history = new ArrayDeque<>(); }
 ```
 
-The command stores enough state to reverse itself — the captured piece — which
+The command stores enough state to reverse itself, the captured piece, which
 is precisely why undo works.
 
 That's the design rule worth stating: **a command must capture, at execute time,
@@ -43,7 +43,7 @@ I'd use it when the action isn't cleanly invertible." It costs memory
 proportional to what you snapshot, so snapshot the smallest thing that works.
 
 **Compensate rather than undo.** For anything that touched the outside world you
-cannot undo at all — you can only do something that makes up for it. A refund is
+cannot undo at all. You can only do something that makes up for it. A refund is
 not the undo of a charge; it's a second, separate, forward action that leaves
 both in the ledger. Getting this distinction right is the whole of
 [hld/06-multi-step-processes](../../hld/06-multi-step-processes/), and saying it
@@ -87,7 +87,7 @@ current board to work out what to restore, it will be wrong the moment two
 commands touch the same square. Capture at execute, restore from the capture.
 
 **Undo that isn't symmetric.** If `execute` has a side effect that `undo` doesn't
-reverse — a counter incremented, an event published — the history lies. Either
+reverse, a counter incremented or an event published, the history lies. Either
 make both symmetric or don't put that side effect in a command.
 
 ---
@@ -109,9 +109,9 @@ event-sourcing point made concrete.
 |---|---|
 | [Chess Game](https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/chess-game.md) | Move, undo, and a full move history. Also good practice for modelling piece movement rules. |
 | [Task Management System](https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/task-management-system.md) | Every mutation as a command, giving you undo and an audit trail for free. |
-| [Digital Wallet Service](https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/digital-wallet-service.md) | Transactions as commands with compensating actions — the LLD shadow of a saga. |
+| [Digital Wallet Service](https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/digital-wallet-service.md) | Transactions as commands with compensating actions: the LLD shadow of a saga. |
 
 ## Read
 
-- [Refactoring Guru — Command](https://refactoring.guru/design-patterns/command)
-- [AlgoMaster — Command](https://algomaster.io/learn/lld/command)
+- [Refactoring Guru: Command](https://refactoring.guru/design-patterns/command)
+- [AlgoMaster: Command](https://algomaster.io/learn/lld/command)

@@ -1,7 +1,7 @@
 # State
 
 **The signal:** an enum field plus if-else scattered across five methods, all
-asking "what state am I in?" — or the requirements read as a lifecycle.
+asking "what state am I in?", or the requirements read as a lifecycle.
 
 **What it fixes:** illegal transitions. With State they become impossible to
 express, instead of being guarded by conditionals you have to remember to write.
@@ -31,7 +31,7 @@ new file and nothing else.
 
 ## Draw the diagram first
 
-States as boxes, events as labelled arrows. Interviewers grade that diagram — it
+States as boxes, events as labelled arrows. Interviewers grade that diagram. It
 proves you found the transitions before you started typing, and it makes the
 missing ones obvious.
 
@@ -48,7 +48,7 @@ missing ones obvious.
 ```
 
 The transition candidates forget is the **refund path** from `HAS_MONEY` back to
-`IDLE`. Ask about it unprompted — "what happens if they change their mind after
+`IDLE`. Ask about it unprompted: "what happens if they change their mind after
 putting money in" is a requirements question, and asking it in minute three is a
 senior move.
 
@@ -57,7 +57,7 @@ senior move.
 Two schools, and you should have an opinion with a reason attached.
 
 **Each state decides its own next state** (what's implemented here). Easy to
-extend — a new state is a new file, and you never touch the existing ones. Harder
+extend, because a new state is a new file, and you never touch the existing ones. Harder
 to audit, because the full transition map only exists by reading every class.
 
 **A central transition table** mapping `(state, event) -> state`:
@@ -92,7 +92,7 @@ caller, or the object?
 ## The interview trap
 
 Don't put `Machine` state transitions in `Machine`. The whole gain is that
-`Machine` becomes dumb — it holds the balance, the inventory, and a reference to
+`Machine` becomes dumb. It holds the balance, the inventory, and a reference to
 the current state, and delegates every event. If `Machine` still has a switch in
 it, you've written the enum version with extra classes.
 
@@ -118,6 +118,6 @@ item.
 
 ## Read
 
-- [Refactoring Guru — State](https://refactoring.guru/design-patterns/state)
-- [AlgoMaster — State](https://algomaster.io/learn/lld/state)
+- [Refactoring Guru: State](https://refactoring.guru/design-patterns/state)
+- [AlgoMaster: State](https://algomaster.io/learn/lld/state)
 - [State machine diagram](https://algomaster.io/learn/lld/state-machine-diagram)

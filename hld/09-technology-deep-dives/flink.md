@@ -1,7 +1,7 @@
 # Flink, in my own words
 
 > **How to fill this in.** Write every section yourself, from your own head,
-> without a documentation tab open. Five lines maximum per section — if it takes
+> without a documentation tab open. Five lines maximum per section. If it takes
 > more than five, you are describing rather than explaining, and an interviewer
 > will stop you before line six anyway. For each section also name one
 > alternative and say when you would pick it. Then finish the file with one

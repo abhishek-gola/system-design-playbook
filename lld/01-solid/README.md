@@ -6,7 +6,7 @@ Not the definitions. The moment in the code where each one earns its keep.
 existing class to add a new case.
 
 **What it fixes:** designs that work today and require surgery tomorrow. Every
-pattern later in this track is one of these principles made concrete — Strategy
+pattern later in this track is one of these principles made concrete: Strategy
 is OCP, Adapter is DIP, Chain of Responsibility is SRP applied to a long method.
 
 ---
@@ -28,7 +28,7 @@ class Logger {
 }
 ```
 
-### S — Single responsibility
+### S: Single responsibility
 
 Split by *reason to change*, not by noun. That distinction is the whole
 principle and it's where most explanations go wrong.
@@ -38,12 +38,12 @@ principle and it's where most explanations go wrong.
 | `LogMessage` | the shape of a log record changes |
 | `Formatter` | the output format changes |
 | `Sink` | the destination changes |
-| `Logger` | the orchestration changes — which is almost never |
+| `Logger` | the orchestration changes, which is almost never |
 
 Four things, four reasons. "One class one job" is a slogan; "one class one
 reason to change" is a test you can actually apply.
 
-### O — Open/closed
+### O: Open/closed
 
 Adding a Kafka sink is a new class implementing `Sink`, with zero edits to
 `Logger`.
@@ -52,7 +52,7 @@ The test to run in your head, out loud, in the interview: *can I name the file
 I'd create, and confirm I'd open no existing file?* If the answer involves
 editing a switch, you haven't got OCP yet.
 
-### L — Liskov substitution
+### L: Liskov substitution
 
 If `FileSink.write()` never throws on a closed sink, `BufferedFileSink.write()`
 mustn't either. Subtypes inherit the *contract*, not just the signature.
@@ -61,23 +61,23 @@ The violation always shows up the same way: a caller writing
 `if (sink instanceof SomethingSink)`. When you see that, the hierarchy is lying
 about what its members can do.
 
-### I — Interface segregation
+### I: Interface segregation
 
 Only file sinks need `rotate()`. Don't force a console sink to implement it and
-throw `UnsupportedOperationException` — that's an LSP violation you created by
+throw `UnsupportedOperationException`. That's an LSP violation you created by
 getting ISP wrong, which is a nice thing to be able to say out loud.
 
 Split it: `Sink` for everyone, `RotatableSink extends Sink` for the ones that
 can. Now the rotation scheduler takes `List<RotatableSink>` and the type system
 does the filtering.
 
-### D — Dependency inversion
+### D: Dependency inversion
 
 `Logger` holds `List<Sink>`, never `List<FileSink>`, and takes them through the
 constructor.
 
 The payoff is testing. The demo's last section builds a `Logger` over an
-`InMemorySink` and asserts on what it captured — no disk, no clock, no cleanup.
+`InMemorySink` and asserts on what it captured: no disk, no clock, no cleanup.
 If you can't unit-test a class without touching the filesystem, DIP is what
 you're missing.
 
@@ -92,12 +92,12 @@ instead of reciting an acronym.
 
 ## Also worth having an opinion on
 
-- **DRY** — deduplicate knowledge, not text. Two functions that look identical
+- **DRY.** Deduplicate knowledge, not text. Two functions that look identical
   but change for different reasons should stay two functions. Merging them is
   the most common self-inflicted coupling there is.
-- **KISS** — the design that is easy to delete beats the design that is easy to
+- **KISS.** The design that is easy to delete beats the design that is easy to
   extend, until you know which direction it will extend in.
-- **YAGNI** — an abstraction with one implementation is a guess. Interviewers
+- **YAGNI.** An abstraction with one implementation is a guess. Interviewers
   mark down speculative generality as fast as they mark down rigidity.
 
 ---

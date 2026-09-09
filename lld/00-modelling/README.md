@@ -8,18 +8,18 @@ model right, and getting the clock right.
 
 ---
 
-## Part 1 — Class relationships and the diagram
+## Part 1: Class relationships and the diagram
 
 **The signal:** you've been handed a paragraph of English and you need nouns,
 verbs, and lines between them.
 
 **What it fixes:** every LLD round starts here, and interviewers form their
-opinion of you in the first fifteen minutes — long before you write a pattern.
+opinion of you in the first fifteen minutes, long before you write a pattern.
 
 ### Parking lot, modelled with zero patterns
 
 Pull the nouns out first: `ParkingLot`, `Floor`, `Spot`, `Vehicle`, `Ticket`,
-`Gate`, `PricingRule`. Now the only question that matters — what kind of line
+`Gate`, `PricingRule`. Now the only question that matters: what kind of line
 joins each pair?
 
 - **Composition** (filled diamond): the part dies with the whole. A `Floor` has
@@ -33,7 +33,7 @@ joins each pair?
 
 Here's why this isn't academic. If `Spot` holds a reference to the parked
 `Vehicle`, you have one design. If the `Ticket` holds both the vehicle and the
-spot, you have a different one — and only the second supports several entry
+spot, you have a different one, and only the second supports several entry
 gates issuing tickets at once without the gates talking to each other. The line
 you draw *is* the design decision.
 
@@ -73,19 +73,19 @@ Gate ┈┈> PricingRule               (dependency: used inside a method, not he
 
 ---
 
-## Part 2 — The fifty-minute shape
+## Part 2: The fifty-minute shape
 
 **The signal:** the interviewer says "design a ride-hailing system" and then
 goes quiet.
 
-**What it fixes:** freezing, or the more common failure — spending thirty
+**What it fixes:** freezing, or the more common failure, spending thirty
 minutes on requirements and shipping two classes.
 
 ### The clock
 
 | Minutes | Phase | What belongs here |
 |---|---|---|
-| 0–8 | Requirements | Five questions, no more. Write the answers where the interviewer can see them. Then state two non-functional ones yourself — concurrency? persistence? scale? — because nobody volunteers those and asking makes you look senior. |
+| 0–8 | Requirements | Five questions, no more. Write the answers where the interviewer can see them. Then state two non-functional ones yourself (concurrency? persistence? scale?) because nobody volunteers those and asking makes you look senior. |
 | 8–15 | Entities and relationships | Say the object model out loud while you draw it. This is the checkpoint: get agreement here or you'll code the wrong thing. |
 | 15–22 | Interfaces and signatures | Method names and return types only, no bodies. If a signature feels awkward, the model is wrong and this is the cheapest moment to fix it. |
 | 22–45 | Code, top down | Interfaces first, then the two or three classes with real logic. Stub the boring ones out loud: "I'd have a standard repository behind this, let me skip it unless you want to see it." |
@@ -94,7 +94,7 @@ minutes on requirements and shipping two classes.
 ### Two hard rules
 
 Never start coding before minute 15. Never still be designing at minute 25. Set
-a timer on every practice run until the pacing is automatic — it's the single
+a timer on every practice run until the pacing is automatic. It's the single
 highest-return habit on this sheet.
 
 ### Narrate
@@ -114,7 +114,7 @@ tickets do."
 
 The demo parks a bike and two cars, watches the second car take the only truck
 bay because nothing smaller is free, and then turns a truck away. That last bit
-is not a contrivance — smallest-fit allocation is greedy and starves large
+is not a contrivance: smallest-fit allocation is greedy and starves large
 vehicles, and noticing it unprompted is exactly the kind of thing that separates
 a modelled design from a copied one.
 
@@ -141,4 +141,4 @@ Timed runs for the pacing half: [Vending Machine](https://github.com/ashishps1/a
 - [Class diagram notation](https://algomaster.io/learn/lld/class-diagram)
 - [Association / aggregation / composition](https://algomaster.io/learn/lld/composition)
 - [How to answer an LLD problem](https://blog.algomaster.io/p/how-to-answer-a-lld-interview-problem)
-- [Hello Interview — how to prepare for LLD](https://www.hellointerview.com/blog/how-to-prepare-lld)
+- [Hello Interview: how to prepare for LLD](https://www.hellointerview.com/blog/how-to-prepare-lld)

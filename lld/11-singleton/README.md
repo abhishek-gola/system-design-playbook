@@ -1,6 +1,6 @@
 # Singleton, done properly
 
-**The signal:** exactly one instance must exist — a registry, a connection pool,
+**The signal:** exactly one instance must exist: a registry, a connection pool,
 a config holder.
 
 **What it fixes:** almost nothing, honestly. It's here because interviewers ask,
@@ -29,7 +29,7 @@ class Config {
 enum Config { INSTANCE; }
 ```
 
-There's a fourth worth knowing — the **holder idiom** — which gets you laziness
+There's a fourth worth knowing, the **holder idiom**, which gets you laziness
 with no synchronisation at all by leaning on the class loader:
 
 ```java
@@ -51,7 +51,7 @@ non-null reference to a **partially constructed object**, because the assignment
 to `i` and the constructor's writes to the object's fields can be reordered.
 
 That sentence is the answer they're fishing for. The longer version, if they
-want it: `i = new Config()` is really three steps — allocate, run the
+want it: `i = new Config()` is really three steps: allocate, run the
 constructor, publish the reference. The JVM is allowed to reorder steps two and
 three, so a second thread can see a non-null `i` whose fields are still zero.
 `volatile` inserts the happens-before edge that forbids it.
@@ -65,7 +65,7 @@ They'll ask why it's considered an anti-pattern. Answer both sides:
 
 **Against:** global mutable state, hidden dependencies (a class using a
 singleton doesn't declare that it does), and code you can't unit-test in
-isolation — two tests share the instance and start affecting each other through
+isolation, because two tests share the instance and start affecting each other through
 it.
 
 **For:** some things genuinely are one per process, and a connection pool that
@@ -91,8 +91,8 @@ and none of them are the Singleton pattern" is a good line.
 
 Two tests pass individually and fail together. That's the tell, and it's almost
 always shared singleton state that one test mutated. The fix is never a
-`reset()` method on the singleton, because now you have to remember to call it —
-it's injection.
+`reset()` method on the singleton, because now you have to remember to call it.
+It's injection.
 
 ---
 
@@ -111,10 +111,10 @@ through serialisation while a hand-rolled singleton does not.
 | Problem | What to watch for |
 |---|---|
 | Thread-safe configuration manager | All four implementations, then explain the `volatile`. [Reference](https://refactoring.guru/design-patterns/singleton/java/example) |
-| [Parking Lot](https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/parking-lot.md) | The `ParkingLot` itself is the usual singleton in this problem — and a good place to argue for injection instead. See [lld/00-modelling](../00-modelling/), which deliberately doesn't make it one. |
+| [Parking Lot](https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/parking-lot.md) | The `ParkingLot` itself is the usual singleton in this problem, and a good place to argue for injection instead. See [lld/00-modelling](../00-modelling/), which deliberately doesn't make it one. |
 | [Logging Framework](https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/logging-framework.md) | The logger registry is a real singleton. The logger itself should not be. |
 
 ## Read
 
-- [Refactoring Guru — Singleton](https://refactoring.guru/design-patterns/singleton)
-- [AlgoMaster — Singleton](https://algomaster.io/learn/lld/singleton)
+- [Refactoring Guru: Singleton](https://refactoring.guru/design-patterns/singleton)
+- [AlgoMaster: Singleton](https://algomaster.io/learn/lld/singleton)

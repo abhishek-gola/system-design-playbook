@@ -15,50 +15,50 @@ automatic.
 
 ## The ten
 
-**Template Method** — several flows share a skeleton and differ in two steps.
+**Template Method.** Several flows share a skeleton and differ in two steps.
 A base class fixes the order with a `final` method; subclasses fill the gaps.
 Prefer Strategy unless the skeleton is genuinely immutable. You have already
 seen this: `RiskCheck.handle()` in
 [07-chain-of-responsibility](../07-chain-of-responsibility/) is `final` for
 exactly this reason.
 
-**Proxy** — stand in front of an object to add lazy loading, caching, access
+**Proxy.** Stand in front of an object to add lazy loading, caching, access
 control or a remote call, without the caller knowing. Structurally identical to
 Decorator; the difference is intent, and the answer to "how are they different"
 is *controlling access* versus *adding a feature*.
 
-**Facade** — one simple entry point over a messy subsystem. You've written
+**Facade.** One simple entry point over a messy subsystem. You've written
 dozens without naming it. The test that it's a real facade and not just a class:
 callers can still reach past it if they need to.
 
-**Iterator** — traverse a collection without exposing its internals. Java's
+**Iterator.** Traverse a collection without exposing its internals. Java's
 `Iterable` is this, so an interview question here is always about writing a
 custom one, usually over a tree or a paginated API.
 
-**Flyweight** — share immutable intrinsic state across many objects to save
-memory. The split that matters is intrinsic (shared, immutable — a chess piece's
-colour and kind) versus extrinsic (passed in per use — which square it's on).
+**Flyweight.** Share immutable intrinsic state across many objects to save
+memory. The split that matters is intrinsic (shared and immutable, like a chess piece's
+colour and kind) versus extrinsic (passed in per use, like which square it's on).
 Java's `Integer.valueOf` cache is a flyweight you use daily.
 
-**Bridge** — two dimensions varying independently (shape × renderer). Prevents a
+**Bridge.** Two dimensions varying independently (shape × renderer). Prevents a
 class explosion when you'd otherwise multiply the hierarchies. The difference
 from Strategy: Bridge is a design decision made up front about the shape of the
 whole hierarchy; Strategy is one varying behaviour inside one class.
 
-**Mediator** — objects that would otherwise all reference each other talk
+**Mediator.** Objects that would otherwise all reference each other talk
 through a hub instead. Air traffic control, chat rooms. It turns an n-squared
 mesh into n spokes, and the cost is a hub that slowly becomes a god object,
 which is worth naming.
 
-**Memento** — snapshot and restore an object's state without exposing its
+**Memento.** Snapshot and restore an object's state without exposing its
 internals. The alternative to Command-based undo when the action isn't cleanly
 reversible. See [13-command](../13-command/).
 
-**Prototype** — clone an existing object rather than constructing one, when
+**Prototype.** Clone an existing object rather than constructing one, when
 construction is expensive. In Java the honest note is that `Cloneable` is
 broken by design and a copy constructor is what you'd actually write.
 
-**Visitor** — add operations to a stable class hierarchy without editing it.
+**Visitor.** Add operations to a stable class hierarchy without editing it.
 Rare in interviews, common in compilers. The trade-off to state: it makes new
 *operations* cheap and new *node types* expensive, which is the exact opposite
 of ordinary polymorphism. Pairs naturally with

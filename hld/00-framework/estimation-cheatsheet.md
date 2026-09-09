@@ -5,7 +5,7 @@ can change a design decision inside the five minutes you're allowed for maths.
 Anything that can't change a decision has been left out on purpose.
 
 Two rules before the tables. Round everything to one significant figure and to
-powers of ten — you are looking for the order of magnitude, and precision you
+powers of ten. You are looking for the order of magnitude, and precision you
 can't justify wastes the clock. And say the conclusion, not the arithmetic:
 "that's about 30,000 reads a second at peak, so the primary alone won't do it"
 is the sentence that earns the time you just spent.
@@ -23,7 +23,7 @@ is the sentence that earns the time you just spent.
 Two more that come up in ID design: 2^32 is about 4.3 billion, which is why a
 32-bit user ID is not enough for a global consumer product, and 2^63 is about
 9.2 × 10^18, which is why a signed 64-bit ID is enough for anything you will
-ever build. A base62 short code of length 7 gives 62^7, about 3.5 × 10^12 —
+ever build. A base62 short code of length 7 gives 62^7, about 3.5 × 10^12,
 plenty for a URL shortener, and worth knowing because it is the one calculation
 Bitly always asks for.
 
@@ -31,7 +31,7 @@ Bitly always asks for.
 
 | Interval | Exact seconds | Use |
 |---|---|---|
-| One day | 86,400 | **100,000** — this single substitution is most of back-of-envelope maths |
+| One day | 86,400 | **100,000**, the single substitution that is most of back-of-envelope maths |
 | One month | ~2,600,000 | 2.5 million |
 | One year | ~31,500,000 | 30 million |
 
@@ -41,7 +41,7 @@ than that you got it wrong.
 
 ## Latency numbers every programmer should know
 
-The classic table. Treat these as shape rather than as measurements — the
+The classic table. Treat these as shape rather than as measurements. The
 hardware has moved on since they were written, particularly for SSDs and network
 round trips, but the ratios between the lines are what you actually reason with.
 
@@ -69,7 +69,7 @@ The three conclusions you should be able to draw from this table on demand:
   why "add Redis" is a real answer rather than a reflex.
 - **A cross-region round trip costs more than everything else in your request
   combined.** If your p99 budget is 200 ms and one call crosses an ocean, the
-  design is already finished — you either move the data or accept the latency,
+  design is already finished: you either move the data or accept the latency,
   and no amount of tuning inside the datacentre matters.
 - **Sequential beats random by a lot on every storage medium.** That is why
   LSM trees exist, why batching writes wins, and why appending to a log is the
@@ -113,7 +113,7 @@ peak QPS    = average QPS × 2 to 3
 The peak multiplier is a modelling assumption, so say it out loud rather than
 smuggling it in: "I'll assume peak is three times average, which is typical for
 a consumer app with one time zone dominating." If the product is genuinely
-spiky — ticket sales, live sport, a flash sale — the multiplier is not 3, it is
+spiky (ticket sales, live sport, a flash sale), the multiplier is not 3, it is
 20 or 100, and that changes the design from "size for peak" to "queue and shed",
 which is the whole point of asking.
 
@@ -167,7 +167,7 @@ architecture: this is a read-scaling problem, the write path can stay boring,
 and anyone who spends the deep dive on write throughput has misread the prompt.
 
 **Storage.** A row is a 7-byte code, a URL at about 100 bytes, an 8-byte owner
-ID, and two 8-byte timestamps — roughly 130 bytes, so call it 200 with overhead
+ID, and two 8-byte timestamps, so roughly 130 bytes, so call it 200 with overhead
 and the index on the short code. At 1 million rows a day that's 200 MB a day, 73
 GB a year, under 400 GB over five years.
 
@@ -190,8 +190,8 @@ senior signal.
 ## When to skip the maths entirely
 
 If the interviewer has already given you the scale, don't re-derive it. If the
-system is internal and bounded — a company's own metrics, a school's timetable,
-a warehouse's inventory — say "this is small enough that a single Postgres
+system is internal and bounded (a company's own metrics, a school's timetable,
+a warehouse's inventory), say "this is small enough that a single Postgres
 instance handles it, so I'll spend the time on the concurrency instead" and move
 on. Choosing not to estimate, with a reason, reads as judgement. Estimating
 because the script said to reads as ritual.

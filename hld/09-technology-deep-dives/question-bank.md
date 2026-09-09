@@ -2,7 +2,7 @@
 
 Every question from the [README](README.md), flat, with nothing else on the
 page. Read one, answer it out loud as though someone is listening, tick it off.
-Do not read the notes in the README first — the point of this page is to find
+Do not read the notes in the README first. The point of this page is to find
 out what comes out under no warning.
 
 Anything you hedge on, waffle through, or answer with a config setting instead

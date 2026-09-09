@@ -1,7 +1,7 @@
 # Builder
 
 **The signal:** a constructor with more than about four parameters, several of
-them optional — or you need the object to be immutable once built.
+them optional, or you need the object to be immutable once built.
 
 **What it fixes:** telescoping constructors, and objects that can exist in an
 invalid half-built state.
@@ -22,7 +22,7 @@ Order o = new Order.Builder(customerId)
 ```
 
 The part that scores is `build()`. That's where "a coupon requires cart value
-above ₹199" and "scheduled slots must be at least 30 minutes out" belong — one
+above ₹199" and "scheduled slots must be at least 30 minutes out" belong: one
 place, checked once, before the object exists.
 
 Scatter those checks across setters and you get an object that's valid halfway
@@ -44,11 +44,11 @@ the problem when there are ten.
 
 ## Two variants worth knowing
 
-**Static nested builder** (Effective Java style) — what's implemented here and
+**Static nested builder** (Effective Java style) is what's implemented here and
 what you'll write in Java. Required fields go in the builder's constructor,
 optional ones in `withX()` methods.
 
-**Step builder** — forces the required fields first by returning a *different
+**Step builder** forces the required fields first by returning a *different
 interface* at each step, so the compiler won't let you call `build()` early:
 
 ```java
@@ -86,7 +86,7 @@ return type with a long parameter list means builder.
 ```
 
 Builds a valid order, then tries four invalid ones and prints why each was
-refused. Note that every failure happens at `build()` — there is no moment where
+refused. Note that every failure happens at `build()`. There is no moment where
 a broken `Order` exists.
 
 ## Practice
@@ -99,5 +99,5 @@ a broken `Order` exists.
 
 ## Read
 
-- [Refactoring Guru — Builder](https://refactoring.guru/design-patterns/builder)
-- [AlgoMaster — Builder](https://algomaster.io/learn/lld/builder)
+- [Refactoring Guru: Builder](https://refactoring.guru/design-patterns/builder)
+- [AlgoMaster: Builder](https://algomaster.io/learn/lld/builder)

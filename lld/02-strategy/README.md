@@ -1,6 +1,6 @@
 # Strategy
 
-**The signal:** the requirement says "should support multiple ways to ___" —
+**The signal:** the requirement says "should support multiple ways to ___":
 pricing rules, split methods, eviction policies, matching algorithms. Or you're
 looking at a `switch` that picks an algorithm.
 
@@ -8,7 +8,7 @@ looking at a `switch` that picks an algorithm.
 Without it, every new algorithm means editing the same class again.
 
 This is the single highest-value pattern on the track. Learn it first, and learn
-it on a rate limiter — it is small enough to finish, and the follow-up questions
+it on a rate limiter. It is small enough to finish, and the follow-up questions
 are the same ones every Strategy problem asks.
 
 ---
@@ -49,7 +49,7 @@ That answer is the entire reason they asked this question.
 | **Token bucket** | two numbers | allows a controlled burst up to capacity | none |
 
 Token bucket is the default answer for an API gateway: cheap, and the burst is
-usually a feature rather than a bug — clients retry in clusters and you'd rather
+usually a feature rather than a bug, because clients retry in clusters and you'd rather
 absorb that than reject it.
 
 Sliding window log is what you pick when the limit is a contractual promise (a
@@ -65,7 +65,7 @@ Say that boundary flaw out loud before the interviewer finds it.
 A `Comparator` passed to `sort`. A `Predicate` passed to `filter`. Spring
 injecting one of three beans by profile. `ThreadPoolExecutor` taking a
 `RejectedExecutionHandler`. You have almost certainly been using this pattern
-for years without calling it that — the interview just wants you to name it.
+for years without calling it that. The interview just wants you to name it.
 
 ## Strategy vs State
 
@@ -95,7 +95,7 @@ not in the strategy.
 ```
 
 All three algorithms, driven by a fake clock so the output is the same every
-time. The demo ends by swapping one route's algorithm at runtime — that's the
+time. The demo ends by swapping one route's algorithm at runtime, which is the
 follow-up question, answered in one line.
 
 Note the `Ticker` interface: time is injected, not read from
@@ -112,6 +112,6 @@ only reason a rate limiter is testable without sleeping.
 
 ## Read
 
-- [Refactoring Guru — Strategy](https://refactoring.guru/design-patterns/strategy)
-- [AlgoMaster — Strategy](https://algomaster.io/learn/lld/strategy)
+- [Refactoring Guru: Strategy](https://refactoring.guru/design-patterns/strategy)
+- [AlgoMaster: Strategy](https://algomaster.io/learn/lld/strategy)
 - [Rate limiting algorithms with code](https://blog.algomaster.io/p/rate-limiting-algorithms-explained-with-code)

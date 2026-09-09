@@ -2,7 +2,7 @@
 
 **The signal:** it's written on your CV.
 
-**What it fixes:** the worst outcome available to you in an interview — being
+**What it fixes:** the worst outcome available to you in an interview, which is being
 caught shallow on the thing you listed as your specialism.
 
 Everything on that page is fair game for a forty-minute interrogation. Kafka and
@@ -23,8 +23,8 @@ because writing is where you find out which parts you were quietly skipping.
 
 Two failure modes to recognise in yourself while you draft:
 
-- **Recipe knowledge.** You know the config that fixed it — `acks=all`,
-  `min.insync.replicas=2` — but not what it is protecting you from, so the first
+- **Recipe knowledge.** You know the config that fixed it, `acks=all`,
+  `min.insync.replicas=2`, but not what it is protecting you from, so the first
   "why does that help?" leaves you repeating the setting louder.
 - **Documentation recall.** You can define a watermark. You cannot say what
   went wrong on your own pipeline that made you care about one.
@@ -37,7 +37,7 @@ For each technology, prepare one story: something that broke in production, why,
 and what you changed. "We had consumer lag spike during a promo because one
 partition was hot on a popular restaurant ID" beats any amount of documentation
 recall, and nobody who has not run these systems can produce it. It also changes
-the shape of the conversation — you stop being examined and start being
+the shape of the conversation. You stop being examined and start being
 consulted, which is exactly the register a senior candidate wants.
 
 Keep the story to sixty seconds and make sure it has a diagnosis in the middle,
@@ -50,7 +50,7 @@ consumers"; it is how you worked out which of the four plausible causes it was.
 
 Four sections, one per technology, matching the four template files. Under each
 question is a short note on the ground a good answer has to cover. The notes
-deliberately stop short of answering — you writing the answer is the entire
+deliberately stop short of answering, because you writing the answer is the entire
 exercise, and an answer you read here would be in someone else's words when you
 need it in yours.
 
@@ -69,7 +69,7 @@ sets up your hot-partition story.
 
 Cover the group coordinator noticing, the reassignment, and what happens to
 records that were processed but whose offsets were never committed. Then the
-part most candidates miss: what a rebalance costs you in practice — how long
+part most candidates miss: what a rebalance costs you in practice: how long
 consumption stops, and what a slow processing loop does to
 `max.poll.interval.ms`. Naming cooperative rebalancing as the improvement is a
 good place to land.
@@ -115,8 +115,8 @@ with the decision you actually took.
 **"Why does Flink make you choose a time semantic at all? Which one do you use,
 and why?"**
 
-Cover determinism — whether re-running the job over the same data has to give
-the same answer — and what that means for backfills. Then be honest about the
+Cover determinism, whether re-running the job over the same data has to give
+the same answer, and what that means for backfills. Then be honest about the
 price of event time, which is waiting, and name the case in your own system
 where processing time was the right call because the result was an alert rather
 than a number anyone reconciles.
@@ -161,7 +161,7 @@ you?"**
 
 "It's in memory" is half an answer and interviewers know it, so cover the rest:
 no lock contention, no context switching, and commands that are individually
-tiny. The second half is where the marks are — one slow command blocks every
+tiny. The second half is where the marks are: one slow command blocks every
 other client, so name the commands that can do that and what you do instead.
 Threaded I/O in recent versions is worth mentioning only if you are precise
 about what it does and does not parallelise.
@@ -169,7 +169,7 @@ about what it does and does not parallelise.
 **"Which structure would you use for this, and why not a sorted set?"**
 
 Have three or four concrete pairings ready from your own work rather than a tour
-of the docs — the sliding-window counter, the compact object with field-level
+of the docs: the sliding-window counter, the compact object with field-level
 updates, the stream with consumer groups, the approximate unique count. For the
 probabilistic one, state the error and the memory in the same breath, and say
 what you permanently give up by using it.
@@ -188,7 +188,7 @@ a counter someone bills against it plainly is not.
 Cover hash slots and how a key maps to one, why multi-key operations need every
 key in the same slot, and hash tags as the deliberate fix. Then resharding: what
 moves, what a client sees while it moves, and what that does to a live
-workload — that last part is the bit that sounds like experience.
+workload. That last part is the bit that sounds like experience.
 
 **"How do you make a read-modify-write atomic? And would you use Redlock for a
 distributed lock?"**
@@ -224,23 +224,23 @@ Cover the per-partition ceiling, and treat adaptive capacity and burst as
 mitigations rather than a fix. Then write sharding, and a cache on the read
 side. Finish on on-demand versus provisioned as a cost and predictability
 decision, including how autoscaling behaves on a spike that arrives faster than
-it reacts — which, on a food delivery platform, is every promotion.
+it reacts, which on a food delivery platform is every promotion.
 
 ---
 
 ## How to work this folder
 
 Four templates sit next to this file, one per technology. Fill each one in your
-own words, five lines maximum per section — the limit is the point, because
+own words, five lines maximum per section. The limit is the point, because
 anything you cannot compress to five lines you do not yet understand well
 enough. Then finish every file with one production story.
 
-- [kafka.md](kafka.md) — includes a worked example story, clearly marked, so you
+- [kafka.md](kafka.md): includes a worked example story, clearly marked, so you
   can see the shape expected before you write your own.
 - [flink.md](flink.md)
 - [redis.md](redis.md)
 - [dynamodb.md](dynamodb.md)
-- [question-bank.md](question-bank.md) — the flat list of every question above,
+- [question-bank.md](question-bank.md): the flat list of every question above,
   with nothing else on the page. Read one, answer it out loud, tick it off. Any
   question where you hear yourself hedging goes back into the template.
 
@@ -257,9 +257,10 @@ follow-up in the signature design round.
 ## Read
 
 - [Kafka deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/kafka)
-- [Flink deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/flink) **(premium)**
 - [Redis deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/redis)
 - [DynamoDB deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/dynamodb)
+- [Flink: stateful stream processing, the free source for the same ground](https://nightlies.apache.org/flink/flink-docs-stable/docs/concepts/stateful-stream-processing/)
+- [Flink deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/flink) **(premium)**
 
 ## Practice
 
@@ -267,4 +268,8 @@ follow-up in the signature design round.
 |---|---|
 | [Write up Kafka in your own words](https://www.hellointerview.com/learn/system-design/deep-dives/kafka) **(core)** | One page. Then find the two things you couldn't explain and fix those. |
 | [Write up Redis internals in your own words](https://www.hellointerview.com/learn/system-design/deep-dives/redis) **(core)** | The cheapest conversion of recipe knowledge into model knowledge you'll get this quarter. |
-| [Write up Flink and one production story](https://www.hellointerview.com/learn/system-design/deep-dives/flink) **(core)** **(premium)** | Event time, watermarks, checkpointing — plus the incident that taught you each. |
+| [Write up Flink and one production story](https://www.hellointerview.com/learn/system-design/deep-dives/flink) **(core)** **(premium)** | Event time, watermarks, checkpointing, plus the incident that taught you each. |
+
+A solution marked **(premium)** is behind Hello Interview's paywall. The problem
+itself is free to attempt, and the folder above is a worked answer to the same
+hard part.

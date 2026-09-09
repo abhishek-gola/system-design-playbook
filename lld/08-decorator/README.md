@@ -1,7 +1,7 @@
 # Decorator
 
 **The signal:** features stack in combinations, and doing it with inheritance
-would need a class per combination — `RetryingLoggingEncryptedSink` and friends.
+would need a class per combination, `RetryingLoggingEncryptedSink` and friends.
 
 **What it fixes:** combinatorial explosion of subclasses.
 
@@ -27,8 +27,8 @@ Notifier n = new RetryingNotifier(
                      new MetricsNotifier(new EmailNotifier())));
 ```
 
-The defining property is that a decorator **takes the interface it implements**
-— same in, same out. That's what lets them nest in any order, and it's the
+The defining property is that a decorator **takes the interface it implements**:
+same in, same out. That's what lets them nest in any order, and it's the
 answer to "how is this different from just wrapping it in a helper class?"
 
 Four features would be sixteen subclasses with inheritance. Here they're four
@@ -49,7 +49,7 @@ want is the real skill.
 The demo runs all three against the same flaky transport and prints the
 counters, so you can see them come out differently. If someone asks you to
 design a client wrapper stack, "I'd put the retry inside the rate limiter so
-retries don't burn quota" is a very specific, very credible sentence — and the
+retries don't burn quota" is a very specific, very credible sentence, and the
 second row is why.
 
 ## Decorator vs Proxy
@@ -57,7 +57,7 @@ second row is why.
 Identical shape, different intent.
 
 A **decorator** adds behaviour the caller wants and knows about. A **proxy**
-controls access to something the caller can't or shouldn't reach directly — lazy
+controls access to something the caller can't or shouldn't reach directly: lazy
 loading, permission checks, a remote call.
 
 If asked, answer with intent, not structure. "Structurally they're the same; the
@@ -66,7 +66,7 @@ difference is whether I'm adding a feature or controlling access."
 ## Decorator vs middleware
 
 They're the same idea, and saying so is worth a mark. A servlet filter chain, an
-Express middleware stack, a gRPC interceptor list — all decorator, just built
+Express middleware stack, a gRPC interceptor list: all decorator, just built
 by a framework from a list instead of by you with constructors.
 
 Which suggests the variant worth showing if they push: build the stack from a
@@ -84,7 +84,7 @@ for (var layer : layers) n = layer.apply(n);
 
 A decorator that needs to know what it's wrapping isn't a decorator. If
 `RetryingNotifier` has to check `if (inner instanceof EmailNotifier)`, the
-abstraction is wrong — usually because the interface is too narrow and the
+abstraction is wrong, usually because the interface is too narrow and the
 decorator needs information the interface doesn't carry.
 
 Fix the interface, don't add the instanceof.
@@ -110,5 +110,5 @@ transport, and prints the resulting counters so you can see the ordering matter.
 
 ## Read
 
-- [Refactoring Guru — Decorator](https://refactoring.guru/design-patterns/decorator)
-- [AlgoMaster — Decorator](https://algomaster.io/learn/lld/decorator)
+- [Refactoring Guru: Decorator](https://refactoring.guru/design-patterns/decorator)
+- [AlgoMaster: Decorator](https://algomaster.io/learn/lld/decorator)

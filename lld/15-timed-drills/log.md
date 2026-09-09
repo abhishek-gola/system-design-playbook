@@ -1,7 +1,7 @@
 # Timed run log
 
 One row per run, filled in during the ten minutes after the timer stops. Do it
-while it's fresh — a note written the next morning is a summary of a summary.
+while it's fresh. A note written the next morning is a summary of a summary.
 
 The columns that matter are the last two. Everything else is context for them.
 

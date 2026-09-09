@@ -1,7 +1,7 @@
 # Low-level design
 
 Sixteen folders in study order. The sheet groups them into weekly steps; the
-mapping is below, because the grouping matters — the four in step 02 are the
+mapping is below, because the grouping matters: the four in step 02 are the
 ones that actually turn up in Indian LLD rounds, and everything in step 05 is
 there because interviewers ask, not because you'll use it.
 
@@ -52,7 +52,7 @@ English, and the job is to hear which pattern it's asking for.
 | "create the right kind of X based on Y" | Factory |
 | "a group behaves like a single one" | Composite |
 | "undo, replay, schedule for later" | Command |
-| "two users do this at the same time" | Not a pattern — see [10-concurrency](10-concurrency/) |
+| "two users do this at the same time" | Not a pattern. See [10-concurrency](10-concurrency/) |
 
 The last row is the one to watch for. Anything with booking, seats, inventory,
 balance or a counter is a concurrency question wearing a pattern costume, and

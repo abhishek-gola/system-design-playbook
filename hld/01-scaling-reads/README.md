@@ -1,6 +1,6 @@
 # Read-heavy systems
 
-**The signal:** the read-to-write ratio is lopsided — ten to one or worse — or
+**The signal:** the read-to-write ratio is lopsided, ten to one or worse, or
 many users fetch the same object.
 
 **What it fixes:** a primary database melting under traffic that is almost
@@ -38,7 +38,7 @@ capacity problem. It is a read-throughput problem, and it has a ladder.
 
 Skipping straight past the index to Redis is a common mistake and interviewers
 notice. State the index, say it is probably enough for the write path, and move
-on in one sentence — you get the credit without spending the time.
+on in one sentence. You get the credit without spending the time.
 
 The cache here wants a long TTL precisely because entries are immutable. Hit
 rates are extreme: the top few percent of links are most of the traffic, which
@@ -84,14 +84,14 @@ sixteen queries, for one key. The standard fixes, in the order I would offer
 them:
 
 - **Single flight.** One request refills, the others wait for it and take the
-  result. Cheap, exact, and it is the demo's part (c) — sixteen threads, one
+  result. Cheap, exact, and it is the demo's part (c): sixteen threads, one
   query.
 - **Probabilistic early expiry.** Each reader, as the TTL approaches, refreshes
   early with a small and rising probability. The value is refilled before it
   ever expires, so no caller ever waits.
 - **Serve stale while revalidating.** Return the expired value immediately and
   refresh in the background. Best latency of the three, and only available when
-  a slightly stale answer is acceptable — for an immutable short link, it always
+  a slightly stale answer is acceptable. For an immutable short link, it always
   is.
 
 ### Read-your-writes
@@ -105,7 +105,7 @@ cookie and let the router pick a replica that has caught up. The first is what I
 would do; the third is what I would mention to show I know the general form.
 
 > **The write problem hiding inside.** Click analytics. Do not increment a
-> counter row per click — that's a write-scaling problem in disguise, and it
+> counter row per click. That's a write-scaling problem in disguise, and it
 > belongs on the aggregation path in
 > [07-aggregation-and-counting](../07-aggregation-and-counting/).
 
@@ -123,8 +123,8 @@ sounds like experience.
 Reaching for the cache before knowing the hit rate. A cache in front of a
 uniform access pattern with no repeats does nothing except add a network hop and
 a new failure mode. The value of a cache is entirely a property of the traffic
-distribution, so the sentence to say is "reads are heavily skewed — the top few
-percent of keys are most of the traffic — so a cache with a modest memory
+distribution, so the sentence to say is "reads are heavily skewed, the top few
+percent of keys are most of the traffic, so a cache with a modest memory
 footprint gets a very high hit rate here". If you can't say something like that,
 you can't justify the box.
 
@@ -143,7 +143,7 @@ unspecified TTL is an unspecified consistency model.
 Four experiments on the same cache-aside cache, printing the only number that
 matters: how many times the database was actually asked.
 
-- **(a)** one key, six reads, two database loads — the ordinary case, and the
+- **(a)** one key, six reads, two database loads: the ordinary case, and the
   reason to cache at all.
 - **(b)** the same naive cache with sixteen threads arriving at the instant the
   key expires. Sixteen misses, sixteen queries.
@@ -157,7 +157,7 @@ which is also the answer to "how would you test this". The only real sleep is
 inside `FakeDatabase`, and it is there deliberately: a stampede is a race
 between finding nothing and putting something, so an instant query would leave
 no window to race in. Part (b) is the one number here that depends on thread
-scheduling — sixteen is what you should see, and an occasional fifteen on a busy
+scheduling. Sixteen is what you should see, and an occasional fifteen on a busy
 machine changes nothing about the point.
 
 The locking in `SingleFlightCache` is the same double-checked pattern that shows
@@ -172,8 +172,13 @@ the same idea as the `Ticker` in [lld/02-strategy](../../lld/02-strategy/).
 | [Design Instagram](https://www.hellointerview.com/learn/system-design/problem-breakdowns/instagram) **(core)** **(premium)** | Feed read path, media at the edge, and the celebrity problem. |
 | [Design a Distributed Cache](https://www.hellointerview.com/learn/system-design/problem-breakdowns/distributed-cache) **(premium)** | Building the cache rather than using it. Consistent hashing, eviction, replication. |
 
+A solution marked **(premium)** is behind Hello Interview's paywall. The problem
+itself is free to attempt, and the folder above is a worked answer to the same
+hard part.
+
 ## Read
 
-- [Pattern — scaling reads](https://www.hellointerview.com/learn/system-design/patterns/scaling-reads) **(premium)**
 - [Caching strategies](https://algomaster.io/learn/system-design/caching-strategies)
+- [System Design Primer: caching, and the four write strategies](https://github.com/donnemartin/system-design-primer#cache)
 - [Redis deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/redis)
+- [Pattern: scaling reads](https://www.hellointerview.com/learn/system-design/patterns/scaling-reads) **(premium)**

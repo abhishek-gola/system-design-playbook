@@ -35,7 +35,7 @@ saying so unprompted is worth a lot.
 ## Saga: local transactions plus compensations
 
 Each step commits locally and has a compensating action that undoes it. There is
-no rollback across the whole thing — there is a sequence of forward steps and a
+no rollback across the whole thing. There is a sequence of forward steps and a
 sequence of backward ones.
 
 The word to be careful with is rollback. A rollback un-happens a change and
@@ -63,14 +63,14 @@ Have a preference and give a reason. For payments, orchestration usually wins,
 because when a customer rings up you need to answer "where is this transaction
 right now" in under a second, and the coordinator's state row is that answer.
 Choreography is a better fit when the reactions are genuinely independent and
-nobody needs a single view — a user signing up and three services each doing
+nobody needs a single view: a user signing up and three services each doing
 their own unrelated setup.
 
 The version to avoid is choreography that has quietly become orchestration:
 services listening for each other's events in a fixed order that only works if
 you squint. That is an orchestrator with no owner, no state, and no name.
 
-## The outbox pattern — name it
+## The outbox pattern, and naming it
 
 Writing to your database and publishing to Kafka cannot be atomic. Whichever you
 do first, the process can die in the gap. Commit then publish and you lose the
@@ -79,7 +79,7 @@ then commit and you get the opposite, an event describing something that never
 happened, which is worse because it is confidently wrong.
 
 So write the event to an `outbox` table in the same local transaction as the
-business change, and have a relay — or change data capture on the table — publish
+business change, and have a relay, or change data capture on the table, publish
 it afterwards.
 
 ```sql
@@ -91,7 +91,7 @@ COMMIT;
 
 Now the event is guaranteed to be published exactly when the business change
 committed, and never otherwise. The relay can still crash between publishing and
-marking the row done, so the event may go out twice — which is fine, because
+marking the row done, so the event may go out twice, which is fine, because
 that was always going to be true and the consumer deduplicates.
 
 Polling relay or CDC: CDC adds no query load and no polling lag, which is why
@@ -105,7 +105,7 @@ What you actually get is at-least-once delivery plus idempotent consumers. Three
 mechanisms, and you should offer all three:
 
 **Idempotency keys on every mutating endpoint.** The key must be *derived*, not
-generated — from the order and the step, so a retry produces the same key. A
+generated: build it from the order and the step, so a retry produces the same key. A
 random key per attempt makes every retry a fresh charge, which is precisely the
 bug the mechanism exists to prevent. This is the single most common mistake in
 this area and it is easy to make.
@@ -124,7 +124,7 @@ was actually charged.
 
 **"What if the compensation itself fails?"** Retry it with backoff, and if it
 still fails, stop and leave the record for reconciliation. Do not keep
-compensating the earlier steps — while the money is in an unknown state you do
+compensating the earlier steps. While the money is in an unknown state you do
 not want to release the stock as well, because then you have taken a payment you
 cannot fulfil. Halting into a flagged state that a human or a repair job picks up
 is the correct answer, and the code here does exactly that.
@@ -151,7 +151,7 @@ the saga is wrong for that reason alone.
 A saga trades atomicity for availability, and pays for it with intermediate
 states the business has to accept. There will be a window where the money has
 been taken and the order is not yet confirmed, and no protocol removes that
-window — it only makes it shorter. So the design question is not how to eliminate
+window, it only makes it shorter. So the design question is not how to eliminate
 it but what the customer sees while it is open, and how quickly reconciliation
 closes it. Answer that and you sound like someone who has been on call for one of
 these.
@@ -159,7 +159,7 @@ these.
 ## The common mistake
 
 Reaching for two-phase commit. It exists, it gives you atomicity, and it does it
-by holding locks across services while a coordinator decides — which means one
+by holding locks across services while a coordinator decides, which means one
 slow participant blocks everybody, and a coordinator crash leaves locks held with
 nobody to release them. That is why nobody runs it across service boundaries, and
 saying so briefly is better than not mentioning it at all.
@@ -172,7 +172,7 @@ have drawn a workflow, not a saga.
 
 A command with an undo is a saga step without the network:
 [lld/13-command](../../lld/13-command/). Same interface, same reverse-order
-unwinding. What the network adds is ambiguity — in one process, if `execute`
+unwinding. What the network adds is ambiguity. In one process, if `execute`
 returned you know it ran, and across a network you don't. Every extra mechanism
 here exists to cope with that one difference.
 
@@ -205,8 +205,14 @@ then finds and repairs.
 | [Design Uber](https://www.hellointerview.com/learn/system-design/problem-breakdowns/uber) **(core)** | The ride lifecycle is a long saga with a matching problem bolted on. |
 | [Design a Local Delivery Service (GoPuff)](https://www.hellointerview.com/learn/system-design/problem-breakdowns/gopuff) | Inventory, order and fulfilment across warehouses. |
 
+A solution marked **(premium)** is behind Hello Interview's paywall. The problem
+itself is free to attempt, and the folder above is a worked answer to the same
+hard part.
+
 ## Read
 
-- [Pattern — multi-step processes](https://www.hellointerview.com/learn/system-design/patterns/multi-step-processes) **(premium)**
+- [Saga pattern, the canonical write-up](https://microservices.io/patterns/data/saga.html)
+- [Transactional outbox, the same source](https://microservices.io/patterns/data/transactional-outbox.html)
 - [Idempotency](https://algomaster.io/learn/system-design/idempotency)
 - [Read: how Airbnb avoids double payments](https://medium.com/airbnb-engineering/avoiding-double-payments-in-a-distributed-payments-system-2981f6b070bb)
+- [Pattern: multi-step processes](https://www.hellointerview.com/learn/system-design/patterns/multi-step-processes) **(premium)**

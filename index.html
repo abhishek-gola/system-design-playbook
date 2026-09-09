@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Design Sheet — LLD &amp; HLD</title>
+<title>The Design Sheet: LLD &amp; HLD</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -171,7 +171,7 @@ footer.end a:hover{color:var(--blue)}
 <header class="top">
   <div class="eyebrow">Companion sheet · Striver for design</div>
   <h1>The <em>Design</em> Sheet</h1>
-  <p class="sub">Low-level and high-level design, arranged the way a DSA sheet is: a pattern, the signal that tells you to reach for it, one worked example, three problems to practise on. Solutions are one click away — open them only after you've tried.</p>
+  <p class="sub">Low-level and high-level design, arranged the way a DSA sheet is: a pattern, the signal that tells you to reach for it, one worked example, three problems to practise on. Solutions are one click away. Open them only after you've tried.</p>
   <div class="tabs" role="tablist">
     <button class="tab" role="tab" id="tab-lld" aria-selected="true" data-track="lld">Low-level design<span class="n" id="n-lld"></span></button>
     <button class="tab" role="tab" id="tab-hld" aria-selected="false" data-track="hld">High-level design<span class="n" id="n-hld"></span></button>
@@ -196,8 +196,8 @@ footer.end a:hover{color:var(--blue)}
 <main id="board"></main>
 
 <footer class="end">
-  <p>Ticks are saved to this conversation. Core path = the subset that gets you to a passing design round; everything else is depth for when the week goes well.</p>
-  <p>The high-level track follows the pattern taxonomy from <a href="https://www.hellointerview.com/learn/system-design/in-a-hurry/introduction" target="_blank" rel="noopener">Hello Interview&rsquo;s <em>System Design in a Hurry</em></a> &mdash; scaling reads, scaling writes, real-time updates, long-running tasks, contention, multi-step processes and large blobs &mdash; along with their Redis, Kafka, Flink and DynamoDB deep dives. Counting and aggregation is split out into its own step here and large blobs is widened to cover geo and search, but the decomposition is theirs. Practice problems also point at <a href="https://github.com/ashishps1/awesome-low-level-design" target="_blank" rel="noopener">awesome-low-level-design</a>, <a href="https://algomaster.io" target="_blank" rel="noopener">AlgoMaster</a> and <a href="https://refactoring.guru/design-patterns" target="_blank" rel="noopener">Refactoring Guru</a>.</p>
+  <p>Ticks are saved in this browser. Core path = the subset that gets you to a passing design round; everything else is depth for when the week goes well.</p>
+  <p>The high-level track follows the pattern taxonomy from <a href="https://www.hellointerview.com/learn/system-design/in-a-hurry/introduction" target="_blank" rel="noopener">Hello Interview&rsquo;s <em>System Design in a Hurry</em></a>: scaling reads, scaling writes, real-time updates, long-running tasks, contention, multi-step processes and large blobs, along with their Redis, Kafka, Flink and DynamoDB deep dives. Counting and aggregation is split out into its own step here and large blobs is widened to cover geo and search, but the decomposition is theirs. Practice problems also point at <a href="https://github.com/ashishps1/awesome-low-level-design" target="_blank" rel="noopener">awesome-low-level-design</a>, <a href="https://algomaster.io" target="_blank" rel="noopener">AlgoMaster</a> and <a href="https://refactoring.guru/design-patterns" target="_blank" rel="noopener">Refactoring Guru</a>.</p>
   <p>A link tagged <span class="pw">premium</span> sits behind Hello Interview&rsquo;s paywall. Nothing on this sheet needs a paid account.</p>
 </footer>
 </div>
@@ -211,23 +211,23 @@ const LLD = [
   {
     id:"lld-uml", name:"Class relationships & the diagram", core:true,
     tell:"You've been handed a paragraph of English and you need nouns, verbs, and lines between them.",
-    fixes:"Every LLD round starts here, and interviewers form their opinion of you in the first fifteen minutes — long before you write a pattern.",
+    fixes:"Every LLD round starts here, and interviewers form their opinion of you in the first fifteen minutes, long before you write a pattern.",
     work:`<h4>Parking lot, modelled with zero patterns</h4>
-<p>Pull the nouns out first: <code>ParkingLot</code>, <code>Floor</code>, <code>Spot</code>, <code>Vehicle</code>, <code>Ticket</code>, <code>Gate</code>, <code>PricingRule</code>. Now the only question that matters — what kind of line joins each pair?</p>
+<p>Pull the nouns out first: <code>ParkingLot</code>, <code>Floor</code>, <code>Spot</code>, <code>Vehicle</code>, <code>Ticket</code>, <code>Gate</code>, <code>PricingRule</code>. Now the only question that matters: what kind of line joins each pair?</p>
 <ul>
 <li><b>Composition</b> (filled diamond): the part dies with the whole. A <code>Floor</code> has no meaning without its <code>ParkingLot</code>. A <code>Spot</code> has none without its floor.</li>
 <li><b>Aggregation</b> (hollow diamond): the part outlives the whole. A <code>Vehicle</code> exists before it parks and after it leaves.</li>
 <li><b>Association</b>: two objects that reference each other but neither owns the other. A <code>Ticket</code> points at a vehicle and a spot.</li>
 <li><b>Dependency</b> (dashed): you only touch it inside a method. <code>Gate</code> uses a <code>PricingRule</code> to compute a fee; it doesn't hold one as a field.</li>
 </ul>
-<p>Here's why this isn't academic. If <code>Spot</code> holds a reference to the parked <code>Vehicle</code>, you have one design. If the <code>Ticket</code> holds both the vehicle and the spot, you have a different one — and only the second supports several entry gates issuing tickets at once without the gates talking to each other. The line you draw <em>is</em> the design decision.</p>
+<p>Here's why this isn't academic. If <code>Spot</code> holds a reference to the parked <code>Vehicle</code>, you have one design. If the <code>Ticket</code> holds both the vehicle and the spot, you have a different one, and only the second supports several entry gates issuing tickets at once without the gates talking to each other. The line you draw <em>is</em> the design decision.</p>
 <h4>The test that settles most arguments</h4>
 <p>Ask: if I delete the container, should this object be deleted too? Yes means composition. No means aggregation. If you can't answer, you haven't understood the domain yet, and that's worth saying out loud rather than guessing.</p>
 <div class="flag"><b>Inheritance vs composition</b>An <code>ElectricCar extends Car</code> is a trap in almost every interview problem. Fuel type is a property, not a subtype. Reach for inheritance only when the subtype genuinely has different <em>behaviour</em>, and even then check whether an injected strategy would do it better.</div>`,
     learn:[
       {t:"Class diagram notation",u:"https://algomaster.io/learn/lld/class-diagram"},
       {t:"Association / aggregation / composition",u:"https://algomaster.io/learn/lld/composition"},
-      {t:"Concept && Coding — LLD playlist",u:"https://www.youtube.com/playlist?list=PL6W8uoQQ2c61X_9e6Net0WdYZidm7zooW"}
+      {t:"Concept && Coding: LLD playlist",u:"https://www.youtube.com/playlist?list=PL6W8uoQQ2c61X_9e6Net0WdYZidm7zooW"}
     ],
     practice:[
       {n:"Design Parking Lot",h:"Model it with no patterns at all first. Add them on a second pass and notice which ones the design asked for.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/parking-lot.md",core:true},
@@ -241,17 +241,17 @@ const LLD = [
     fixes:"Freezing, or the more common failure: spending thirty minutes on requirements and shipping two classes.",
     work:`<h4>The clock, and what belongs in each slice</h4>
 <ul>
-<li><b>0–8 min · requirements.</b> Five questions, no more. Write the answers as bullets where the interviewer can see them. Then state two non-functional ones yourself — concurrency? persistence? scale? — because nobody volunteers those and asking makes you look senior.</li>
+<li><b>0–8 min · requirements.</b> Five questions, no more. Write the answers as bullets where the interviewer can see them. Then state two non-functional ones yourself (concurrency? persistence? scale?) because nobody volunteers those and asking makes you look senior.</li>
 <li><b>8–15 min · entities and relationships.</b> Say the object model out loud while you draw it. This is the checkpoint: get agreement here or you'll code the wrong thing.</li>
 <li><b>15–22 min · interfaces and signatures.</b> Method names and return types only, no bodies. If a signature feels awkward, the model is wrong and this is the cheapest moment to fix it.</li>
 <li><b>22–45 min · code, top down.</b> Interfaces first, then the two or three classes with real logic in them. Stub the boring ones out loud: "I'd have a standard repository behind this, let me skip it unless you want to see it."</li>
 <li><b>45–50 min · the extension.</b> "How would you add X?" This is the question they're actually scoring, and a design built around the right pattern answers it in one sentence.</li>
 </ul>
-<div class="flag"><b>Two hard rules</b>Never start coding before minute 15. Never still be designing at minute 25. Set a timer on every practice run until the pacing is automatic — it's the single highest-return habit in this sheet.</div>
+<div class="flag"><b>Two hard rules</b>Never start coding before minute 15. Never still be designing at minute 25. Set a timer on every practice run until the pacing is automatic. It's the single highest-return habit in this sheet.</div>
 <p>One more thing: narrate. Silence reads as being stuck even when you're thinking clearly. Say what you're weighing, even if it's "I'm deciding whether pricing belongs on the ticket or the gate, and I'm leaning gate because pricing rules change more often than tickets do."</p>`,
     learn:[
       {t:"How to answer an LLD problem",u:"https://blog.algomaster.io/p/how-to-answer-a-lld-interview-problem"},
-      {t:"Hello Interview — how to prepare for LLD",u:"https://www.hellointerview.com/blog/how-to-prepare-lld"}
+      {t:"Hello Interview: how to prepare for LLD",u:"https://www.hellointerview.com/blog/how-to-prepare-lld"}
     ],
     practice:[
       {n:"Timed run: Design a Vending Machine",h:"50 minutes, blank file, no AI. Compare your class list to the reference afterwards, not during.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/vending-machine.md",core:true},
@@ -305,7 +305,7 @@ class Logger {
   items:[
   {
     id:"lld-strategy", name:"Strategy", core:true,
-    tell:"The requirement says \"should support multiple ways to ___\" — pricing rules, split methods, eviction policies, matching algorithms. Or you're looking at a switch that picks an algorithm.",
+    tell:"The requirement says \"should support multiple ways to ___\": pricing rules, split methods, eviction policies, matching algorithms. Or you're looking at a switch that picks an algorithm.",
     fixes:"Behaviour that varies independently of the thing using it. Without it, every new algorithm means editing the same class again.",
     work:`<h4>A rate limiter with swappable algorithms</h4>
 <p>Your domain, so make this one a signature answer.</p>
@@ -327,12 +327,12 @@ class RateLimiter {
 }</code></pre>
 <p>The follow-up is always the same: "now make the limit different per endpoint," or "now let ops change the algorithm without a deploy." You answer by keying strategies by route and loading the map from config. No <code>if</code> anywhere. That answer is the entire reason they asked this question.</p>
 <h4>Where it shows up when it isn't called Strategy</h4>
-<p>A <code>Comparator</code> passed to <code>sort</code>. A <code>Predicate</code> passed to <code>filter</code>. Spring injecting one of three beans by profile. You've been using this pattern for two years — the interview just wants you to name it.</p>
+<p>A <code>Comparator</code> passed to <code>sort</code>. A <code>Predicate</code> passed to <code>filter</code>. Spring injecting one of three beans by profile. You've been using this pattern for two years. The interview just wants you to name it.</p>
 <div class="flag"><b>Strategy vs State</b>Strategy is chosen from outside and never changes itself. State changes itself. If the object flips its own behaviour as events arrive, you want State, and confusing the two in an interview is a common tell.</div>`,
     learn:[
-      {t:"Refactoring Guru — Strategy",u:"https://refactoring.guru/design-patterns/strategy"},
+      {t:"Refactoring Guru: Strategy",u:"https://refactoring.guru/design-patterns/strategy"},
       {t:"Java example",u:"https://refactoring.guru/design-patterns/strategy/java/example"},
-      {t:"AlgoMaster — Strategy",u:"https://algomaster.io/learn/lld/strategy"}
+      {t:"AlgoMaster: Strategy",u:"https://algomaster.io/learn/lld/strategy"}
     ],
     practice:[
       {n:"Design Splitwise",h:"Equal / exact / percentage splits are three strategies behind one interface. The debt-simplification bit is the stretch.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/splitwise.md",core:true},
@@ -344,13 +344,13 @@ class RateLimiter {
     id:"lld-factory", name:"Factory, and its two cousins", core:true,
     tell:"A <code>new</code> keyword sitting inside business logic, right next to a switch on a type field.",
     fixes:"Construction knowledge leaking everywhere. Move it to one place so adding a type touches one file.",
-    work:`<h4>Three things share this name — say which one you mean</h4>
+    work:`<h4>Three things share this name, so say which one you mean</h4>
 <ul>
 <li><b>Simple Factory.</b> A static method with a switch. Not a GoF pattern, and what ninety percent of interviews actually want.</li>
 <li><b>Factory Method.</b> A base class defines <code>createX()</code> and each subclass decides what to return. Use when the creating class is itself part of a hierarchy.</li>
 <li><b>Abstract Factory.</b> A factory that produces a <em>family</em> of related objects that must match each other.</li>
 </ul>
-<pre><code>// Simple factory — the one you'll write
+<pre><code>// Simple factory: the one you'll write
 interface Notifier { void send(Message m); }
 
 class NotifierFactory {
@@ -363,29 +363,29 @@ class NotifierFactory {
     }
 }
 
-// Abstract factory — a family that must stay consistent
+// Abstract factory: a family that must stay consistent
 interface PaymentProviderFactory {
     Charger charger();
     Refunder refunder();
     WebhookVerifier verifier();
 }
 class RazorpayFactory implements PaymentProviderFactory { ... }</code></pre>
-<p>The abstract factory earns its complexity only when mixing families would be a bug — a Razorpay charger with a Stripe webhook verifier is nonsense, and the factory makes that combination unrepresentable. If there's no such constraint, you're over-engineering, and saying so is worth marks.</p>
+<p>The abstract factory earns its complexity only when mixing families would be a bug: a Razorpay charger with a Stripe webhook verifier is nonsense, and the factory makes that combination unrepresentable. If there's no such constraint, you're over-engineering, and saying so is worth marks.</p>
 <div class="flag"><b>Name the distinction out loud</b>Most candidates use all three words interchangeably. Interviewers notice when you don't.</div>`,
     learn:[
-      {t:"Refactoring Guru — Factory Method",u:"https://refactoring.guru/design-patterns/factory-method"},
-      {t:"Refactoring Guru — Abstract Factory",u:"https://refactoring.guru/design-patterns/abstract-factory"},
-      {t:"AlgoMaster — Factory Method",u:"https://algomaster.io/learn/lld/factory-method"}
+      {t:"Refactoring Guru: Factory Method",u:"https://refactoring.guru/design-patterns/factory-method"},
+      {t:"Refactoring Guru: Abstract Factory",u:"https://refactoring.guru/design-patterns/abstract-factory"},
+      {t:"AlgoMaster: Factory Method",u:"https://algomaster.io/learn/lld/factory-method"}
     ],
     practice:[
       {n:"Design a Digital Wallet Service",h:"Payment instruments (card / UPI / netbanking / wallet balance) behind one factory.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/digital-wallet-service.md",core:true},
       {n:"Design a Vehicle Rental System",h:"Vehicle types plus the pricing that comes with each. Watch for where abstract factory is genuinely justified.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/car-rental-system.md"},
-      {n:"Design an Online Food Delivery Service",h:"Familiar territory. Restaurant, order, delivery-partner creation — and resist putting everything on one factory.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/food-delivery-service.md"}
+      {n:"Design an Online Food Delivery Service",h:"Familiar territory. Restaurant, order, delivery-partner creation, and resist putting everything on one factory.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/food-delivery-service.md"}
     ]
   },
   {
     id:"lld-builder", name:"Builder", core:false,
-    tell:"A constructor with more than about four parameters, several of them optional — or you need the object to be immutable once built.",
+    tell:"A constructor with more than about four parameters, several of them optional, or you need the object to be immutable once built.",
     fixes:"Telescoping constructors, and objects that can exist in an invalid half-built state.",
     work:`<h4>An order that can't be built wrong</h4>
 <pre><code>Order o = new Order.Builder(customerId)
@@ -396,12 +396,12 @@ class RazorpayFactory implements PaymentProviderFactory { ... }</code></pre>
         .build();               // validation happens here
 
 // Order itself has no setters. Once built, it's frozen.</code></pre>
-<p>The part that scores is <code>build()</code>. That's where "a coupon requires cart value above ₹199" and "scheduled slots must be at least 30 minutes out" belong — one place, checked once, before the object exists. Scatter those checks across setters and you get an object that's valid halfway through and invalid at the end.</p>
+<p>The part that scores is <code>build()</code>. That's where "a coupon requires cart value above ₹199" and "scheduled slots must be at least 30 minutes out" belong: one place, checked once, before the object exists. Scatter those checks across setters and you get an object that's valid halfway through and invalid at the end.</p>
 <p>Two variants worth knowing: the static nested builder above (Effective Java style, what you'll write in Java), and the fluent step builder that forces required fields first by returning a different interface at each step. Mention the second only if they push.</p>
 <div class="flag"><b>Don't reach for it too early</b>A three-field object with a plain constructor doesn't need a builder, and adding one is the kind of over-engineering interviewers mark down. The trigger is optionality and immutability, not size alone.</div>`,
     learn:[
-      {t:"Refactoring Guru — Builder",u:"https://refactoring.guru/design-patterns/builder"},
-      {t:"AlgoMaster — Builder",u:"https://algomaster.io/learn/lld/builder"}
+      {t:"Refactoring Guru: Builder",u:"https://refactoring.guru/design-patterns/builder"},
+      {t:"AlgoMaster: Builder",u:"https://algomaster.io/learn/lld/builder"}
     ],
     practice:[
       {n:"Design an Airline Management System",h:"An itinerary with optional legs, seat preferences and meal choices is the textbook case.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/airline-management-system.md"},
@@ -411,7 +411,7 @@ class RazorpayFactory implements PaymentProviderFactory { ... }</code></pre>
   },
   {
     id:"lld-observer", name:"Observer", core:true,
-    tell:"\"When X happens, also do Y and Z\" — and you can tell the list of Ys is going to grow.",
+    tell:"\"When X happens, also do Y and Z\", and you can tell the list of Ys is going to grow.",
     fixes:"A publisher that has to know every consumer by name. Adding a consumer shouldn't touch the publisher.",
     work:`<h4>Pub-sub, in process</h4>
 <pre><code>interface Subscriber { void onEvent(Event e); }
@@ -422,23 +422,23 @@ class Topic {
     void unsubscribe(Subscriber s) { subs.remove(s); }
     void publish(Event e)          { for (Subscriber s : subs) s.onEvent(e); }
 }</code></pre>
-<p><code>CopyOnWriteArrayList</code> rather than <code>ArrayList</code> is a small choice that gets noticed — it means a subscriber can unsubscribe from inside its own callback without a <code>ConcurrentModificationException</code>.</p>
+<p><code>CopyOnWriteArrayList</code> rather than <code>ArrayList</code> is a small choice that gets noticed: it means a subscriber can unsubscribe from inside its own callback without a <code>ConcurrentModificationException</code>.</p>
 <h4>The follow-up, every time</h4>
 <p>"What if one subscriber is slow, or throws?" With the loop above, one bad subscriber blocks or breaks all the others. The answer:</p>
 <ul>
 <li>Dispatch on an executor so publish returns immediately.</li>
 <li>Catch per subscriber, so one failure doesn't cancel the rest.</li>
-<li>A bounded queue per subscriber, with an explicit policy when it fills — drop, block, or dead-letter. Say which and why.</li>
+<li>A bounded queue per subscriber, with an explicit policy when it fills: drop, block, or dead-letter. Say which and why.</li>
 </ul>
 <p>That's the moment the LLD round quietly turns into a systems conversation, and it's your ground. Name the parallel out loud: Observer is the in-process version of a message queue, and everything you'd say about consumer lag and backpressure in Kafka applies here in miniature.</p>`,
     learn:[
-      {t:"Refactoring Guru — Observer",u:"https://refactoring.guru/design-patterns/observer"},
+      {t:"Refactoring Guru: Observer",u:"https://refactoring.guru/design-patterns/observer"},
       {t:"Java example",u:"https://refactoring.guru/design-patterns/observer/java/example"},
-      {t:"AlgoMaster — Observer",u:"https://algomaster.io/learn/lld/observer"}
+      {t:"AlgoMaster: Observer",u:"https://algomaster.io/learn/lld/observer"}
     ],
     practice:[
       {n:"Design a Pub-Sub System",h:"The pattern in its purest form. Then add async dispatch and per-subscriber backpressure.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/pub-sub-system.md",core:true},
-      {n:"Design an Online Auction System",h:"Every bid notifies every watcher. Also a good State problem — do it twice, once through each lens.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/online-auction-system.md",core:true},
+      {n:"Design an Online Auction System",h:"Every bid notifies every watcher. Also a good State problem, so do it twice, once through each lens.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/online-auction-system.md",core:true},
       {n:"Design Stack Overflow",h:"Notifications on answers, comments and votes, with users subscribing to questions and tags.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/stack-overflow.md"}
     ]
   }]
@@ -449,7 +449,7 @@ class Topic {
   items:[
   {
     id:"lld-state", name:"State", core:true,
-    tell:"An enum field plus if-else scattered across five methods, all asking \"what state am I in?\" — or the requirements read as a lifecycle.",
+    tell:"An enum field plus if-else scattered across five methods, all asking \"what state am I in?\", or the requirements read as a lifecycle.",
     fixes:"Illegal transitions. With State they become impossible to express, instead of being guarded by conditionals you have to remember to write.",
     work:`<h4>A vending machine as a set of classes, not a set of ifs</h4>
 <pre><code>interface VendingState {
@@ -466,11 +466,11 @@ class IdleState implements VendingState {
 // HasMoneyState, DispensingState, OutOfStockState follow the same shape</code></pre>
 <p>Each state handles the transitions that are legal from where it stands, and refuses the rest. There is no central switch. Adding a <code>MaintenanceState</code> is a new file.</p>
 <h4>Draw the diagram first</h4>
-<p>States as boxes, events as labelled arrows. Interviewers grade that diagram — it proves you found the transitions before you started typing, and it makes the missing ones obvious. The one candidates forget is the refund path from <code>HasMoneyState</code> back to <code>IdleState</code>.</p>
+<p>States as boxes, events as labelled arrows. Interviewers grade that diagram. It proves you found the transitions before you started typing, and it makes the missing ones obvious. The one candidates forget is the refund path from <code>HasMoneyState</code> back to <code>IdleState</code>.</p>
 <div class="flag"><b>Where the transition logic lives</b>Two schools: each state decides its own next state (shown above), or a central transition table maps (state, event) to state. The table is easier to audit and to load from config; the classes are easier to extend. Have an opinion and give a reason.</div>`,
     learn:[
-      {t:"Refactoring Guru — State",u:"https://refactoring.guru/design-patterns/state"},
-      {t:"AlgoMaster — State",u:"https://algomaster.io/learn/lld/state"},
+      {t:"Refactoring Guru: State",u:"https://refactoring.guru/design-patterns/state"},
+      {t:"AlgoMaster: State",u:"https://algomaster.io/learn/lld/state"},
       {t:"State machine diagram",u:"https://algomaster.io/learn/lld/state-machine-diagram"}
     ],
     practice:[
@@ -483,7 +483,7 @@ class IdleState implements VendingState {
     id:"lld-chain", name:"Chain of Responsibility", core:true,
     tell:"A request must pass a sequence of checks, the sequence should be configurable, and any check can stop it dead.",
     fixes:"A validate() method five hundred lines long that nobody will ever reorder.",
-    work:`<h4>A risk pipeline — which is literally your job</h4>
+    work:`<h4>A risk pipeline, which is literally your job</h4>
 <pre><code>abstract class RiskCheck {
     private RiskCheck next;
     RiskCheck then(RiskCheck n) { this.next = n; return n; }
@@ -501,13 +501,13 @@ velocityCheck.then(deviceFingerprintCheck)
              .then(amountThresholdCheck)
              .then(mlScoreCheck);</code></pre>
 <h4>The sentence that separates you from a textbook answer</h4>
-<p>Order the chain by cost. Cheap in-memory checks — blacklist lookup, amount threshold — run before the network call to the ML scorer, so the expensive one only sees traffic that survived everything else. Then add the operational bits: each handler emits which rule fired so you can debug a false positive, and the chain is loaded from config so risk analysts can reorder it without a deploy.</p>
+<p>Order the chain by cost. Cheap in-memory checks, blacklist lookup and amount threshold, run before the network call to the ML scorer, so the expensive one only sees traffic that survived everything else. Then add the operational bits: each handler emits which rule fired so you can debug a false positive, and the chain is loaded from config so risk analysts can reorder it without a deploy.</p>
 <p>Say that and you're describing a system you've run, not a pattern you've read about. Lean on it.</p>
 <h4>The classic version</h4>
 <p>ATM cash dispensing: a ₹2000 handler passes the remainder to ₹500, which passes to ₹200, then ₹100. Same structure, and it's the one they'll ask if they don't know your background.</p>`,
     learn:[
-      {t:"Refactoring Guru — Chain of Responsibility",u:"https://refactoring.guru/design-patterns/chain-of-responsibility"},
-      {t:"AlgoMaster — Chain of Responsibility",u:"https://algomaster.io/learn/lld/chain-of-responsibility"}
+      {t:"Refactoring Guru: Chain of Responsibility",u:"https://refactoring.guru/design-patterns/chain-of-responsibility"},
+      {t:"AlgoMaster: Chain of Responsibility",u:"https://algomaster.io/learn/lld/chain-of-responsibility"}
     ],
     practice:[
       {n:"Design an ATM (cash dispenser chain)",h:"Denomination handlers passing the remainder down. Handle the case where the machine can't make the exact amount.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/atm.md",core:true},
@@ -517,7 +517,7 @@ velocityCheck.then(deviceFingerprintCheck)
   },
   {
     id:"lld-decorator", name:"Decorator", core:false,
-    tell:"Features stack in combinations, and doing it with inheritance would need a class per combination — <code>RetryingLoggingEncryptedSink</code> and friends.",
+    tell:"Features stack in combinations, and doing it with inheritance would need a class per combination, <code>RetryingLoggingEncryptedSink</code> and friends.",
     fixes:"Combinatorial explosion of subclasses.",
     work:`<h4>Wrappers that compose in any order</h4>
 <pre><code>interface Notifier { void send(Message m); }
@@ -535,11 +535,11 @@ class RetryingNotifier implements Notifier {
 Notifier n = new RetryingNotifier(
                  new RateLimitedNotifier(
                      new MetricsNotifier(new EmailNotifier())));</code></pre>
-<p>The defining property is that a decorator takes the interface it implements — same in, same out. That's what lets them nest in any order, and it's the answer to "how is this different from just wrapping in a helper class?"</p>
-<div class="flag"><b>Decorator vs Proxy</b>Identical shape, different intent. A decorator adds behaviour the caller wants and knows about. A proxy controls access to something the caller can't or shouldn't reach directly — lazy loading, permissions, a remote call. If asked, answer with intent, not structure.</div>`,
+<p>The defining property is that a decorator takes the interface it implements: same in, same out. That's what lets them nest in any order, and it's the answer to "how is this different from just wrapping in a helper class?"</p>
+<div class="flag"><b>Decorator vs Proxy</b>Identical shape, different intent. A decorator adds behaviour the caller wants and knows about. A proxy controls access to something the caller can't or shouldn't reach directly: lazy loading, permissions, a remote call. If asked, answer with intent, not structure.</div>`,
     learn:[
-      {t:"Refactoring Guru — Decorator",u:"https://refactoring.guru/design-patterns/decorator"},
-      {t:"AlgoMaster — Decorator",u:"https://algomaster.io/learn/lld/decorator"}
+      {t:"Refactoring Guru: Decorator",u:"https://refactoring.guru/design-patterns/decorator"},
+      {t:"AlgoMaster: Decorator",u:"https://algomaster.io/learn/lld/decorator"}
     ],
     practice:[
       {n:"Design a Coffee Vending Machine",h:"Base drink plus milk, syrup, extra shot. The canonical decorator problem.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/coffee-vending-machine.md"},
@@ -570,13 +570,13 @@ class RazorpayAdapter implements PaymentGateway {
 <li>It's also your failover. If Razorpay is down you route to the next adapter, and no business code changes. That's a resilience argument, and interviewers like hearing one from an LLD candidate.</li>
 </ul>`,
     learn:[
-      {t:"Refactoring Guru — Adapter",u:"https://refactoring.guru/design-patterns/adapter"},
-      {t:"AlgoMaster — Adapter",u:"https://algomaster.io/learn/lld/adapter"}
+      {t:"Refactoring Guru: Adapter",u:"https://refactoring.guru/design-patterns/adapter"},
+      {t:"AlgoMaster: Adapter",u:"https://algomaster.io/learn/lld/adapter"}
     ],
     practice:[
       {n:"Design a Digital Wallet Service",h:"Several payment service providers behind one gateway interface, with failover.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/digital-wallet-service.md"},
       {n:"Design a Ride-Sharing Service",h:"Swap map and routing providers without the matching engine noticing.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/ride-sharing-service.md"},
-      {n:"Design a Logging Framework",h:"Adapt third-party sinks — Datadog, CloudWatch, Kafka — to your Sink interface.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/logging-framework.md"}
+      {n:"Design a Logging Framework",h:"Adapt third-party sinks (Datadog, CloudWatch, Kafka) to your Sink interface.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/logging-framework.md"}
     ]
   }]
 },
@@ -586,19 +586,19 @@ class RazorpayAdapter implements PaymentGateway {
   items:[
   {
     id:"lld-concurrency", name:"Shared mutable state", core:true,
-    tell:"The problem mentions booking, seats, inventory, wallet balance or a counter — or the interviewer asks \"what if two users do this at the same time?\"",
+    tell:"The problem mentions booking, seats, inventory, wallet balance or a counter, or the interviewer asks \"what if two users do this at the same time?\"",
     fixes:"Double-booking, lost updates, and the answer \"I'd add synchronized\" delivered without knowing what it costs.",
     work:`<h4>The race, stated precisely</h4>
 <p>Two threads read <code>seat.status == AVAILABLE</code>. Both pass the check. Both write <code>BOOKED</code>. Two people own seat 14A. The check and the write have to be one atomic step, and there are four ways to get there.</p>
 <h4>The four options, cheapest first</h4>
 <ul>
-<li><b>Compare-and-set on a concurrent map.</b> <code>seatHolds.putIfAbsent(seatId, holdToken)</code> — exactly one caller gets null back and wins. No lock, no blocking, works beautifully for the single-process version of this question.</li>
+<li><b>Compare-and-set on a concurrent map.</b> <code>seatHolds.putIfAbsent(seatId, holdToken)</code>, and exactly one caller gets null back and wins. No lock, no blocking, works beautifully for the single-process version of this question.</li>
 <li><b>Optimistic concurrency.</b> A version column; the update says <code>WHERE id = ? AND version = ?</code> and you check the affected-row count. Cheap when conflicts are rare, wasteful when they're common because losers redo their work.</li>
-<li><b>Pessimistic locking.</b> <code>synchronized</code> on the show, a per-seat <code>ReentrantLock</code>, or <code>SELECT ... FOR UPDATE</code>. Correct, and it serialises everything behind that lock. If you lock several seats for a group booking, acquire them in a fixed order or you'll deadlock — say that unprompted.</li>
+<li><b>Pessimistic locking.</b> <code>synchronized</code> on the show, a per-seat <code>ReentrantLock</code>, or <code>SELECT ... FOR UPDATE</code>. Correct, and it serialises everything behind that lock. If you lock several seats for a group booking, acquire them in a fixed order or you'll deadlock. Say that unprompted.</li>
 <li><b>Serialise by partition.</b> Route all operations for one show to one consumer or one thread. No locks at all, at the cost of a scaling ceiling per show.</li>
 </ul>
 <h4>What actually ships: hold, then confirm</h4>
-<p>Reserve the seat with a ten-minute TTL, take payment, then confirm. This turns a lock held for minutes across a payment call — which you must never do — into a row with an expiry. You then need a sweeper or a delay queue to release abandoned holds, and that's the follow-up question, so have the answer ready.</p>
+<p>Reserve the seat with a ten-minute TTL, take payment, then confirm. This turns a lock held for minutes across a payment call, which you must never do, into a row with an expiry. You then need a sweeper or a delay queue to release abandoned holds, and that's the follow-up question, so have the answer ready.</p>
 <div class="flag"><b>The Java details they probe</b><code>synchronized</code> vs <code>ReentrantLock</code> (the latter gives you <code>tryLock</code> with a timeout, which is how you avoid hanging forever). <code>ConcurrentHashMap</code> vs <code>Collections.synchronizedMap</code> (lock striping vs one global lock). <code>AtomicInteger</code> and what CAS actually does. Why <code>volatile</code> alone can't make <code>count++</code> safe.</div>`,
     learn:[
       {t:"Race conditions and critical sections",u:"https://algomaster.io/learn/concurrency-interview/race-conditions-and-critical-sections"},
@@ -619,7 +619,7 @@ class RazorpayAdapter implements PaymentGateway {
   items:[
   {
     id:"lld-singleton", name:"Singleton, done properly", core:false,
-    tell:"Exactly one instance must exist — a registry, a connection pool, a config holder.",
+    tell:"Exactly one instance must exist: a registry, a connection pool, a config holder.",
     fixes:"Almost nothing, honestly. It's here because interviewers ask, and because the thread-safety discussion behind it is real.",
     work:`<h4>Three implementations and what each one costs</h4>
 <pre><code>// 1. Eager. Simple, correct, no laziness.
@@ -639,8 +639,8 @@ class Config {
 // 3. Enum. Serialisation and reflection safe. What Effective Java recommends.
 enum Config { INSTANCE; }</code></pre>
 <p>Without <code>volatile</code> in the second one, another thread can see a non-null reference to a partially constructed object, because the assignment and the constructor can be reordered. That sentence is the answer they're fishing for.</p>
-<div class="flag"><b>The second half of the question</b>They'll ask why it's considered an anti-pattern: global mutable state, hidden dependencies, and code you can't unit-test in isolation. Answer both sides, then say what you'd actually do — construct one instance and inject it, so the constraint lives in the wiring rather than in the class.</div>`,
-    learn:[{t:"Refactoring Guru — Singleton",u:"https://refactoring.guru/design-patterns/singleton"},{t:"AlgoMaster — Singleton",u:"https://algomaster.io/learn/lld/singleton"}],
+<div class="flag"><b>The second half of the question</b>They'll ask why it's considered an anti-pattern: global mutable state, hidden dependencies, and code you can't unit-test in isolation. Answer both sides, then say what you'd actually do: construct one instance and inject it, so the constraint lives in the wiring rather than in the class.</div>`,
+    learn:[{t:"Refactoring Guru: Singleton",u:"https://refactoring.guru/design-patterns/singleton"},{t:"AlgoMaster: Singleton",u:"https://algomaster.io/learn/lld/singleton"}],
     practice:[
       {n:"Thread-safe configuration manager",h:"All three implementations, then explain the volatile.",u:"https://refactoring.guru/design-patterns/singleton/java/example"},
       {n:"Design a Parking Lot (single instance)",h:"The ParkingLot itself is the usual singleton in this problem.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/parking-lot.md"},
@@ -664,8 +664,8 @@ class Directory implements Node {
     public long size() { return children.stream().mapToLong(Node::size).sum(); }
 }</code></pre>
 <p>The caller asks any node for its size and never checks what kind it is. Recursion lives inside the composite, not in the client.</p>
-<p>The question that follows is usually about operations that only make sense on one type — <code>addChild</code> on a file. Two answers: put it only on <code>Directory</code> and lose uniformity, or put it on <code>Node</code> and throw on leaves. Say the trade-off; there's no clean winner and interviewers know it.</p>`,
-    learn:[{t:"Refactoring Guru — Composite",u:"https://refactoring.guru/design-patterns/composite"},{t:"AlgoMaster — Composite",u:"https://algomaster.io/learn/lld/composite"}],
+<p>The question that follows is usually about operations that only make sense on one type, such as <code>addChild</code> on a file. Two answers: put it only on <code>Directory</code> and lose uniformity, or put it on <code>Node</code> and throw on leaves. Say the trade-off; there's no clean winner and interviewers know it.</p>`,
+    learn:[{t:"Refactoring Guru: Composite",u:"https://refactoring.guru/design-patterns/composite"},{t:"AlgoMaster: Composite",u:"https://algomaster.io/learn/lld/composite"}],
     practice:[
       {n:"Design a File System",h:"Sizes, search, and a recursive delete. Then add symlinks and watch the model strain.",u:"https://refactoring.guru/design-patterns/composite/java/example"},
       {n:"Design a Restaurant Management System",h:"Menus containing sections containing items, priced uniformly.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/restaurant-management-system.md"},
@@ -688,13 +688,13 @@ class MoveCommand implements Command {
 }
 
 class Game { private final Deque&lt;Command&gt; history = new ArrayDeque&lt;&gt;(); }</code></pre>
-<p>The command stores enough state to reverse itself — the captured piece — which is precisely why undo works. When an action can't be reversed from its own state, store the inverse command instead, or snapshot (that's Memento).</p>
+<p>The command stores enough state to reverse itself, the captured piece, which is precisely why undo works. When an action can't be reversed from its own state, store the inverse command instead, or snapshot (that's Memento).</p>
 <p>Good bridge to mention: a Command is a serialisable unit of work. Serialise it and put it on a queue and you've got a job. That's the same object doing LLD duty and HLD duty.</p>`,
-    learn:[{t:"Refactoring Guru — Command",u:"https://refactoring.guru/design-patterns/command"},{t:"AlgoMaster — Command",u:"https://algomaster.io/learn/lld/command"}],
+    learn:[{t:"Refactoring Guru: Command",u:"https://refactoring.guru/design-patterns/command"},{t:"AlgoMaster: Command",u:"https://algomaster.io/learn/lld/command"}],
     practice:[
       {n:"Design a Chess Game",h:"Move, undo, and a full move history. Also good practice for modelling piece movement rules.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/chess-game.md"},
       {n:"Design a Task Management System",h:"Every mutation as a command, giving you undo and an audit trail for free.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/task-management-system.md"},
-      {n:"Design a Digital Wallet Service",h:"Transactions as commands with compensating actions — the LLD shadow of a saga.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/digital-wallet-service.md"}
+      {n:"Design a Digital Wallet Service",h:"Transactions as commands with compensating actions: the LLD shadow of a saga.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/digital-wallet-service.md"}
     ]
   },
   {
@@ -702,16 +702,16 @@ class Game { private final Deque&lt;Command&gt; history = new ArrayDeque&lt;&gt;
     tell:"Asked directly, or you spot the shape while designing something else.",
     fixes:"Nothing you need this quarter. Read the one-liners, follow a link only if a problem actually pulls you there.",
     work:`<ul>
-<li><b>Template Method</b> — several flows share a skeleton and differ in two steps. Base class fixes the order with a <code>final</code> method; subclasses fill the gaps. Prefer Strategy unless the skeleton is genuinely immutable.</li>
-<li><b>Proxy</b> — stand in front of an object to add lazy loading, caching, access control or a remote call, without the caller knowing.</li>
-<li><b>Facade</b> — one simple entry point over a messy subsystem. You've written dozens without naming it.</li>
-<li><b>Iterator</b> — traverse a collection without exposing its internals. Java's <code>Iterable</code> is this, so an interview question here is usually about writing a custom one.</li>
-<li><b>Flyweight</b> — share immutable intrinsic state across many objects to save memory. Chess pieces, text glyphs, particle systems.</li>
-<li><b>Bridge</b> — two dimensions varying independently (shape × renderer). Prevents a class explosion when you'd otherwise multiply the hierarchies.</li>
-<li><b>Mediator</b> — objects that would otherwise all reference each other talk through a hub instead. Air traffic control, chat rooms.</li>
-<li><b>Memento</b> — snapshot and restore an object's state without exposing its internals. The alternative to Command-based undo when the action isn't reversible.</li>
-<li><b>Prototype</b> — clone an existing object rather than constructing one, when construction is expensive.</li>
-<li><b>Visitor</b> — add operations to a stable class hierarchy without editing it. Rare in interviews, common in compilers.</li>
+<li><b>Template Method.</b> Several flows share a skeleton and differ in two steps. Base class fixes the order with a <code>final</code> method; subclasses fill the gaps. Prefer Strategy unless the skeleton is genuinely immutable.</li>
+<li><b>Proxy.</b> Stand in front of an object to add lazy loading, caching, access control or a remote call, without the caller knowing.</li>
+<li><b>Facade.</b> One simple entry point over a messy subsystem. You've written dozens without naming it.</li>
+<li><b>Iterator.</b> Traverse a collection without exposing its internals. Java's <code>Iterable</code> is this, so an interview question here is usually about writing a custom one.</li>
+<li><b>Flyweight.</b> Share immutable intrinsic state across many objects to save memory. Chess pieces, text glyphs, particle systems.</li>
+<li><b>Bridge.</b> Two dimensions varying independently (shape × renderer). Prevents a class explosion when you'd otherwise multiply the hierarchies.</li>
+<li><b>Mediator.</b> Objects that would otherwise all reference each other talk through a hub instead. Air traffic control, chat rooms.</li>
+<li><b>Memento.</b> Snapshot and restore an object's state without exposing its internals. The alternative to Command-based undo when the action isn't reversible.</li>
+<li><b>Prototype.</b> Clone an existing object rather than constructing one, when construction is expensive.</li>
+<li><b>Visitor.</b> Add operations to a stable class hierarchy without editing it. Rare in interviews, common in compilers.</li>
 </ul>`,
     learn:[
       {t:"Full pattern catalogue",u:"https://refactoring.guru/design-patterns/catalog"},
@@ -727,33 +727,33 @@ class Game { private final Deque&lt;Command&gt; history = new ArrayDeque&lt;&gt;
 },
 {
   n:"06", title:"Machine coding at tempo", week:"Weeks 5–14",
-  note:"Not new material. The same problems, on a clock, from a blank file, no notes. This is the only step that actually builds interview performance — everything above is preparation for it.",
+  note:"Not new material. The same problems, on a clock, from a blank file, no notes. This is the only step that actually builds interview performance. Everything above is preparation for it.",
   items:[
   {
     id:"lld-tempo-drill", name:"The timed set", core:true,
     tell:"You've read the pattern and it made sense. That is not the same as being able to produce it under a clock with someone watching.",
     fixes:"The gap between recognising a design and generating one. It only closes through reps.",
     work:`<h4>How to run one</h4>
-<p>Pick a problem you've already studied. Set a 50-minute timer. Blank file, no notes, no AI, no reference solution open in another tab. Talk out loud as if someone's there — record yourself if you can stand it, because pacing problems are obvious on playback and invisible from the inside.</p>
+<p>Pick a problem you've already studied. Set a 50-minute timer. Blank file, no notes, no AI, no reference solution open in another tab. Talk out loud as if someone's there, and record yourself if you can stand it, because pacing problems are obvious on playback and invisible from the inside.</p>
 <p>When the timer stops, stop. Then spend ten minutes writing down: which phase overran, what you couldn't remember, what you'd do differently. That note is worth more than the code.</p>
 <h4>The rotation</h4>
-<p>Five problems cover most of the space. Do each twice, a fortnight apart, rather than ten problems once — the second run is where the fluency comes from.</p>
+<p>Five problems cover most of the space. Do each twice, a fortnight apart, rather than ten problems once. The second run is where the fluency comes from.</p>
 <ul>
-<li><b>Parking Lot</b> — modelling under time pressure.</li>
-<li><b>Rate Limiter</b> — strategy, and your home ground.</li>
-<li><b>BookMyShow</b> — concurrency, the hardest common one.</li>
-<li><b>Splitwise</b> — strategy plus non-trivial domain logic.</li>
-<li><b>Elevator</b> — state plus scheduling.</li>
+<li><b>Parking Lot.</b> Modelling under time pressure.</li>
+<li><b>Rate Limiter.</b> Strategy, and your home ground.</li>
+<li><b>BookMyShow.</b> Concurrency, the hardest common one.</li>
+<li><b>Splitwise.</b> Strategy plus non-trivial domain logic.</li>
+<li><b>Elevator.</b> State plus scheduling.</li>
 </ul>
-<div class="flag"><b>The rule about AI</b>Closed during the block, open afterwards. Use it to review what you wrote and to explain what you got stuck on — never to produce the design. The thing you're currently outsourcing is exactly the thing being tested.</div>`,
+<div class="flag"><b>The rule about AI</b>Closed during the block, open afterwards. Use it to review what you wrote and to explain what you got stuck on, never to produce the design. The thing you're currently outsourcing is exactly the thing being tested.</div>`,
     learn:[
       {t:"All problems in the repo",u:"https://github.com/ashishps1/awesome-low-level-design"},
       {t:"Solutions folder (Java)",u:"https://github.com/ashishps1/awesome-low-level-design/tree/main/solutions"}
     ],
     practice:[
-      {n:"Design a Rate Limiter — timed, twice",h:"No repo problem for this one; build it from the algorithms and make it your signature answer. Token bucket and sliding window behind one interface.",u:"https://blog.algomaster.io/p/rate-limiting-algorithms-explained-with-code",core:true},
-      {n:"Design BookMyShow — timed, twice",h:"Seat locking under a clock. The one most likely to break you the first time.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/movie-ticket-booking-system.md",core:true},
-      {n:"Design Splitwise — timed, twice",h:"Split strategies plus balance settlement. Finish it inside the hour.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/splitwise.md",core:true}
+      {n:"Design a Rate Limiter: timed, twice",h:"No repo problem for this one; build it from the algorithms and make it your signature answer. Token bucket and sliding window behind one interface.",u:"https://blog.algomaster.io/p/rate-limiting-algorithms-explained-with-code",core:true},
+      {n:"Design BookMyShow: timed, twice",h:"Seat locking under a clock. The one most likely to break you the first time.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/movie-ticket-booking-system.md",core:true},
+      {n:"Design Splitwise: timed, twice",h:"Split strategies plus balance settlement. Finish it inside the hour.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/splitwise.md",core:true}
     ]
   }]
 }
@@ -770,19 +770,19 @@ const HLD = [
     fixes:"The two standard failures: forty minutes of estimation with no design, or a box diagram with no reasoning behind any box.",
     work:`<h4>The clock</h4>
 <ul>
-<li><b>0–5 · requirements.</b> Three to five functional ones, in the interviewer's words, written where they can see them. Then non-functional ones <em>as numbers</em>: p99 under 200ms, 99.9% availability, two years of retention. Say what's out of scope — scoping down is a senior move, not a dodge.</li>
+<li><b>0–5 · requirements.</b> Three to five functional ones, in the interviewer's words, written where they can see them. Then non-functional ones <em>as numbers</em>: p99 under 200ms, 99.9% availability, two years of retention. Say what's out of scope. Scoping down is a senior move, not a dodge.</li>
 <li><b>5–10 · estimation.</b> DAU to QPS to storage. Compute only the numbers that will change a decision. If knowing the write rate doesn't change your database choice, don't compute it.</li>
-<li><b>10–15 · API and data model.</b> Four to six endpoints, then the core entities and — the part people skip — their <em>access patterns</em>. Access patterns pick the database. Not the other way round.</li>
+<li><b>10–15 · API and data model.</b> Four to six endpoints, then the core entities and, the part people skip, their <em>access patterns</em>. Access patterns pick the database. Not the other way round.</li>
 <li><b>15–25 · high-level design.</b> Boxes and arrows, happy path only, then walk one request end to end out loud. Resist deep-diving here; you'll be pulled back.</li>
 <li><b>25–40 · deep dive.</b> Either they choose or you offer the two hardest parts. This is where your level gets decided, so protect the time.</li>
 <li><b>40–45 · failure and bottlenecks.</b> Single points of failure, hot keys, what breaks at ten times the load, what you'd monitor.</li>
 </ul>
-<div class="flag"><b>The estimation trap</b>Never spend more than eight minutes on back-of-envelope maths. Candidates who enjoy it burn fifteen, lose the deep dive, and get down-levelled for "lacked depth" — which reads as unfair and isn't.</div>
+<div class="flag"><b>The estimation trap</b>Never spend more than eight minutes on back-of-envelope maths. Candidates who enjoy it burn fifteen, lose the deep dive, and get down-levelled for "lacked depth", which reads as unfair and isn't.</div>
 <h4>What they're actually scoring</h4>
 <p>Not whether your architecture matches a reference answer. Whether you noticed the hard part, named a standard approach for it, and could argue its trade-offs against the alternative. Fluency over novelty. Say "the upload has to outlive the request, so the API hands back a job id and the client either polls or gets pushed to" and you've compressed five minutes into one sentence the interviewer immediately understands.</p>`,
     learn:[
-      {t:"Hello Interview — delivery framework",u:"https://www.hellointerview.com/learn/system-design/in-a-hurry/delivery"},
-      {t:"AlgoMaster — answering framework",u:"https://algomaster.io/learn/system-design-interviews/answering-framework"},
+      {t:"Hello Interview: delivery framework",u:"https://www.hellointerview.com/learn/system-design/in-a-hurry/delivery"},
+      {t:"AlgoMaster: answering framework",u:"https://algomaster.io/learn/system-design-interviews/answering-framework"},
       {t:"Numbers to know",u:"https://www.hellointerview.com/learn/system-design/core-concepts/numbers-to-know",pr:true}
     ],
     practice:[
@@ -796,26 +796,26 @@ const HLD = [
     tell:"You put a box on the whiteboard and the interviewer says \"why?\"",
     fixes:"Naming components you can't justify. One unexplained box undoes three good ones.",
     work:`<h4>The list, and what \"knowing it\" means</h4>
-<p>For each of these, you should be able to explain it in five lines of your own writing, name one alternative, and say when you'd pick the alternative. That's the bar. Reading about it doesn't get you there — writing it does.</p>
+<p>For each of these, you should be able to explain it in five lines of your own writing, name one alternative, and say when you'd pick the alternative. That's the bar. Reading about it doesn't get you there. Writing it does.</p>
 <ul>
-<li><b>Load balancing</b> — L4 vs L7, and what a reverse proxy does that a load balancer doesn't.</li>
-<li><b>API gateway</b> — auth, rate limiting, routing, and why you'd put one in front of microservices.</li>
-<li><b>Caching</b> — cache-aside vs write-through vs write-back, eviction policies, TTL, and cache stampede.</li>
-<li><b>CDN</b> — what belongs at the edge and what can't.</li>
-<li><b>Queue vs log</b> — SQS vs Kafka. Retries, visibility timeout and DLQ on one side; ordering, replay and retention on the other.</li>
-<li><b>SQL vs NoSQL</b> — as an access-pattern argument, never as a slogan.</li>
-<li><b>Indexing</b> — B+ tree vs LSM tree, and why write-heavy stores choose LSM.</li>
-<li><b>Sharding</b> — key choice, hot partitions, resharding, and consistent hashing.</li>
-<li><b>Replication</b> — sync vs async, read replicas, replication lag, read-your-writes.</li>
-<li><b>Consistency</b> — strong vs eventual, CAP as a statement about partitions specifically.</li>
-<li><b>ID generation</b> — Snowflake, ticket server, UUID, and why monotonic IDs matter for indexes.</li>
-<li><b>Bloom filters</b> — the one probabilistic structure that comes up constantly.</li>
+<li><b>Load balancing.</b> L4 vs L7, and what a reverse proxy does that a load balancer doesn't.</li>
+<li><b>API gateway.</b> Auth, rate limiting, routing, and why you'd put one in front of microservices.</li>
+<li><b>Caching.</b> Cache-aside vs write-through vs write-back, eviction policies, TTL, and cache stampede.</li>
+<li><b>CDN.</b> What belongs at the edge and what can't.</li>
+<li><b>Queue vs log.</b> SQS vs Kafka. Retries, visibility timeout and DLQ on one side; ordering, replay and retention on the other.</li>
+<li><b>SQL vs NoSQL.</b> As an access-pattern argument, never as a slogan.</li>
+<li><b>Indexing.</b> B+ tree vs LSM tree, and why write-heavy stores choose LSM.</li>
+<li><b>Sharding.</b> Key choice, hot partitions, resharding, and consistent hashing.</li>
+<li><b>Replication.</b> Sync vs async, read replicas, replication lag, read-your-writes.</li>
+<li><b>Consistency.</b> Strong vs eventual, CAP as a statement about partitions specifically.</li>
+<li><b>ID generation.</b> Snowflake, ticket server, UUID, and why monotonic IDs matter for indexes.</li>
+<li><b>Bloom filters.</b> The one probabilistic structure that comes up constantly.</li>
 </ul>
 <div class="flag"><b>This is your weekly fundamentals slot</b>One item, one page, your own words, every week. By week ten you'll have a document nobody else has, calibrated to how you actually explain things.</div>`,
     learn:[
       {t:"30 core concepts",u:"https://blog.algomaster.io/p/30-system-design-concepts"},
       {t:"Top 15 trade-offs",u:"https://blog.algomaster.io/p/system-design-top-15-trade-offs"},
-      {t:"Hello Interview — core concepts",u:"https://www.hellointerview.com/learn/system-design/in-a-hurry/core-concepts"},
+      {t:"Hello Interview: core concepts",u:"https://www.hellointerview.com/learn/system-design/in-a-hurry/core-concepts"},
       {t:"Full resource index",u:"https://github.com/ashishps1/awesome-system-design-resources"}
     ],
     practice:[
@@ -831,7 +831,7 @@ const HLD = [
   items:[
   {
     id:"hld-reads", name:"Read-heavy systems", core:true,
-    tell:"The read-to-write ratio is lopsided — ten to one or worse — or many users fetch the same object.",
+    tell:"The read-to-write ratio is lopsided, ten to one or worse, or many users fetch the same object.",
     fixes:"A primary database melting under traffic that is almost entirely repeated lookups.",
     work:`<h4>Worked: a URL shortener</h4>
 <p>One write, millions of reads, and the mapping never changes after creation. That immutability is the whole reason this problem is easy, and saying so early shows you've spotted the structure rather than pattern-matched the name.</p>
@@ -839,7 +839,7 @@ const HLD = [
 <ul>
 <li><b>Index the lookup.</b> Obvious, and skipping straight past it to Redis is a common mistake. State it and move on.</li>
 <li><b>Read replicas.</b> Linear read scaling, at the cost of replication lag.</li>
-<li><b>Cache.</b> Cache-aside with a long TTL, because entries are immutable. Hit rates here are extreme — the top few percent of links are most of the traffic.</li>
+<li><b>Cache.</b> Cache-aside with a long TTL, because entries are immutable. Hit rates here are extreme: the top few percent of links are most of the traffic.</li>
 <li><b>Edge.</b> For a pure redirect, a CDN or edge function can answer without touching your infrastructure at all.</li>
 </ul>
 <h4>The three things they'll push on</h4>
@@ -848,11 +848,12 @@ const HLD = [
 <li><b>Stampede.</b> When a hot entry expires, every request goes to the database at once. Single-flight (one request refills, others wait), or probabilistic early expiry.</li>
 <li><b>Read-your-writes.</b> Someone creates a link and immediately opens it, hits a lagging replica, gets a 404. Route reads to the primary for a few seconds after a write, or pin that session.</li>
 </ul>
-<div class="flag"><b>The write problem hiding inside</b>Click analytics. Do not increment a counter row per click — that's a write-scaling problem in disguise, and it belongs on the aggregation path in step 07.</div>`,
+<div class="flag"><b>The write problem hiding inside</b>Click analytics. Do not increment a counter row per click. That's a write-scaling problem in disguise, and it belongs on the aggregation path in step 07.</div>`,
     learn:[
-      {t:"Pattern — scaling reads",u:"https://www.hellointerview.com/learn/system-design/patterns/scaling-reads",pr:true},
       {t:"Caching strategies",u:"https://algomaster.io/learn/system-design/caching-strategies"},
-      {t:"Redis deep dive",u:"https://www.hellointerview.com/learn/system-design/deep-dives/redis"}
+      {t:"System Design Primer: caching",u:"https://github.com/donnemartin/system-design-primer#cache"},
+      {t:"Redis deep dive",u:"https://www.hellointerview.com/learn/system-design/deep-dives/redis"},
+      {t:"Pattern: scaling reads",u:"https://www.hellointerview.com/learn/system-design/patterns/scaling-reads",pr:true}
     ],
     practice:[
       {n:"Design Bitly / a URL shortener",h:"The anchor. Do this one first and do it properly; half the sheet builds on it.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/bitly",core:true},
@@ -873,22 +874,23 @@ const HLD = [
 <p>Millions of data points per second, append-only, queried by time range and tag. A row per point in Postgres is the wrong answer and you should say why in one line: the index maintenance cost per insert dominates, and you never update a point once written.</p>
 <h4>Where the answer actually lives: the shard key</h4>
 <ul>
-<li><b>By metric + host</b> — spreads evenly, and a query for one metric on one host touches one shard. Good.</li>
-<li><b>By timestamp</b> — every write in the universe goes to the shard holding "now". A hot partition by construction. Bad, and it's the mistake interviewers watch for.</li>
-<li><b>By tenant</b> — natural isolation, but one large customer becomes a hot shard, so you need a way to split them.</li>
+<li><b>By metric + host.</b> Spreads evenly, and a query for one metric on one host touches one shard. Good.</li>
+<li><b>By timestamp.</b> Every write in the universe goes to the shard holding "now". A hot partition by construction. Bad, and it's the mistake interviewers watch for.</li>
+<li><b>By tenant.</b> Natural isolation, but one large customer becomes a hot shard, so you need a way to split them.</li>
 </ul>
 <p>The general rule worth stating: a good key spreads writes evenly <em>and</em> keeps the rows a single query needs on few nodes. Those two goals pull against each other, and naming the tension is the answer.</p>
 <h4>The rest of the design</h4>
 <ul>
 <li>Kafka in front, so a database hiccup queues rather than drops. Consumers batch-write, which turns a million small inserts into a few thousand large ones.</li>
 <li>An LSM-based or time-series store, because sequential appends are what it's built for.</li>
-<li>Downsampling and retention tiers — full resolution for a week, five-minute rollups for a year.</li>
+<li>Downsampling and retention tiers: full resolution for a week, five-minute rollups for a year.</li>
 </ul>
-<div class="flag"><b>The bursts question</b>"What happens at ten times the load?" Buffer in the queue, let consumer lag grow, alert on it — and be willing to shed load explicitly rather than fall over. Saying "I'd drop non-critical metrics before I'd drop billing events" is the kind of answer that gets remembered.</div>`,
+<div class="flag"><b>The bursts question</b>"What happens at ten times the load?" Buffer in the queue, let consumer lag grow, alert on it, and be willing to shed load explicitly rather than fall over. Saying "I'd drop non-critical metrics before I'd drop billing events" is the kind of answer that gets remembered.</div>`,
     learn:[
-      {t:"Pattern — scaling writes",u:"https://www.hellointerview.com/learn/system-design/patterns/scaling-writes",pr:true},
       {t:"Database sharding",u:"https://algomaster.io/learn/system-design/sharding"},
-      {t:"Cassandra deep dive",u:"https://www.hellointerview.com/learn/system-design/deep-dives/cassandra"}
+      {t:"System Design Primer: sharding",u:"https://github.com/donnemartin/system-design-primer#sharding"},
+      {t:"Cassandra deep dive",u:"https://www.hellointerview.com/learn/system-design/deep-dives/cassandra"},
+      {t:"Pattern: scaling writes",u:"https://www.hellointerview.com/learn/system-design/patterns/scaling-writes",pr:true}
     ],
     practice:[
       {n:"Design Metrics Monitoring (Datadog)",h:"The anchor. Shard key choice, time-series storage, downsampling.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/metrics-monitoring",core:true,pr:true},
@@ -906,12 +908,12 @@ const HLD = [
     tell:"The client needs to know within seconds, without polling for it.",
     fixes:"Polling at a frequency that's either too slow to feel live or too expensive to run.",
     work:`<h4>Worked: WhatsApp</h4>
-<p>Start with the transport ladder and justify the rung you land on — climbing it out loud is worth more than jumping to WebSockets.</p>
+<p>Start with the transport ladder and justify the rung you land on, because climbing it out loud is worth more than jumping to WebSockets.</p>
 <ul>
-<li><b>Polling</b> — works everywhere, wasteful, fine for a dashboard that refreshes every 30 seconds.</li>
-<li><b>Long polling</b> — one held request per update. Simple, no new infrastructure.</li>
-<li><b>Server-sent events</b> — server to client only, over plain HTTP. Right for notifications and live feeds.</li>
-<li><b>WebSocket</b> — bidirectional, lowest latency, and now you own connection state.</li>
+<li><b>Polling.</b> Works everywhere, wasteful, fine for a dashboard that refreshes every 30 seconds.</li>
+<li><b>Long polling.</b> One held request per update. Simple, no new infrastructure.</li>
+<li><b>Server-sent events.</b> Server to client only, over plain HTTP. Right for notifications and live feeds.</li>
+<li><b>WebSocket.</b> Bidirectional, lowest latency, and now you own connection state.</li>
 </ul>
 <h4>The hard part isn't the socket</h4>
 <p>It's routing. When user B has a connection open on server 7 and user A's message lands on server 3, how does server 3 find it? Two answers worth having:</p>
@@ -928,9 +930,10 @@ const HLD = [
 </ul>
 <div class="flag"><b>Group chat is a different problem</b>A 1:1 conversation is a routing problem. A 100,000-member group is a fan-out problem, and the answer is closer to a feed than to a chat. Notice which one you've been asked before you start.</div>`,
     learn:[
-      {t:"Pattern — real-time updates",u:"https://www.hellointerview.com/learn/system-design/patterns/realtime-updates",pr:true},
       {t:"Long polling vs WebSockets",u:"https://blog.algomaster.io/p/long-polling-vs-websockets"},
-      {t:"Read: real-time messaging at Slack",u:"https://slack.engineering/real-time-messaging/"}
+      {t:"MDN: server-sent events",u:"https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events"},
+      {t:"Read: real-time messaging at Slack",u:"https://slack.engineering/real-time-messaging/"},
+      {t:"Pattern: real-time updates",u:"https://www.hellointerview.com/learn/system-design/patterns/realtime-updates",pr:true}
     ],
     practice:[
       {n:"Design WhatsApp",h:"The anchor. Connection routing, offline delivery, ordering, multi-device.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/whatsapp",core:true},
@@ -953,24 +956,25 @@ const HLD = [
 GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
 <h4>Picking the queue, with reasons</h4>
 <ul>
-<li><b>SQS</b> — retries, visibility timeout and a dead-letter queue out of the box. The default for job processing.</li>
-<li><b>Kafka</b> — when you need ordering, replay, or several independent consumers of the same stream. Overkill for a plain work queue, and saying so is a point in your favour.</li>
-<li><b>Redis</b> — simplest, fastest, and you can lose jobs. Fine when the job is cheap to regenerate.</li>
+<li><b>SQS.</b> Retries, visibility timeout and a dead-letter queue out of the box. The default for job processing.</li>
+<li><b>Kafka.</b> When you need ordering, replay, or several independent consumers of the same stream. Overkill for a plain work queue, and saying so is a point in your favour.</li>
+<li><b>Redis.</b> Simplest, fastest, and you can lose jobs. Fine when the job is cheap to regenerate.</li>
 </ul>
 <h4>The two things that separate a real answer</h4>
 <ul>
-<li><b>Idempotency.</b> A worker <em>will</em> process the same job twice — visibility timeout expires while it's still working, and the message reappears. Key the output by job ID so the second run is a no-op, and design the write to be safe to repeat.</li>
-<li><b>Failure handling.</b> Exponential backoff with jitter, a retry limit, a DLQ, and a plan for the poison message that fails forever. Say what a human does when something lands in the DLQ — that's the operational maturity signal.</li>
+<li><b>Idempotency.</b> A worker <em>will</em> process the same job twice, because the visibility timeout expires while it's still working, and the message reappears. Key the output by job ID so the second run is a no-op, and design the write to be safe to repeat.</li>
+<li><b>Failure handling.</b> Exponential backoff with jitter, a retry limit, a DLQ, and a plan for the poison message that fails forever. Say what a human does when something lands in the DLQ. That's the operational maturity signal.</li>
 </ul>
-<div class="flag"><b>When the job is several steps</b>Transcode, then thumbnail, then captions, then publish — with each step able to fail. That's a workflow, not a job, and it's where you name Temporal, Step Functions or Airflow rather than hand-rolling state in a database column.</div>`,
+<div class="flag"><b>When the job is several steps</b>Transcode, then thumbnail, then captions, then publish, with each step able to fail. That's a workflow, not a job, and it's where you name Temporal, Step Functions or Airflow rather than hand-rolling state in a database column.</div>`,
     learn:[
-      {t:"Pattern — long-running tasks",u:"https://www.hellointerview.com/learn/system-design/patterns/long-running-tasks",pr:true},
       {t:"Message queues",u:"https://algomaster.io/learn/system-design/message-queues"},
-      {t:"Kafka vs RabbitMQ",u:"https://www.hellointerview.com/blog/kafka-vs-rabbitmq"}
+      {t:"System Design Primer: asynchronism",u:"https://github.com/donnemartin/system-design-primer#asynchronism"},
+      {t:"Kafka vs RabbitMQ",u:"https://www.hellointerview.com/blog/kafka-vs-rabbitmq"},
+      {t:"Pattern: long-running tasks",u:"https://www.hellointerview.com/learn/system-design/patterns/long-running-tasks",pr:true}
     ],
     practice:[
       {n:"Design YouTube",h:"The anchor. Upload, transcode pipeline, and delivery. Also covers large blobs.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/youtube",core:true},
-      {n:"Design a Distributed Job Scheduler",h:"Cron at scale — leader election, missed-run handling, and exactly-once triggering.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/job-scheduler",core:true,pr:true},
+      {n:"Design a Distributed Job Scheduler",h:"Cron at scale: leader election, missed-run handling, and exactly-once triggering.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/job-scheduler",core:true,pr:true},
       {n:"Design a Distributed Web Crawler",h:"Politeness, deduplication, frontier management, and a very long tail of failures.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/web-crawler"}
     ]
   }]
@@ -981,7 +985,7 @@ GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
   items:[
   {
     id:"hld-contention", name:"Coordinating access to scarce resources", core:true,
-    tell:"Seats, inventory, auction bids, wallet balance, coupon codes — anything where two people can want the same unit.",
+    tell:"Seats, inventory, auction bids, wallet balance, coupon codes: anything where two people can want the same unit.",
     fixes:"Overselling. And the naive fix, a distributed lock held across a payment call, which is worse.",
     work:`<h4>Worked: Ticketmaster</h4>
 <p>Without coordination, two users both see seat 14A available and both buy it. The check and the claim must be atomic.</p>
@@ -1000,9 +1004,11 @@ GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
 <li><b>Is your distributed lock actually safe?</b> If they push here they want fencing tokens, and they want you to know the argument against naive Redlock. Read Kleppmann's piece once; the ability to reference it changes the tone of the conversation.</li>
 </ul>`,
     learn:[
-      {t:"Pattern — dealing with contention",u:"https://www.hellointerview.com/learn/system-design/patterns/dealing-with-contention",pr:true},
+      {t:"Redlock, the proposal",u:"https://redis.io/docs/latest/develop/clients/patterns/distributed-locks/"},
+      {t:"Postgres explicit locking",u:"https://www.postgresql.org/docs/current/explicit-locking.html"},
       {t:"How to do distributed locking (Kleppmann)",u:"https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html"},
-      {t:"Read: Shopify inventory reservations",u:"https://www.hellointerview.com/learn/system-design/in-the-wild/shopify-inventory-reservations"}
+      {t:"Read: Shopify inventory reservations",u:"https://www.hellointerview.com/learn/system-design/in-the-wild/shopify-inventory-reservations"},
+      {t:"Pattern: dealing with contention",u:"https://www.hellointerview.com/learn/system-design/patterns/dealing-with-contention",pr:true}
     ],
     practice:[
       {n:"Design Ticketmaster",h:"The anchor. Holds, expiry, the queue for high-demand drops.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/ticketmaster",core:true},
@@ -1022,19 +1028,21 @@ GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
     work:`<h4>Worked: a payment system</h4>
 <p>Reserve inventory, authorise the card, capture, update the order, notify the user, trigger fulfilment. Six local transactions across five services, and any one can fail or time out ambiguously.</p>
 <h4>Saga: local transactions plus compensations</h4>
-<p>Each step commits locally and has a compensating action that undoes it. There's no rollback across the whole thing — there's a sequence of forward steps and a sequence of backward ones.</p>
+<p>Each step commits locally and has a compensating action that undoes it. There's no rollback across the whole thing. There's a sequence of forward steps and a sequence of backward ones.</p>
 <ul>
-<li><b>Choreography</b> — each service listens for events and reacts. No coordinator, but the flow exists only in everyone's heads, and debugging it means reading five services.</li>
-<li><b>Orchestration</b> — a coordinator drives the steps and holds the state. Easier to reason about, easier to observe, one more thing to run.</li>
+<li><b>Choreography.</b> Each service listens for events and reacts. No coordinator, but the flow exists only in everyone's heads, and debugging it means reading five services.</li>
+<li><b>Orchestration.</b> A coordinator drives the steps and holds the state. Easier to reason about, easier to observe, one more thing to run.</li>
 </ul>
 <p>Have a preference and give a reason. For payments, orchestration usually wins because you need to answer "where is this transaction right now" in under a second when a customer calls.</p>
-<h4>The outbox pattern — name it, because you've built it</h4>
+<h4>The outbox pattern, and naming it because you've built it</h4>
 <p>Writing to your database and publishing to Kafka cannot be atomic. So write the event to an <code>outbox</code> table in the same local transaction as the business change, and have a relay (or CDC on the table) publish it afterwards. Now the event is guaranteed to be published exactly when the business change committed, and never otherwise.</p>
-<div class="flag"><b>Exactly-once is a transport lie</b>What you actually get is at-least-once delivery plus idempotent consumers. Idempotency keys on every mutating endpoint, dedup on message ID at the consumer, and a reconciliation job — because at scale a small fraction will always end up inconsistent and you need a process that finds them rather than a design that pretends they don't exist.</div>`,
+<div class="flag"><b>Exactly-once is a transport lie</b>What you actually get is at-least-once delivery plus idempotent consumers. Idempotency keys on every mutating endpoint, dedup on message ID at the consumer, and a reconciliation job, because at scale a small fraction will always end up inconsistent and you need a process that finds them rather than a design that pretends they don't exist.</div>`,
     learn:[
-      {t:"Pattern — multi-step processes",u:"https://www.hellointerview.com/learn/system-design/patterns/multi-step-processes",pr:true},
+      {t:"Saga pattern (microservices.io)",u:"https://microservices.io/patterns/data/saga.html"},
+      {t:"Transactional outbox",u:"https://microservices.io/patterns/data/transactional-outbox.html"},
       {t:"Idempotency",u:"https://algomaster.io/learn/system-design/idempotency"},
-      {t:"Read: how Airbnb avoids double payments",u:"https://medium.com/airbnb-engineering/avoiding-double-payments-in-a-distributed-payments-system-2981f6b070bb"}
+      {t:"Read: how Airbnb avoids double payments",u:"https://medium.com/airbnb-engineering/avoiding-double-payments-in-a-distributed-payments-system-2981f6b070bb"},
+      {t:"Pattern: multi-step processes",u:"https://www.hellointerview.com/learn/system-design/patterns/multi-step-processes",pr:true}
     ],
     practice:[
       {n:"Design a Payment System",h:"The anchor. Saga, idempotency, reconciliation, and the ledger.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/payment-system",core:true,pr:true},
@@ -1058,25 +1066,27 @@ GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
                                    raw events → S3 (for reprocessing)</code></pre>
 <h4>Windowing, said precisely</h4>
 <ul>
-<li><b>Tumbling</b> — fixed, non-overlapping. "Clicks per minute."</li>
-<li><b>Sliding</b> — overlapping. "Clicks in the last 5 minutes, updated every 30 seconds."</li>
-<li><b>Session</b> — bounded by inactivity gaps rather than the clock.</li>
+<li><b>Tumbling.</b> Fixed, non-overlapping. "Clicks per minute."</li>
+<li><b>Sliding.</b> Overlapping. "Clicks in the last 5 minutes, updated every 30 seconds."</li>
+<li><b>Session.</b> Bounded by inactivity gaps rather than the clock.</li>
 </ul>
-<p>Then watermarks: the processor's statement about how late it's willing to wait for stragglers. Events arriving after the watermark go to a side output, or get corrected by a slower batch path — which is what lambda architecture actually is, and it's worth naming rather than describing.</p>
+<p>Then watermarks: the processor's statement about how late it's willing to wait for stragglers. Events arriving after the watermark go to a side output, or get corrected by a slower batch path, which is what lambda architecture actually is, and it's worth naming rather than describing.</p>
 <h4>Exactly-once, mechanically</h4>
-<p>In Flink it's checkpointed operator state plus a two-phase-commit sink. Barriers flow through the graph, each operator snapshots at the barrier, and the sink only commits when a checkpoint completes. Explain the mechanism rather than the marketing — most candidates can only say the phrase, and the difference is very visible.</p>
+<p>In Flink it's checkpointed operator state plus a two-phase-commit sink. Barriers flow through the graph, each operator snapshots at the barrier, and the sink only commits when a checkpoint completes. Explain the mechanism rather than the marketing. Most candidates can only say the phrase, and the difference is very visible.</p>
 <h4>When exact is too expensive</h4>
 <ul>
-<li><b>HyperLogLog</b> — distinct counts in kilobytes instead of gigabytes.</li>
-<li><b>Count-Min Sketch</b> — frequency estimates for heavy hitters.</li>
-<li><b>Top-K</b> — a sketch feeding a trimmed sorted set, rather than sorting everything.</li>
+<li><b>HyperLogLog.</b> Distinct counts in kilobytes instead of gigabytes.</li>
+<li><b>Count-Min Sketch.</b> Frequency estimates for heavy hitters.</li>
+<li><b>Top-K.</b> A sketch feeding a trimmed sorted set, rather than sorting everything.</li>
 </ul>
 <h4>Rate limiting is this pattern, small</h4>
-<p>Token bucket in Redis with a Lua script for atomicity; sliding window log when you need precision and can afford the memory; fixed window counter when you can't. The real question is always where the counter lives when fifty API servers are enforcing one limit — and the answer is a shared store, with a local fast path that accepts some overcounting at the edges.</p>`,
+<p>Token bucket in Redis with a Lua script for atomicity; sliding window log when you need precision and can afford the memory; fixed window counter when you can't. The real question is always where the counter lives when fifty API servers are enforcing one limit, and the answer is a shared store, with a local fast path that accepts some overcounting at the edges.</p>`,
     learn:[
-      {t:"Flink deep dive",u:"https://www.hellointerview.com/learn/system-design/deep-dives/flink",pr:true},
+      {t:"Flink docs: event time and watermarks",u:"https://nightlies.apache.org/flink/flink-docs-stable/docs/concepts/time/"},
+      {t:"Flink docs: checkpoints and barriers",u:"https://nightlies.apache.org/flink/flink-docs-stable/docs/concepts/stateful-stream-processing/"},
       {t:"Kafka deep dive",u:"https://www.hellointerview.com/learn/system-design/deep-dives/kafka"},
       {t:"Rate limiting algorithms with code",u:"https://blog.algomaster.io/p/rate-limiting-algorithms-explained-with-code"},
+      {t:"Flink deep dive",u:"https://www.hellointerview.com/learn/system-design/deep-dives/flink",pr:true},
       {t:"Data structures for big data",u:"https://www.hellointerview.com/learn/system-design/deep-dives/data-structures-for-big-data",pr:true}
     ],
     practice:[
@@ -1092,7 +1102,7 @@ GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
   items:[
   {
     id:"hld-blobs", name:"Large blobs", core:false,
-    tell:"Files bigger than a request body — images, video, backups, documents.",
+    tell:"Files bigger than a request body: images, video, backups, documents.",
     fixes:"Streaming gigabytes through application servers that should be handling requests.",
     work:`<h4>Worked: Dropbox</h4>
 <p>The core rule: bytes never pass through your application. The server issues a presigned URL, the client uploads straight to object storage, and either an S3 event or a client callback updates the metadata.</p>
@@ -1102,8 +1112,10 @@ GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
 <li><b>Downloads</b> through a CDN, with signed URLs when access control matters.</li>
 </ul>`,
     learn:[
-      {t:"Pattern — large blobs",u:"https://www.hellointerview.com/learn/system-design/patterns/large-blobs",pr:true},
-      {t:"Read: Canva scaling media uploads",u:"https://www.canva.dev/blog/engineering/from-zero-to-50-million-uploads-per-day-scaling-media-at-canva/"}
+      {t:"S3 multipart upload",u:"https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html"},
+      {t:"S3 presigned URL uploads",u:"https://docs.aws.amazon.com/AmazonS3/latest/userguide/PresignedUrlUploadObject.html"},
+      {t:"Read: Canva scaling media uploads",u:"https://www.canva.dev/blog/engineering/from-zero-to-50-million-uploads-per-day-scaling-media-at-canva/"},
+      {t:"Pattern: large blobs",u:"https://www.hellointerview.com/learn/system-design/patterns/large-blobs",pr:true}
     ],
     practice:[
       {n:"Design Dropbox",h:"The anchor. Presigned uploads, chunking, dedup, sync.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/dropbox",core:true},
@@ -1116,13 +1128,13 @@ GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
     tell:"\"Near me\", matching riders to drivers, delivery zones, geofencing.",
     fixes:"Two-dimensional range queries, which ordinary B-tree indexes handle badly.",
     work:`<h4>Worked: Yelp nearby search</h4>
-<p>An index on latitude and one on longitude can't answer "within 5km of here" efficiently — you'd scan a stripe of the world. You need to turn 2D into 1D.</p>
+<p>An index on latitude and one on longitude can't answer "within 5km of here" efficiently, because you'd scan a stripe of the world. You need to turn 2D into 1D.</p>
 <ul>
-<li><b>Geohash</b> — encode a box as a string; shared prefix means nearby. Easy to shard on, easy to store in Redis. The catch is boundary cases, so you search the target cell plus its eight neighbours, then filter by exact distance.</li>
-<li><b>Quadtree</b> — subdivides where density is high. Better for wildly uneven distributions, harder to distribute.</li>
-<li><b>S2 / H3</b> — production-grade cell systems; H3's hexagons have uniform neighbour distances, which matters for delivery zones.</li>
+<li><b>Geohash.</b> Encode a box as a string; shared prefix means nearby. Easy to shard on, easy to store in Redis. The catch is boundary cases, so you search the target cell plus its eight neighbours, then filter by exact distance.</li>
+<li><b>Quadtree.</b> Subdivides where density is high. Better for wildly uneven distributions, harder to distribute.</li>
+<li><b>S2 / H3.</b> Production-grade cell systems; H3's hexagons have uniform neighbour distances, which matters for delivery zones.</li>
 </ul>
-<div class="flag"><b>Moving objects change the problem</b>Static businesses are a read problem. Uber drivers pinging location every four seconds are a write problem with a geospatial index attached. Keep current positions in memory or Redis with a short TTL, and do not persist every ping — say that unprompted and you've skipped ten minutes of being led there.</div>`,
+<div class="flag"><b>Moving objects change the problem</b>Static businesses are a read problem. Uber drivers pinging location every four seconds are a write problem with a geospatial index attached. Keep current positions in memory or Redis with a short TTL, and do not persist every ping. Say that unprompted and you've skipped ten minutes of being led there.</div>`,
     learn:[
       {t:"Proximity search deep dive",u:"https://www.hellointerview.com/learn/system-design/deep-dives/proximity-search"}
     ],
@@ -1140,7 +1152,7 @@ GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
 <p>The data structure is an inverted index: term to a posting list of document IDs. Everything else is a consequence.</p>
 <ul>
 <li><b>Shard by document, not by term.</b> Each shard holds a complete index over its own documents, searches locally, and returns its top results to a coordinator that merges. Sharding by term means one popular term becomes a hot shard and every query is a scatter across many nodes.</li>
-<li><b>The write path is a pipeline</b> — ingest, tokenise, normalise, index. Near-real-time indexing means segment-based writes with periodic merges, which is how Lucene and therefore Elasticsearch work.</li>
+<li><b>The write path is a pipeline.</b> Ingest, tokenise, normalise, index. Near-real-time indexing means segment-based writes with periodic merges, which is how Lucene and therefore Elasticsearch work.</li>
 <li><b>Ranking in two stages.</b> Cheap retrieval pulls a few thousand candidates; an expensive scorer ranks only the top few hundred. Trying to score everything is the mistake.</li>
 </ul>
 <h4>Autocomplete is a different animal</h4>
@@ -1150,7 +1162,7 @@ GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
     ],
     practice:[
       {n:"Design Facebook Post Search",h:"The anchor. Inverted index, sharding strategy, two-stage ranking.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/fb-post-search",core:true},
-      {n:"Design Google Search (focus on typeahead)",h:"Crawl, index, rank — then spend your deep dive on autocomplete: trie, precomputed top-K, offline rebuild from query logs.",u:"https://www.youtube.com/watch?v=CeGtqouT8eA"},
+      {n:"Design Google Search (focus on typeahead)",h:"Crawl, index, rank, then spend your deep dive on autocomplete: trie, precomputed top-K, offline rebuild from query logs.",u:"https://www.youtube.com/watch?v=CeGtqouT8eA"},
       {n:"Design a News Aggregator",h:"Ranking and personalisation over a fast-changing corpus.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/google-news",pr:true}
     ]
   }]
@@ -1163,7 +1175,7 @@ GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
     id:"hld-deepdive", name:"The technologies you claim", core:true,
     tell:"It's written on your resume.",
     fixes:"The worst outcome in an interview: being caught shallow on the thing you listed as your specialism.",
-    work:`<h4>Kafka — what they'll actually ask</h4>
+    work:`<h4>Kafka: what they'll actually ask</h4>
 <ul>
 <li>Partitions and the ordering guarantee (per partition, never global) and how key choice determines it.</li>
 <li>Consumer groups, rebalancing, and what a rebalance costs you in practice.</li>
@@ -1178,12 +1190,12 @@ GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
 <li>Watermarks, allowed lateness, side outputs.</li>
 <li>State backends, and what changes when state stops fitting in memory.</li>
 <li>Checkpointing and barriers, and how two-phase commit gives end-to-end exactly-once.</li>
-<li>Backpressure — how it propagates and how you diagnose it.</li>
+<li>Backpressure: how it propagates and how you diagnose it.</li>
 </ul>
 <h4>Redis</h4>
 <ul>
 <li>Single-threaded event loop, and why it's still fast. This is the question, and "it's in memory" is only half the answer.</li>
-<li>The real data structures, not just GET and SET — sorted sets, hashes, streams, HyperLogLog.</li>
+<li>The real data structures, not just GET and SET: sorted sets, hashes, streams, HyperLogLog.</li>
 <li>RDB versus AOF, and what each loses on a crash.</li>
 <li>Cluster hash slots, resharding, and why <code>MULTI</code> across slots doesn't work.</li>
 <li>Lua scripts for atomicity, and the honest argument about Redlock.</li>
@@ -1197,14 +1209,16 @@ GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
 <div class="flag"><b>The move that wins the round</b>For each one, prepare a story: something that broke in production, why, and what you changed. "We had consumer lag spike during a promo because one partition was hot on a popular restaurant ID" beats any amount of documentation recall, and nobody who hasn't run these systems can produce it.</div>`,
     learn:[
       {t:"Kafka deep dive",u:"https://www.hellointerview.com/learn/system-design/deep-dives/kafka"},
-      {t:"Flink deep dive",u:"https://www.hellointerview.com/learn/system-design/deep-dives/flink",pr:true},
+      {t:"Flink docs: event time and watermarks",u:"https://nightlies.apache.org/flink/flink-docs-stable/docs/concepts/time/"},
+      {t:"Flink docs: checkpoints and barriers",u:"https://nightlies.apache.org/flink/flink-docs-stable/docs/concepts/stateful-stream-processing/"},
       {t:"Redis deep dive",u:"https://www.hellointerview.com/learn/system-design/deep-dives/redis"},
-      {t:"DynamoDB deep dive",u:"https://www.hellointerview.com/learn/system-design/deep-dives/dynamodb"}
+      {t:"DynamoDB deep dive",u:"https://www.hellointerview.com/learn/system-design/deep-dives/dynamodb"},
+      {t:"Flink deep dive",u:"https://www.hellointerview.com/learn/system-design/deep-dives/flink",pr:true}
     ],
     practice:[
       {n:"Write up Kafka in your own words",h:"One page. Then find the two things you couldn't explain and fix those.",u:"https://www.hellointerview.com/learn/system-design/deep-dives/kafka",core:true},
       {n:"Write up Redis internals in your own words",h:"Cheapest conversion of recipe knowledge into model knowledge you'll get this quarter.",u:"https://www.hellointerview.com/learn/system-design/deep-dives/redis",core:true},
-      {n:"Write up Flink and one production story",h:"Event time, watermarks, checkpointing — plus the incident that taught you each.",u:"https://www.hellointerview.com/learn/system-design/deep-dives/flink",core:true,pr:true}
+      {n:"Write up Flink and one production story",h:"Event time, watermarks, checkpointing, plus the incident that taught you each.",u:"https://www.hellointerview.com/learn/system-design/deep-dives/flink",core:true,pr:true}
     ]
   }]
 },
@@ -1221,17 +1235,18 @@ GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
 <h4>Build it out under the framework</h4>
 <ul>
 <li><b>Requirements.</b> Score a transaction in under 100ms on the synchronous path. Catch slow-burn patterns on the async path. Rules changeable by analysts without a deploy. Every decision auditable.</li>
-<li><b>Estimation.</b> Use your own real numbers — events per second, rules live, p99, value prevented. Go and dig them out of your dashboards; that task is worth more than a week of anything else on this sheet.</li>
+<li><b>Estimation.</b> Use your own real numbers: events per second, rules live, p99, value prevented. Go and dig them out of your dashboards; that task is worth more than a week of anything else on this sheet.</li>
 <li><b>The two paths.</b> Synchronous scoring in the request path with a strict budget, and asynchronous stream analysis over Kafka and Flink for anything needing history or aggregation. Explaining why some checks can't be synchronous is the sharpest part of the answer.</li>
-<li><b>Feature store.</b> Precomputed aggregates in Redis — velocity per user, per device, per card. The synchronous path reads, never computes.</li>
+<li><b>Feature store.</b> Precomputed aggregates in Redis: velocity per user, per device, per card. The synchronous path reads, never computes.</li>
 <li><b>Rule engine.</b> Chain of responsibility, ordered by cost, loaded from config. Your LLD answer and your HLD answer become the same story at two zoom levels, which is unusual and memorable.</li>
 <li><b>Feedback loop.</b> Chargebacks and manual reviews flow back as labels. Shadow mode for new rules before they block anything.</li>
 <li><b>The trade-off to name.</b> False positives cost real revenue; false negatives cost fraud losses. You tune a threshold between two business costs, not toward an abstract accuracy number. Very few candidates frame it that way.</li>
 </ul>
 <div class="flag"><b>Prepare it as a written document</b>Full write-up, diagram, numbers. Then present it out loud, timed, three times. By the third run it'll be the most fluent thing you say in any interview.</div>`,
     learn:[
-      {t:"Pattern — scaling writes, the nearest one they have to step 07",u:"https://www.hellointerview.com/learn/system-design/patterns/scaling-writes",pr:true},
       {t:"Ad click aggregator, as a structural template",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/ad-click-aggregator"},
+      {t:"Saga pattern, for the compensation vocabulary",u:"https://microservices.io/patterns/data/saga.html"},
+      {t:"Pattern: scaling writes, the nearest one they have to step 07",u:"https://www.hellointerview.com/learn/system-design/patterns/scaling-writes",pr:true},
       {t:"Payment system, for the vocabulary",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/payment-system",pr:true}
     ],
     practice:[
@@ -1246,34 +1261,20 @@ GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
 /* ---------------- storage ---------------- */
 const KEY = "design-sheet-v1";
 let state = {};
-let memoryOnly = false;
 
-async function load(){
+function load(){
   try{
-    if (window.storage && typeof window.storage.get === "function"){
-      const r = await window.storage.get(KEY);
-      if (r && r.value) state = JSON.parse(r.value);
-      return;
-    }
-  }catch(e){ /* key absent on first run — fine */ }
-  try{
-    const raw = window.localStorage && window.localStorage.getItem(KEY);
+    const raw = window.localStorage.getItem(KEY);
     if (raw) state = JSON.parse(raw);
-  }catch(e){ memoryOnly = true; }
+  }catch(e){ /* private window or storage blocked; ticks just won't persist */ }
 }
 
 let saveTimer = null;
 function save(){
   clearTimeout(saveTimer);
-  saveTimer = setTimeout(async () => {
-    const json = JSON.stringify(state);
-    try{
-      if (window.storage && typeof window.storage.set === "function"){
-        await window.storage.set(KEY, json);
-        return;
-      }
-    }catch(e){ /* fall through */ }
-    try{ window.localStorage.setItem(KEY, json); }catch(e){ memoryOnly = true; }
+  saveTimer = setTimeout(() => {
+    try{ window.localStorage.setItem(KEY, JSON.stringify(state)); }
+    catch(e){ /* nothing to do; the sheet still works for this session */ }
   }, 250);
 }
 
@@ -1308,7 +1309,7 @@ function cardHTML(t, p){
     '<p class="fixes">' + p.fixes + '</p>' +
     '<details class="work"><summary>Worked example</summary><div class="work-body">' + p.work + '</div></details>' +
     '<div class="learn">' + learn + '</div>' +
-    '<div class="plist"><div class="plabel">Practice — try before opening the solution</div>' + rows + '</div>' +
+    '<div class="plist"><div class="plabel">Practice: try before opening the solution</div>' + rows + '</div>' +
   '</article>';
 }
 
@@ -1427,7 +1428,8 @@ tb.addEventListener("click", () => {
   tb.textContent = dark ? "dark" : "light";
 });
 
-load().then(render);
+load();
+render();
 
 </script>
 </body>

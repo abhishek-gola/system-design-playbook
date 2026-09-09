@@ -63,7 +63,7 @@ Session, ninety second inactivity gap. 13 sessions across 4 users:
    user-3     [0:07..2:01 6 clicks]  [5:11..7:06 5 clicks]  [10:21..10:56 5 clicks]
    user-4     [0:12..1:56 5 clicks]  [5:56..6:16 3 clicks]  [10:07..12:14 6 clicks]
 
-   [ sections 3 and 4 omitted — event vs processing time, watermarks ]
+   [ sections 3 and 4 omitted: event vs processing time, watermarks ]
 
 ==========================================================================
 5. At-least-once versus effectively-once at the sink
@@ -89,7 +89,7 @@ replayed from the source. Both sinks see identical input.
 Same events, two window types, and the bursts that are invisible in one are
 obvious in the other. Then a job killed mid-stream: the naive sink is over by
 exactly the fifteen replayed records, the two-phase-commit sink lands on sixty.
-None of that is a diagram of a system — it is the system, small enough to read
+None of that is a diagram of a system. It is the system, small enough to read
 in an evening.
 
 **It teaches the trigger, not just the pattern.** Knowing what Strategy is has
@@ -104,8 +104,8 @@ technologies on your CV. And a timed-drill folder, because recognising a design
 and generating one are different skills and only the second is tested.
 
 **It argues, rather than lists.** Every trade-off comes with a recommendation and
-a reason. Where there's no right answer — `addChild` on `Node` or on `Directory`,
-orchestration or choreography — it says so, because interviewers know and are
+a reason. Where there's no right answer, it says so: `addChild` on `Node` or on
+`Directory`, orchestration or choreography. Interviewers know, and they are
 listening for whether you do.
 
 ## Who it's for
@@ -125,14 +125,14 @@ brew install openjdk@21     # if you don't have a JDK; run.sh finds it on its ow
 
 Then pick a track:
 
-- **[lld/](lld/README.md)** — 16 folders. Modelling, SOLID, the eight patterns
+- **[lld/](lld/README.md)**: 16 folders. Modelling, SOLID, the eight patterns
   that actually turn up, concurrency, and timed machine-coding drills.
-- **[hld/](hld/README.md)** — 11 folders. The delivery framework, seven scaling
+- **[hld/](hld/README.md)**: 11 folders. The delivery framework, seven scaling
   patterns, technology deep dives, and building one signature design.
 
 There's also a browser version of the same sheet with progress tracking, live at
-**[abhishek-gola.github.io/system-design-playbook](https://abhishek-gola.github.io/system-design-playbook/)**
-— your ticks save locally in the browser.
+**[abhishek-gola.github.io/system-design-playbook](https://abhishek-gola.github.io/system-design-playbook/)**.
+Your ticks save locally in the browser.
 
 ## If your onsite is in under three weeks
 
@@ -140,24 +140,24 @@ Ignore the week numbers on the track pages. They assume a fourteen-week run, and
 reading in order puts you in `lld/00-modelling` when what's about to cost you the
 round is pacing and locking. Six folders, in this order:
 
-1. **[hld/00-framework](hld/00-framework/)** — the forty-five minute clock.
+1. **[hld/00-framework](hld/00-framework/)**: the forty-five minute clock.
    Pacing loses more rounds than knowledge does, and this is the cheapest fix in
    the repo.
-2. **[lld/10-concurrency](lld/10-concurrency/)** — the double-booking race,
+2. **[lld/10-concurrency](lld/10-concurrency/)**: the double-booking race,
    reproduced. Any prompt with seats, inventory or a balance is this question
    wearing a costume.
-3. **[hld/05-contention](hld/05-contention/)** — the same problem across
+3. **[hld/05-contention](hld/05-contention/)**: the same problem across
    machines. Read it straight after, while the shape is still fresh.
-4. **[lld/02-strategy](lld/02-strategy/)** and **[lld/06-state](lld/06-state/)** —
+4. **[lld/02-strategy](lld/02-strategy/)** and **[lld/06-state](lld/06-state/)**:
    the two patterns machine-coding rounds are actually built on.
-5. **[hld/01-scaling-reads](hld/01-scaling-reads/)** — the default hard part in
+5. **[hld/01-scaling-reads](hld/01-scaling-reads/)**: the default hard part in
    anything read-heavy.
 
 Then the two "picking the pattern" tables, at the top of
 [lld/README.md](lld/README.md) and [hld/README.md](hld/README.md). Ten minutes,
 and they carry more per minute than anything else here.
 
-Then **three timed drills** — 50 minutes each, blank file, no notes: Rate
+Then **three timed drills**, 50 minutes each, blank file, no notes: Rate
 Limiter, BookMyShow, Splitwise. Method and scorecard are in
 [lld/15-timed-drills](lld/15-timed-drills/). If you run short on evenings, cut
 reading before you cut drills; recognising a design and producing one are
@@ -186,7 +186,7 @@ Reading a folder takes ten minutes and teaches you almost nothing. The sequence
 that works:
 
 1. Read the README. Close it.
-2. Write the pattern from scratch in a blank file. Not from memory of the code —
+2. Write the pattern from scratch in a blank file. Not from memory of the code, but
    from memory of the *problem it solves*.
 3. Run your version, then diff your thinking against the folder's. The places you
    differ are the lesson.
@@ -207,14 +207,14 @@ exactly one class with a `main`, called `Demo`.
 If you'd rather not use the script:
 `javac -d /tmp/out lld/02-strategy/*.java && java -cp /tmp/out Demo`.
 
-Output is deterministic wherever the topic allows it — clocks are injected rather
+Output is deterministic wherever the topic allows it: clocks are injected rather
 than read from the wall, and anything random is seeded. The few genuinely
 concurrent demos say so and report aggregate counts rather than pretending a race
 is reproducible.
 
 ## Licence
 
-Code is MIT, written material is CC BY 4.0. See [LICENSE](LICENSE) — the split is
+Code is MIT, written material is CC BY 4.0. See [LICENSE](LICENSE). The split is
 there so you can lift the Java into your own projects without ceremony, and share
 or adapt the notes with attribution.
 
@@ -223,19 +223,23 @@ or adapt the notes with attribution.
 **The HLD track follows Hello Interview's taxonomy.** Folders
 [01](hld/01-scaling-reads/) through [08](hld/08-blobs-geo-search/) are the seven
 patterns from
-[*System Design in a Hurry*](https://www.hellointerview.com/learn/system-design/in-a-hurry/introduction)
-— scaling reads, scaling writes, real-time updates, long-running tasks, dealing
-with contention, multi-step processes and large blobs — with two changes:
-counting and aggregation is pulled out into a step of its own rather than living
+[*System Design in a Hurry*](https://www.hellointerview.com/learn/system-design/in-a-hurry/introduction):
+scaling reads, scaling writes, real-time updates, long-running tasks, dealing
+with contention, multi-step processes and large blobs. Two things changed.
+Counting and aggregation is pulled out into a step of its own rather than living
 inside the others, and large blobs is widened to cover geo and search, which is
 why eight folders carry seven patterns. Step
 [09](hld/09-technology-deep-dives/) then works through the four technologies
 their deep dives lean on hardest: Redis, Kafka, Flink and DynamoDB. The
 decomposition is theirs; the Java, the arguments and the drills are mine.
 
-Links to their pages are marked **(premium)** where the page sits behind their
-paywall, so you know before you click. Nothing in this repo needs a paid
-account.
+All seven of their pattern pages are paywalled, so nothing here is built to
+need them. Every **Read** list puts free sources first and marks the paywalled
+link **(premium)** at the end: the Redlock proposal and Kleppmann's rebuttal for
+contention, microservices.io for sagas and the outbox, the Apache Flink docs for
+watermarks and checkpoints, the System Design Primer for caching, sharding and
+queues. A gated practice solution is only ever a solution; the problem is free
+to attempt and the folder is the worked answer.
 
 The practice problems point at
 [awesome-low-level-design](https://github.com/ashishps1/awesome-low-level-design),
