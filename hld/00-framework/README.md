@@ -47,10 +47,10 @@ Not whether your architecture matches a reference answer. Whether you noticed
 the hard part, named a standard approach for it, and could argue its trade-offs
 against the alternative. Fluency over novelty.
 
-Say "this is a contention problem, I'd start with optimistic concurrency" and
-you have compressed five minutes into one sentence the interviewer immediately
-understands. That sentence also tells them you have seen the shape before,
-which is most of what the signal is.
+Say "the upload has to outlive the request, so the API hands back a job id and
+the client either polls or gets pushed to" and you have compressed five minutes
+into one sentence the interviewer immediately understands. That sentence also
+tells them you have seen the shape before, which is most of what the signal is.
 
 The corollary is uncomfortable but useful: a correct design delivered badly
 scores below a conventional design delivered with clear reasoning. The
@@ -176,7 +176,7 @@ write up one vocabulary item in your own words.
 | Problem | What to watch for |
 |---|---|
 | [Run the script on Bitly, timed](https://www.hellointerview.com/learn/system-design/problem-breakdowns/bitly) **(core)** | Then do it again three days later. The second run is where the pacing sticks. |
-| [Run the script on a Distributed Cache](https://www.hellointerview.com/learn/system-design/problem-breakdowns/distributed-cache) | Small scope, forces you to fill 45 minutes with depth rather than breadth. |
+| [Run the script on a Distributed Cache](https://www.hellointerview.com/learn/system-design/problem-breakdowns/distributed-cache) **(premium)** | Small scope, forces you to fill 45 minutes with depth rather than breadth. |
 | [Run the script on LeetCode](https://www.hellointerview.com/learn/system-design/problem-breakdowns/leetcode) | A system small enough that a monolith is defensible. Practise arguing for the simple answer. |
 | [Write up caching strategies + stampede](https://algomaster.io/learn/system-design/caching-strategies) **(core)** | Cache-aside, write-through, write-back, and three ways to stop a stampede. |
 | [Write up sharding and consistent hashing](https://algomaster.io/learn/system-design/consistent-hashing) **(core)** | Include what happens when you add a node, and what a virtual node is for. |
@@ -186,7 +186,7 @@ write up one vocabulary item in your own words.
 
 - [Hello Interview — delivery framework](https://www.hellointerview.com/learn/system-design/in-a-hurry/delivery)
 - [AlgoMaster — answering framework](https://algomaster.io/learn/system-design-interviews/answering-framework)
-- [Numbers to know](https://www.hellointerview.com/learn/system-design/core-concepts/numbers-to-know)
+- [Numbers to know](https://www.hellointerview.com/learn/system-design/core-concepts/numbers-to-know) **(premium)**
 - [30 core concepts](https://blog.algomaster.io/p/30-system-design-concepts)
 - [Top 15 trade-offs](https://blog.algomaster.io/p/system-design-top-15-trade-offs)
 - [Hello Interview — core concepts](https://www.hellointerview.com/learn/system-design/in-a-hurry/core-concepts)

@@ -380,9 +380,9 @@ the document; then the runs.
 
 ## Read
 
-- [Pattern — counting and aggregation (step 07)](https://www.hellointerview.com/learn/system-design/patterns/scaling-writes)
+- [Pattern — scaling writes, the nearest one they have to step 07](https://www.hellointerview.com/learn/system-design/patterns/scaling-writes) **(premium)**
 - [Ad click aggregator, as a structural template](https://www.hellointerview.com/learn/system-design/problem-breakdowns/ad-click-aggregator)
-- [Payment system, for the vocabulary](https://www.hellointerview.com/learn/system-design/problem-breakdowns/payment-system)
+- [Payment system, for the vocabulary](https://www.hellointerview.com/learn/system-design/problem-breakdowns/payment-system) **(premium)**
 
 ## Practice
 
@@ -390,4 +390,4 @@ the document; then the runs.
 |---|---|
 | [Write the full design document](https://www.hellointerview.com/learn/system-design/in-a-hurry/delivery) **(core)** | Requirements through failure modes, with your real numbers in it. |
 | [Present it out loud, timed, three times](https://www.hellointerview.com/learn/system-design/in-a-hurry/delivery) **(core)** | Record the third. Fix whatever makes you wince. |
-| [Prepare the three hardest follow-ups](https://www.hellointerview.com/learn/system-design/deep-dives/flink) **(core)** | How do you handle a rule that starts false-positiving in production? How do you backfill after a bad model? What breaks at 10x? |
+| [Prepare the three hardest follow-ups](https://www.hellointerview.com/learn/system-design/deep-dives/flink) **(core)** **(premium)** | How do you handle a rule that starts false-positiving in production? How do you backfill after a bad model? What breaks at 10x? |

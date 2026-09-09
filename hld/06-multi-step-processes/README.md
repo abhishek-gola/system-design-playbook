@@ -201,12 +201,12 @@ then finds and repairs.
 
 | Problem | What to watch for |
 |---|---|
-| [Design a Payment System](https://www.hellointerview.com/learn/system-design/problem-breakdowns/payment-system) **(core)** | The anchor. Saga, idempotency, reconciliation, and the ledger. |
+| [Design a Payment System](https://www.hellointerview.com/learn/system-design/problem-breakdowns/payment-system) **(core)** **(premium)** | The anchor. Saga, idempotency, reconciliation, and the ledger. |
 | [Design Uber](https://www.hellointerview.com/learn/system-design/problem-breakdowns/uber) **(core)** | The ride lifecycle is a long saga with a matching problem bolted on. |
 | [Design a Local Delivery Service (GoPuff)](https://www.hellointerview.com/learn/system-design/problem-breakdowns/gopuff) | Inventory, order and fulfilment across warehouses. |
 
 ## Read
 
-- [Pattern — multi-step processes](https://www.hellointerview.com/learn/system-design/patterns/multi-step-processes)
+- [Pattern — multi-step processes](https://www.hellointerview.com/learn/system-design/patterns/multi-step-processes) **(premium)**
 - [Idempotency](https://algomaster.io/learn/system-design/idempotency)
 - [Read: how Airbnb avoids double payments](https://medium.com/airbnb-engineering/avoiding-double-payments-in-a-distributed-payments-system-2981f6b070bb)

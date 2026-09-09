@@ -5,6 +5,13 @@ two-pointer trick. What it has is a script, and candidates who don't run one
 lose the round on pacing rather than knowledge — so
 [00-framework](00-framework/) is not optional and not a warm-up.
 
+Steps 01 to 08 are Hello Interview's pattern taxonomy from
+[*System Design in a Hurry*](https://www.hellointerview.com/learn/system-design/in-a-hurry/introduction),
+with counting and aggregation pulled out into its own step and large blobs
+widened to cover geo and search; step 09 defends the four technologies their
+deep dives lean on hardest. The decomposition is theirs. Links back to their
+pages are marked **(premium)** where the page is behind their paywall.
+
 | Step | Week | Folder | The pattern |
 |---|---|---|---|
 | 00 | 4 | [00-framework](00-framework/) | The forty-five minute script, and the vocabulary you must be able to defend |
@@ -51,9 +58,9 @@ Not whether your architecture matches a reference answer. Whether you **noticed
 the hard part**, named a standard approach for it, and could argue its
 trade-offs against the alternative.
 
-Fluency over novelty. Saying "this is a contention problem, I'd start with
-optimistic concurrency and move to a hold with a TTL when the payment call goes
-in the middle" compresses five minutes into one sentence the interviewer
+Fluency over novelty. Saying "the hard part is the fan-out for accounts with
+millions of followers, so I'd push on write for everyone else and merge those
+few in at read time" compresses five minutes into one sentence the interviewer
 immediately understands.
 
 ## Where the code is

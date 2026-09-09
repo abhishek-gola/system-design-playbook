@@ -87,12 +87,12 @@ the URL expires rather than the object becoming private.
 | Problem | What to watch for |
 |---|---|
 | [Dropbox](https://www.hellointerview.com/learn/system-design/problem-breakdowns/dropbox) **(core)** | The anchor. Presigned uploads, chunking, dedup, sync. |
-| [Instagram](https://www.hellointerview.com/learn/system-design/problem-breakdowns/instagram) | Media upload and delivery at consumer scale. |
+| [Instagram](https://www.hellointerview.com/learn/system-design/problem-breakdowns/instagram) **(premium)** | Media upload and delivery at consumer scale. |
 | [Distributed cloud storage like S3](https://www.youtube.com/watch?v=UmWtcgC96X8) | Building the object store rather than using it. |
 
 ## Read
 
-- [Pattern — large blobs](https://www.hellointerview.com/learn/system-design/patterns/large-blobs)
+- [Pattern — large blobs](https://www.hellointerview.com/learn/system-design/patterns/large-blobs) **(premium)**
 - [Canva scaling media uploads](https://www.canva.dev/blog/engineering/from-zero-to-50-million-uploads-per-day-scaling-media-at-canva/)
 
 ---
@@ -152,7 +152,7 @@ path — which is [scaling writes](../02-scaling-writes/), not this pattern.
 
 | Problem | What to watch for |
 |---|---|
-| [Yelp](https://www.hellointerview.com/learn/system-design/problem-breakdowns/yelp) **(core)** | The anchor. Static locations, geohash or quadtree, radius queries. |
+| [Yelp](https://www.hellointerview.com/learn/system-design/problem-breakdowns/yelp) **(core)** **(premium)** | The anchor. Static locations, geohash or quadtree, radius queries. |
 | [Uber](https://www.hellointerview.com/learn/system-design/problem-breakdowns/uber) | Moving drivers, matching, and the write volume of location updates. |
 | [Tinder](https://www.hellointerview.com/learn/system-design/problem-breakdowns/tinder) | Proximity plus a recommendation and swipe-state problem on top. |
 
@@ -234,7 +234,7 @@ The demo builds one and walks a prefix down to its precomputed list.
 |---|---|
 | [Facebook Post Search](https://www.hellointerview.com/learn/system-design/problem-breakdowns/fb-post-search) **(core)** | The anchor. Inverted index, sharding strategy, two-stage ranking. |
 | [Google Search, focusing on typeahead](https://www.youtube.com/watch?v=CeGtqouT8eA) | Crawl, index, rank — then spend the deep dive on autocomplete: trie, precomputed top-K, offline rebuild from query logs. |
-| [News Aggregator](https://www.hellointerview.com/learn/system-design/problem-breakdowns/google-news) | Ranking and personalisation over a fast-changing corpus. |
+| [News Aggregator](https://www.hellointerview.com/learn/system-design/problem-breakdowns/google-news) **(premium)** | Ranking and personalisation over a fast-changing corpus. |
 
 ## Read
 

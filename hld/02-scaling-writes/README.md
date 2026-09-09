@@ -187,12 +187,12 @@ should label it that way if you use the shape of it in an interview.
 
 | Problem | What to watch for |
 |---|---|
-| [Design Metrics Monitoring (Datadog)](https://www.hellointerview.com/learn/system-design/problem-breakdowns/metrics-monitoring) **(core)** | The anchor. Shard key choice, time-series storage, downsampling. |
-| [Design Strava](https://www.hellointerview.com/learn/system-design/problem-breakdowns/strava) | High-volume activity ingest plus geospatial queries on top. |
+| [Design Metrics Monitoring (Datadog)](https://www.hellointerview.com/learn/system-design/problem-breakdowns/metrics-monitoring) **(core)** **(premium)** | The anchor. Shard key choice, time-series storage, downsampling. |
+| [Design Strava](https://www.hellointerview.com/learn/system-design/problem-breakdowns/strava) **(premium)** | High-volume activity ingest plus geospatial queries on top. |
 | [Read: how Discord stores trillions of messages](https://discord.com/blog/how-discord-stores-trillions-of-messages) | A real write-scaling migration, with the reasoning intact. Worth more than three tutorials. |
 
 ## Read
 
-- [Pattern — scaling writes](https://www.hellointerview.com/learn/system-design/patterns/scaling-writes)
+- [Pattern — scaling writes](https://www.hellointerview.com/learn/system-design/patterns/scaling-writes) **(premium)**
 - [Database sharding](https://algomaster.io/learn/system-design/sharding)
 - [Cassandra deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/cassandra)

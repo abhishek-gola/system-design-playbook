@@ -257,7 +257,7 @@ follow-up in the signature design round.
 ## Read
 
 - [Kafka deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/kafka)
-- [Flink deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/flink)
+- [Flink deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/flink) **(premium)**
 - [Redis deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/redis)
 - [DynamoDB deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/dynamodb)
 
@@ -267,4 +267,4 @@ follow-up in the signature design round.
 |---|---|
 | [Write up Kafka in your own words](https://www.hellointerview.com/learn/system-design/deep-dives/kafka) **(core)** | One page. Then find the two things you couldn't explain and fix those. |
 | [Write up Redis internals in your own words](https://www.hellointerview.com/learn/system-design/deep-dives/redis) **(core)** | The cheapest conversion of recipe knowledge into model knowledge you'll get this quarter. |
-| [Write up Flink and one production story](https://www.hellointerview.com/learn/system-design/deep-dives/flink) **(core)** | Event time, watermarks, checkpointing — plus the incident that taught you each. |
+| [Write up Flink and one production story](https://www.hellointerview.com/learn/system-design/deep-dives/flink) **(core)** **(premium)** | Event time, watermarks, checkpointing — plus the incident that taught you each. |

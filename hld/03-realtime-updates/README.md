@@ -206,10 +206,10 @@ the backlog in order, and the consistent-hashing alternative for contrast.
 |---|---|
 | [Design WhatsApp](https://www.hellointerview.com/learn/system-design/problem-breakdowns/whatsapp) **(core)** | The anchor. Connection routing, offline delivery, ordering, multi-device. |
 | [Design Facebook Live Comments](https://www.hellointerview.com/learn/system-design/problem-breakdowns/fb-live-comments) **(core)** | Massive fan-out to viewers of one stream. Different shape from chat. |
-| [Design Google Docs](https://www.hellointerview.com/learn/system-design/problem-breakdowns/google-docs) | Collaborative editing, so operational transforms or CRDTs. The hardest one in this group. |
+| [Design Google Docs](https://www.hellointerview.com/learn/system-design/problem-breakdowns/google-docs) **(premium)** | Collaborative editing, so operational transforms or CRDTs. The hardest one in this group. |
 
 ## Read
 
-- [Pattern — real-time updates](https://www.hellointerview.com/learn/system-design/patterns/realtime-updates)
+- [Pattern — real-time updates](https://www.hellointerview.com/learn/system-design/patterns/realtime-updates) **(premium)**
 - [Long polling vs WebSockets](https://blog.algomaster.io/p/long-polling-vs-websockets)
 - [Read: real-time messaging at Slack](https://slack.engineering/real-time-messaging/)

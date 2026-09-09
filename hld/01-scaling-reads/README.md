@@ -169,11 +169,11 @@ the same idea as the `Ticker` in [lld/02-strategy](../../lld/02-strategy/).
 | Problem | What to watch for |
 |---|---|
 | [Design Bitly / a URL shortener](https://www.hellointerview.com/learn/system-design/problem-breakdowns/bitly) **(core)** | The anchor. Do this one first and do it properly; half the sheet builds on it. |
-| [Design Instagram](https://www.hellointerview.com/learn/system-design/problem-breakdowns/instagram) **(core)** | Feed read path, media at the edge, and the celebrity problem. |
-| [Design a Distributed Cache](https://www.hellointerview.com/learn/system-design/problem-breakdowns/distributed-cache) | Building the cache rather than using it. Consistent hashing, eviction, replication. |
+| [Design Instagram](https://www.hellointerview.com/learn/system-design/problem-breakdowns/instagram) **(core)** **(premium)** | Feed read path, media at the edge, and the celebrity problem. |
+| [Design a Distributed Cache](https://www.hellointerview.com/learn/system-design/problem-breakdowns/distributed-cache) **(premium)** | Building the cache rather than using it. Consistent hashing, eviction, replication. |
 
 ## Read
 
-- [Pattern — scaling reads](https://www.hellointerview.com/learn/system-design/patterns/scaling-reads)
+- [Pattern — scaling reads](https://www.hellointerview.com/learn/system-design/patterns/scaling-reads) **(premium)**
 - [Caching strategies](https://algomaster.io/learn/system-design/caching-strategies)
 - [Redis deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/redis)

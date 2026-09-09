@@ -355,7 +355,7 @@ where it goes.
 
 ## Read
 
-- [Flink deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/flink)
+- [Flink deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/flink) **(premium)**
 - [Kafka deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/kafka)
 - [Rate limiting algorithms with code](https://blog.algomaster.io/p/rate-limiting-algorithms-explained-with-code)
-- [Data structures for big data](https://www.hellointerview.com/learn/system-design/deep-dives/data-structures-for-big-data)
+- [Data structures for big data](https://www.hellointerview.com/learn/system-design/deep-dives/data-structures-for-big-data) **(premium)**

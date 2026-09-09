@@ -216,11 +216,11 @@ sent, which is at-least-once working correctly rather than a bug.
 | Problem | What to watch for |
 |---|---|
 | [Design YouTube](https://www.hellointerview.com/learn/system-design/problem-breakdowns/youtube) **(core)** | The anchor. Upload, transcode pipeline, and delivery. Also covers large blobs. |
-| [Design a Distributed Job Scheduler](https://www.hellointerview.com/learn/system-design/problem-breakdowns/job-scheduler) **(core)** | Cron at scale — leader election, missed-run handling, and exactly-once triggering. |
+| [Design a Distributed Job Scheduler](https://www.hellointerview.com/learn/system-design/problem-breakdowns/job-scheduler) **(core)** **(premium)** | Cron at scale — leader election, missed-run handling, and exactly-once triggering. |
 | [Design a Distributed Web Crawler](https://www.hellointerview.com/learn/system-design/problem-breakdowns/web-crawler) | Politeness, deduplication, frontier management, and a very long tail of failures. |
 
 ## Read
 
-- [Pattern — long-running tasks](https://www.hellointerview.com/learn/system-design/patterns/long-running-tasks)
+- [Pattern — long-running tasks](https://www.hellointerview.com/learn/system-design/patterns/long-running-tasks) **(premium)**
 - [Message queues](https://algomaster.io/learn/system-design/message-queues)
 - [Kafka vs RabbitMQ](https://www.hellointerview.com/blog/kafka-vs-rabbitmq)

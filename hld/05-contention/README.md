@@ -161,11 +161,11 @@ being refused by its stale fencing token.
 | Problem | What to watch for |
 |---|---|
 | [Design Ticketmaster](https://www.hellointerview.com/learn/system-design/problem-breakdowns/ticketmaster) **(core)** | The anchor. Holds, expiry, the queue for high-demand drops. |
-| [Design an Online Auction](https://www.hellointerview.com/learn/system-design/problem-breakdowns/online-auction) **(core)** | Bids arriving faster than you can serialise them. Batching in time windows is the escape hatch. |
-| [Design Robinhood](https://www.hellointerview.com/learn/system-design/problem-breakdowns/robinhood) | Order matching, where correctness under contention is the entire product. |
+| [Design an Online Auction](https://www.hellointerview.com/learn/system-design/problem-breakdowns/online-auction) **(core)** **(premium)** | Bids arriving faster than you can serialise them. Batching in time windows is the escape hatch. |
+| [Design Robinhood](https://www.hellointerview.com/learn/system-design/problem-breakdowns/robinhood) **(premium)** | Order matching, where correctness under contention is the entire product. |
 
 ## Read
 
-- [Pattern — dealing with contention](https://www.hellointerview.com/learn/system-design/patterns/dealing-with-contention)
+- [Pattern — dealing with contention](https://www.hellointerview.com/learn/system-design/patterns/dealing-with-contention) **(premium)**
 - [How to do distributed locking (Kleppmann)](https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html)
 - [Read: Shopify inventory reservations](https://www.hellointerview.com/learn/system-design/in-the-wild/shopify-inventory-reservations)
