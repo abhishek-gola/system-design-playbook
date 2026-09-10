@@ -135,9 +135,6 @@ details.work>summary:hover{color:var(--ink)}
   border:1px solid var(--line);border-radius:5px;padding:3px 8px}
 .learn a:hover{color:var(--blue);border-color:var(--blue)}
 .learn a::after{content:" ↗";color:var(--ink3);font-size:9px}
-.pw{font-family:var(--f-mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--ink3);border:1px solid var(--line);border-radius:3px;padding:1px 4px;margin-left:5px}
-.row a.sol .pw{margin-left:4px;padding:0 3px}
 
 /* ---------- prose block ---------- */
 .prose{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin-bottom:12px;font-size:14.5px}
@@ -197,8 +194,7 @@ footer.end a:hover{color:var(--blue)}
 
 <footer class="end">
   <p>Ticks are saved in this browser. Core path = the subset that gets you to a passing design round; everything else is depth for when the week goes well.</p>
-  <p>The high-level track follows the pattern taxonomy from <a href="https://www.hellointerview.com/learn/system-design/in-a-hurry/introduction" target="_blank" rel="noopener">Hello Interview&rsquo;s <em>System Design in a Hurry</em></a>: scaling reads, scaling writes, real-time updates, long-running tasks, contention, multi-step processes and large blobs, along with their Redis, Kafka, Flink and DynamoDB deep dives. Counting and aggregation is split out into its own step here and large blobs is widened to cover geo and search, but the decomposition is theirs. Practice problems also point at <a href="https://github.com/ashishps1/awesome-low-level-design" target="_blank" rel="noopener">awesome-low-level-design</a>, <a href="https://algomaster.io" target="_blank" rel="noopener">AlgoMaster</a> and <a href="https://refactoring.guru/design-patterns" target="_blank" rel="noopener">Refactoring Guru</a>.</p>
-  <p>A link tagged <span class="pw">premium</span> sits behind Hello Interview&rsquo;s paywall. Nothing on this sheet needs a paid account.</p>
+  <p>Practice problems point at <a href="https://github.com/ashishps1/awesome-low-level-design" target="_blank" rel="noopener">awesome-low-level-design</a>, <a href="https://algomaster.io" target="_blank" rel="noopener">AlgoMaster</a> and <a href="https://refactoring.guru/design-patterns" target="_blank" rel="noopener">Refactoring Guru</a>.</p>
 </footer>
 </div>
 <script>
@@ -250,8 +246,7 @@ const LLD = [
 <div class="flag"><b>Two hard rules</b>Never start coding before minute 15. Never still be designing at minute 25. Set a timer on every practice run until the pacing is automatic. It's the single highest-return habit in this sheet.</div>
 <p>One more thing: narrate. Silence reads as being stuck even when you're thinking clearly. Say what you're weighing, even if it's "I'm deciding whether pricing belongs on the ticket or the gate, and I'm leaning gate because pricing rules change more often than tickets do."</p>`,
     learn:[
-      {t:"How to answer an LLD problem",u:"https://blog.algomaster.io/p/how-to-answer-a-lld-interview-problem"},
-      {t:"Hello Interview: how to prepare for LLD",u:"https://www.hellointerview.com/blog/how-to-prepare-lld"}
+      {t:"How to answer an LLD problem",u:"https://blog.algomaster.io/p/how-to-answer-a-lld-interview-problem"}
     ],
     practice:[
       {n:"Timed run: Design a Vending Machine",h:"50 minutes, blank file, no AI. Compare your class list to the reference afterwards, not during.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/vending-machine.md",core:true},
@@ -640,80 +635,13 @@ class Config {
 enum Config { INSTANCE; }</code></pre>
 <p>Without <code>volatile</code> in the second one, another thread can see a non-null reference to a partially constructed object, because the assignment and the constructor can be reordered. That sentence is the answer they're fishing for.</p>
 <div class="flag"><b>The second half of the question</b>They'll ask why it's considered an anti-pattern: global mutable state, hidden dependencies, and code you can't unit-test in isolation. Answer both sides, then say what you'd actually do: construct one instance and inject it, so the constraint lives in the wiring rather than in the class.</div>`,
-    learn:[{t:"Refactoring Guru: Singleton",u:"https://refactoring.guru/design-patterns/singleton"},{t:"AlgoMaster: Singleton",u:"https://algomaster.io/learn/lld/singleton"}],
-    practice:[
-      {n:"Thread-safe configuration manager",h:"All three implementations, then explain the volatile.",u:"https://refactoring.guru/design-patterns/singleton/java/example"},
-      {n:"Design a Parking Lot (single instance)",h:"The ParkingLot itself is the usual singleton in this problem.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/parking-lot.md"},
-      {n:"Design a Logging Framework (single logger)",h:"Registry of named loggers, created once, thread-safe.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/logging-framework.md"}
-    ]
-  },
-  {
-    id:"lld-composite", name:"Composite", core:false,
-    tell:"A tree, where one thing and a group of things have to be treated identically.",
-    fixes:"Callers writing <code>if (isLeaf)</code> everywhere they walk the structure.",
-    work:`<h4>A file system in eight lines</h4>
-<pre><code>interface Node { long size(); }
-
-class File implements Node {
-    private final long bytes;
-    public long size() { return bytes; }
-}
-
-class Directory implements Node {
-    private final List&lt;Node&gt; children = new ArrayList&lt;&gt;();
-    public long size() { return children.stream().mapToLong(Node::size).sum(); }
-}</code></pre>
-<p>The caller asks any node for its size and never checks what kind it is. Recursion lives inside the composite, not in the client.</p>
-<p>The question that follows is usually about operations that only make sense on one type, such as <code>addChild</code> on a file. Two answers: put it only on <code>Directory</code> and lose uniformity, or put it on <code>Node</code> and throw on leaves. Say the trade-off; there's no clean winner and interviewers know it.</p>`,
-    learn:[{t:"Refactoring Guru: Composite",u:"https://refactoring.guru/design-patterns/composite"},{t:"AlgoMaster: Composite",u:"https://algomaster.io/learn/lld/composite"}],
-    practice:[
-      {n:"Design a File System",h:"Sizes, search, and a recursive delete. Then add symlinks and watch the model strain.",u:"https://refactoring.guru/design-patterns/composite/java/example"},
-      {n:"Design a Restaurant Management System",h:"Menus containing sections containing items, priced uniformly.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/restaurant-management-system.md"},
-      {n:"Design Stack Overflow",h:"Nested comment threads rendered and counted uniformly.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/stack-overflow.md"}
-    ]
-  },
-  {
-    id:"lld-command", name:"Command", core:false,
-    tell:"Undo, redo, replay, schedule-for-later, queue-this-action, or an audit log of what was done.",
-    fixes:"Actions that exist only as method calls, which means you can't store, reverse, or defer them.",
-    work:`<h4>A chess move that knows how to reverse itself</h4>
-<pre><code>interface Command { void execute(); void undo(); }
-
-class MoveCommand implements Command {
-    private final Square from, to;
-    private Piece captured;                  // recorded during execute
-
-    public void execute() { captured = board.pieceAt(to); board.move(from, to); }
-    public void undo()    { board.move(to, from); board.place(captured, to); }
-}
-
-class Game { private final Deque&lt;Command&gt; history = new ArrayDeque&lt;&gt;(); }</code></pre>
-<p>The command stores enough state to reverse itself, the captured piece, which is precisely why undo works. When an action can't be reversed from its own state, store the inverse command instead, or snapshot (that's Memento).</p>
-<p>Good bridge to mention: a Command is a serialisable unit of work. Serialise it and put it on a queue and you've got a job. That's the same object doing LLD duty and HLD duty.</p>`,
-    learn:[{t:"Refactoring Guru: Command",u:"https://refactoring.guru/design-patterns/command"},{t:"AlgoMaster: Command",u:"https://algomaster.io/learn/lld/command"}],
-    practice:[
-      {n:"Design a Chess Game",h:"Move, undo, and a full move history. Also good practice for modelling piece movement rules.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/chess-game.md"},
-      {n:"Design a Task Management System",h:"Every mutation as a command, giving you undo and an audit trail for free.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/task-management-system.md"},
-      {n:"Design a Digital Wallet Service",h:"Transactions as commands with compensating actions: the LLD shadow of a saga.",u:"https://github.com/ashishps1/awesome-low-level-design/blob/main/problems/digital-wallet-service.md"}
-    ]
-  },
-  {
-    id:"lld-rest", name:"The rest, in one line each", core:false,
-    tell:"Asked directly, or you spot the shape while designing something else.",
-    fixes:"Nothing you need this quarter. Read the one-liners, follow a link only if a problem actually pulls you there.",
-    work:`<ul>
-<li><b>Template Method.</b> Several flows share a skeleton and differ in two steps. Base class fixes the order with a <code>final</code> method; subclasses fill the gaps. Prefer Strategy unless the skeleton is genuinely immutable.</li>
-<li><b>Proxy.</b> Stand in front of an object to add lazy loading, caching, access control or a remote call, without the caller knowing.</li>
-<li><b>Facade.</b> One simple entry point over a messy subsystem. You've written dozens without naming it.</li>
-<li><b>Iterator.</b> Traverse a collection without exposing its internals. Java's <code>Iterable</code> is this, so an interview question here is usually about writing a custom one.</li>
-<li><b>Flyweight.</b> Share immutable intrinsic state across many objects to save memory. Chess pieces, text glyphs, particle systems.</li>
-<li><b>Bridge.</b> Two dimensions varying independently (shape × renderer). Prevents a class explosion when you'd otherwise multiply the hierarchies.</li>
-<li><b>Mediator.</b> Objects that would otherwise all reference each other talk through a hub instead. Air traffic control, chat rooms.</li>
-<li><b>Memento.</b> Snapshot and restore an object's state without exposing its internals. The alternative to Command-based undo when the action isn't reversible.</li>
-<li><b>Prototype.</b> Clone an existing object rather than constructing one, when construction is expensive.</li>
-<li><b>Visitor.</b> Add operations to a stable class hierarchy without editing it. Rare in interviews, common in compilers.</li>
-</ul>`,
     learn:[
+      {t:"Refactoring Guru: Singleton",u:"https://refactoring.guru/design-patterns/singleton"},
+      {t:"AlgoMaster: Singleton",u:"https://algomaster.io/learn/lld/singleton"},
+      {t:"Refactoring Guru: Composite",u:"https://refactoring.guru/design-patterns/composite"},
+      {t:"AlgoMaster: Composite",u:"https://algomaster.io/learn/lld/composite"},
+      {t:"Refactoring Guru: Command",u:"https://refactoring.guru/design-patterns/command"},
+      {t:"AlgoMaster: Command",u:"https://algomaster.io/learn/lld/command"},
       {t:"Full pattern catalogue",u:"https://refactoring.guru/design-patterns/catalog"},
       {t:"All patterns in Java",u:"https://refactoring.guru/design-patterns/java"},
       {t:"AlgoMaster LLD index",u:"https://github.com/ashishps1/awesome-low-level-design"}
@@ -781,14 +709,12 @@ const HLD = [
 <h4>What they're actually scoring</h4>
 <p>Not whether your architecture matches a reference answer. Whether you noticed the hard part, named a standard approach for it, and could argue its trade-offs against the alternative. Fluency over novelty. Say "the upload has to outlive the request, so the API hands back a job id and the client either polls or gets pushed to" and you've compressed five minutes into one sentence the interviewer immediately understands.</p>`,
     learn:[
-      {t:"Hello Interview: delivery framework",u:"https://www.hellointerview.com/learn/system-design/in-a-hurry/delivery"},
-      {t:"AlgoMaster: answering framework",u:"https://algomaster.io/learn/system-design-interviews/answering-framework"},
-      {t:"Numbers to know",u:"https://www.hellointerview.com/learn/system-design/core-concepts/numbers-to-know",pr:true}
+      {t:"AlgoMaster: answering framework",u:"https://algomaster.io/learn/system-design-interviews/answering-framework"}
     ],
     practice:[
-      {n:"Run the script on Bitly, timed",h:"Then do it again three days later. The second run is where the pacing sticks.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/bitly",core:true},
-      {n:"Run the script on a Distributed Cache",h:"Small scope, forces you to fill 45 minutes with depth rather than breadth.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/distributed-cache",pr:true},
-      {n:"Run the script on LeetCode",h:"A system small enough that a monolith is defensible. Practise arguing for the simple answer.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/leetcode"}
+      {n:"Run the script on Bitly, timed",h:"Then do it again three days later. The second run is where the pacing sticks.",core:true},
+      {n:"Run the script on a Distributed Cache",h:"Small scope, forces you to fill 45 minutes with depth rather than breadth."},
+      {n:"Run the script on LeetCode",h:"A system small enough that a monolith is defensible. Practise arguing for the simple answer."}
     ]
   },
   {
@@ -815,7 +741,7 @@ const HLD = [
     learn:[
       {t:"30 core concepts",u:"https://blog.algomaster.io/p/30-system-design-concepts"},
       {t:"Top 15 trade-offs",u:"https://blog.algomaster.io/p/system-design-top-15-trade-offs"},
-      {t:"Hello Interview: core concepts",u:"https://www.hellointerview.com/learn/system-design/in-a-hurry/core-concepts"},
+      {t:"System Design Primer: topic index",u:"https://github.com/donnemartin/system-design-primer#index-of-system-design-topics"},
       {t:"Full resource index",u:"https://github.com/ashishps1/awesome-system-design-resources"}
     ],
     practice:[
@@ -852,13 +778,12 @@ const HLD = [
     learn:[
       {t:"Caching strategies",u:"https://algomaster.io/learn/system-design/caching-strategies"},
       {t:"System Design Primer: caching",u:"https://github.com/donnemartin/system-design-primer#cache"},
-      {t:"Redis deep dive",u:"https://www.hellointerview.com/learn/system-design/deep-dives/redis"},
-      {t:"Pattern: scaling reads",u:"https://www.hellointerview.com/learn/system-design/patterns/scaling-reads",pr:true}
+      {t:"Redis reference docs",u:"https://redis.io/docs/latest/develop/reference/"}
     ],
     practice:[
-      {n:"Design Bitly / a URL shortener",h:"The anchor. Do this one first and do it properly; half the sheet builds on it.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/bitly",core:true},
-      {n:"Design Instagram",h:"Feed read path, media at the edge, and the celebrity problem.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/instagram",core:true,pr:true},
-      {n:"Design a Distributed Cache",h:"Building the cache rather than using it. Consistent hashing, eviction, replication.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/distributed-cache",pr:true}
+      {n:"Design Bitly / a URL shortener",h:"The anchor. Do this one first and do it properly; half the sheet builds on it.",core:true},
+      {n:"Design Instagram",h:"Feed read path, media at the edge, and the celebrity problem.",core:true},
+      {n:"Design a Distributed Cache",h:"Building the cache rather than using it. Consistent hashing, eviction, replication."}
     ]
   }]
 },
@@ -889,12 +814,11 @@ const HLD = [
     learn:[
       {t:"Database sharding",u:"https://algomaster.io/learn/system-design/sharding"},
       {t:"System Design Primer: sharding",u:"https://github.com/donnemartin/system-design-primer#sharding"},
-      {t:"Cassandra deep dive",u:"https://www.hellointerview.com/learn/system-design/deep-dives/cassandra"},
-      {t:"Pattern: scaling writes",u:"https://www.hellointerview.com/learn/system-design/patterns/scaling-writes",pr:true}
+      {t:"Cassandra architecture",u:"https://cassandra.apache.org/doc/latest/cassandra/architecture/overview.html"}
     ],
     practice:[
-      {n:"Design Metrics Monitoring (Datadog)",h:"The anchor. Shard key choice, time-series storage, downsampling.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/metrics-monitoring",core:true,pr:true},
-      {n:"Design Strava",h:"High-volume activity ingest plus geospatial queries on top.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/strava",pr:true},
+      {n:"Design Metrics Monitoring (Datadog)",h:"The anchor. Shard key choice, time-series storage, downsampling.",core:true},
+      {n:"Design Strava",h:"High-volume activity ingest plus geospatial queries on top."},
       {n:"Read: how Discord stores trillions of messages",h:"A real write-scaling migration, with the reasoning intact. Worth more than three tutorials.",u:"https://discord.com/blog/how-discord-stores-trillions-of-messages"}
     ]
   }]
@@ -932,13 +856,12 @@ const HLD = [
     learn:[
       {t:"Long polling vs WebSockets",u:"https://blog.algomaster.io/p/long-polling-vs-websockets"},
       {t:"MDN: server-sent events",u:"https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events"},
-      {t:"Read: real-time messaging at Slack",u:"https://slack.engineering/real-time-messaging/"},
-      {t:"Pattern: real-time updates",u:"https://www.hellointerview.com/learn/system-design/patterns/realtime-updates",pr:true}
+      {t:"Read: real-time messaging at Slack",u:"https://slack.engineering/real-time-messaging/"}
     ],
     practice:[
-      {n:"Design WhatsApp",h:"The anchor. Connection routing, offline delivery, ordering, multi-device.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/whatsapp",core:true},
-      {n:"Design Facebook Live Comments",h:"Massive fan-out to viewers of one stream. Different shape from chat.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/fb-live-comments",core:true},
-      {n:"Design Google Docs",h:"Collaborative editing, so operational transforms or CRDTs. The hardest one in this group.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/google-docs",pr:true}
+      {n:"Design WhatsApp",h:"The anchor. Connection routing, offline delivery, ordering, multi-device.",core:true},
+      {n:"Design Facebook Live Comments",h:"Massive fan-out to viewers of one stream. Different shape from chat.",core:true},
+      {n:"Design Google Docs",h:"Collaborative editing, so operational transforms or CRDTs. The hardest one in this group."}
     ]
   }]
 },
@@ -968,14 +891,12 @@ GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
 <div class="flag"><b>When the job is several steps</b>Transcode, then thumbnail, then captions, then publish, with each step able to fail. That's a workflow, not a job, and it's where you name Temporal, Step Functions or Airflow rather than hand-rolling state in a database column.</div>`,
     learn:[
       {t:"Message queues",u:"https://algomaster.io/learn/system-design/message-queues"},
-      {t:"System Design Primer: asynchronism",u:"https://github.com/donnemartin/system-design-primer#asynchronism"},
-      {t:"Kafka vs RabbitMQ",u:"https://www.hellointerview.com/blog/kafka-vs-rabbitmq"},
-      {t:"Pattern: long-running tasks",u:"https://www.hellointerview.com/learn/system-design/patterns/long-running-tasks",pr:true}
+      {t:"System Design Primer: asynchronism",u:"https://github.com/donnemartin/system-design-primer#asynchronism"}
     ],
     practice:[
-      {n:"Design YouTube",h:"The anchor. Upload, transcode pipeline, and delivery. Also covers large blobs.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/youtube",core:true},
-      {n:"Design a Distributed Job Scheduler",h:"Cron at scale: leader election, missed-run handling, and exactly-once triggering.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/job-scheduler",core:true,pr:true},
-      {n:"Design a Distributed Web Crawler",h:"Politeness, deduplication, frontier management, and a very long tail of failures.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/web-crawler"}
+      {n:"Design YouTube",h:"The anchor. Upload, transcode pipeline, and delivery. Also covers large blobs.",core:true},
+      {n:"Design a Distributed Job Scheduler",h:"Cron at scale: leader election, missed-run handling, and exactly-once triggering.",core:true},
+      {n:"Design a Distributed Web Crawler",h:"Politeness, deduplication, frontier management, and a very long tail of failures."}
     ]
   }]
 },
@@ -1006,14 +927,12 @@ GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
     learn:[
       {t:"Redlock, the proposal",u:"https://redis.io/docs/latest/develop/clients/patterns/distributed-locks/"},
       {t:"Postgres explicit locking",u:"https://www.postgresql.org/docs/current/explicit-locking.html"},
-      {t:"How to do distributed locking (Kleppmann)",u:"https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html"},
-      {t:"Read: Shopify inventory reservations",u:"https://www.hellointerview.com/learn/system-design/in-the-wild/shopify-inventory-reservations"},
-      {t:"Pattern: dealing with contention",u:"https://www.hellointerview.com/learn/system-design/patterns/dealing-with-contention",pr:true}
+      {t:"How to do distributed locking (Kleppmann)",u:"https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html"}
     ],
     practice:[
-      {n:"Design Ticketmaster",h:"The anchor. Holds, expiry, the queue for high-demand drops.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/ticketmaster",core:true},
-      {n:"Design an Online Auction",h:"Bids arriving faster than you can serialise them. Batching in time windows is the escape hatch.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/online-auction",core:true,pr:true},
-      {n:"Design Robinhood",h:"Order matching, where correctness under contention is the entire product.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/robinhood",pr:true}
+      {n:"Design Ticketmaster",h:"The anchor. Holds, expiry, the queue for high-demand drops.",core:true},
+      {n:"Design an Online Auction",h:"Bids arriving faster than you can serialise them. Batching in time windows is the escape hatch.",core:true},
+      {n:"Design Robinhood",h:"Order matching, where correctness under contention is the entire product."}
     ]
   }]
 },
@@ -1041,13 +960,12 @@ GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
       {t:"Saga pattern (microservices.io)",u:"https://microservices.io/patterns/data/saga.html"},
       {t:"Transactional outbox",u:"https://microservices.io/patterns/data/transactional-outbox.html"},
       {t:"Idempotency",u:"https://algomaster.io/learn/system-design/idempotency"},
-      {t:"Read: how Airbnb avoids double payments",u:"https://medium.com/airbnb-engineering/avoiding-double-payments-in-a-distributed-payments-system-2981f6b070bb"},
-      {t:"Pattern: multi-step processes",u:"https://www.hellointerview.com/learn/system-design/patterns/multi-step-processes",pr:true}
+      {t:"Read: how Airbnb avoids double payments",u:"https://medium.com/airbnb-engineering/avoiding-double-payments-in-a-distributed-payments-system-2981f6b070bb"}
     ],
     practice:[
-      {n:"Design a Payment System",h:"The anchor. Saga, idempotency, reconciliation, and the ledger.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/payment-system",core:true,pr:true},
-      {n:"Design Uber",h:"The ride lifecycle is a long saga with a matching problem bolted on.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/uber",core:true},
-      {n:"Design a Local Delivery Service (GoPuff)",h:"Inventory, order and fulfilment across warehouses. Close to what you already work on.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/gopuff"}
+      {n:"Design a Payment System",h:"The anchor. Saga, idempotency, reconciliation, and the ledger.",core:true},
+      {n:"Design Uber",h:"The ride lifecycle is a long saga with a matching problem bolted on.",core:true},
+      {n:"Design a Local Delivery Service (GoPuff)",h:"Inventory, order and fulfilment across warehouses. Close to what you already work on."}
     ]
   }]
 },
@@ -1084,15 +1002,13 @@ GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
     learn:[
       {t:"Flink docs: event time and watermarks",u:"https://nightlies.apache.org/flink/flink-docs-stable/docs/concepts/time/"},
       {t:"Flink docs: checkpoints and barriers",u:"https://nightlies.apache.org/flink/flink-docs-stable/docs/concepts/stateful-stream-processing/"},
-      {t:"Kafka deep dive",u:"https://www.hellointerview.com/learn/system-design/deep-dives/kafka"},
-      {t:"Rate limiting algorithms with code",u:"https://blog.algomaster.io/p/rate-limiting-algorithms-explained-with-code"},
-      {t:"Flink deep dive",u:"https://www.hellointerview.com/learn/system-design/deep-dives/flink",pr:true},
-      {t:"Data structures for big data",u:"https://www.hellointerview.com/learn/system-design/deep-dives/data-structures-for-big-data",pr:true}
+      {t:"Kafka design docs",u:"https://kafka.apache.org/documentation/#design"},
+      {t:"Rate limiting algorithms with code",u:"https://blog.algomaster.io/p/rate-limiting-algorithms-explained-with-code"}
     ],
     practice:[
-      {n:"Design an Ad Click Aggregator",h:"The anchor. Windowing, watermarks, exactly-once, and the reprocessing path.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/ad-click-aggregator",core:true},
-      {n:"Design YouTube Top K",h:"Sketches plus sorted sets. The one where approximate structures earn their keep.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/top-k",core:true},
-      {n:"Design a Distributed Rate Limiter",h:"Your specialism, at system scale. Make this an answer you can give without thinking.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/distributed-rate-limiter",core:true}
+      {n:"Design an Ad Click Aggregator",h:"The anchor. Windowing, watermarks, exactly-once, and the reprocessing path.",core:true},
+      {n:"Design YouTube Top K",h:"Sketches plus sorted sets. The one where approximate structures earn their keep.",core:true},
+      {n:"Design a Distributed Rate Limiter",h:"Your specialism, at system scale. Make this an answer you can give without thinking.",core:true}
     ]
   }]
 },
@@ -1114,12 +1030,11 @@ GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
     learn:[
       {t:"S3 multipart upload",u:"https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html"},
       {t:"S3 presigned URL uploads",u:"https://docs.aws.amazon.com/AmazonS3/latest/userguide/PresignedUrlUploadObject.html"},
-      {t:"Read: Canva scaling media uploads",u:"https://www.canva.dev/blog/engineering/from-zero-to-50-million-uploads-per-day-scaling-media-at-canva/"},
-      {t:"Pattern: large blobs",u:"https://www.hellointerview.com/learn/system-design/patterns/large-blobs",pr:true}
+      {t:"Read: Canva scaling media uploads",u:"https://www.canva.dev/blog/engineering/from-zero-to-50-million-uploads-per-day-scaling-media-at-canva/"}
     ],
     practice:[
-      {n:"Design Dropbox",h:"The anchor. Presigned uploads, chunking, dedup, sync.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/dropbox",core:true},
-      {n:"Design Instagram",h:"Media upload and delivery at consumer scale.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/instagram",pr:true},
+      {n:"Design Dropbox",h:"The anchor. Presigned uploads, chunking, dedup, sync.",core:true},
+      {n:"Design Instagram",h:"Media upload and delivery at consumer scale."},
       {n:"Design distributed cloud storage like S3",h:"Building the object store rather than using it.",u:"https://www.youtube.com/watch?v=UmWtcgC96X8"}
     ]
   },
@@ -1136,12 +1051,12 @@ GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
 </ul>
 <div class="flag"><b>Moving objects change the problem</b>Static businesses are a read problem. Uber drivers pinging location every four seconds are a write problem with a geospatial index attached. Keep current positions in memory or Redis with a short TTL, and do not persist every ping. Say that unprompted and you've skipped ten minutes of being led there.</div>`,
     learn:[
-      {t:"Proximity search deep dive",u:"https://www.hellointerview.com/learn/system-design/deep-dives/proximity-search"}
+      {t:"Redis geospatial commands",u:"https://redis.io/docs/latest/develop/data-types/geospatial/"}
     ],
     practice:[
-      {n:"Design Yelp",h:"The anchor. Static locations, geohash or quadtree, radius queries.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/yelp",core:true,pr:true},
-      {n:"Design Uber",h:"Moving drivers, matching, and the write volume of location updates.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/uber"},
-      {n:"Design Tinder",h:"Proximity plus a recommendation and swipe-state problem on top.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/tinder"}
+      {n:"Design Yelp",h:"The anchor. Static locations, geohash or quadtree, radius queries.",core:true},
+      {n:"Design Uber",h:"Moving drivers, matching, and the write volume of location updates."},
+      {n:"Design Tinder",h:"Proximity plus a recommendation and swipe-state problem on top."}
     ]
   },
   {
@@ -1158,12 +1073,12 @@ GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
 <h4>Autocomplete is a different animal</h4>
 <p>Not search. A trie held in memory with the top K completions precomputed at each node, rebuilt offline from query logs. Latency budget is single-digit milliseconds, so nothing touches a database on the request path.</p>`,
     learn:[
-      {t:"Elasticsearch deep dive",u:"https://www.hellointerview.com/learn/system-design/deep-dives/elasticsearch"}
+      {t:"Elasticsearch: documents and indices",u:"https://www.elastic.co/guide/en/elasticsearch/reference/current/documents-indices.html"}
     ],
     practice:[
-      {n:"Design Facebook Post Search",h:"The anchor. Inverted index, sharding strategy, two-stage ranking.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/fb-post-search",core:true},
+      {n:"Design Facebook Post Search",h:"The anchor. Inverted index, sharding strategy, two-stage ranking.",core:true},
       {n:"Design Google Search (focus on typeahead)",h:"Crawl, index, rank, then spend your deep dive on autocomplete: trie, precomputed top-K, offline rebuild from query logs.",u:"https://www.youtube.com/watch?v=CeGtqouT8eA"},
-      {n:"Design a News Aggregator",h:"Ranking and personalisation over a fast-changing corpus.",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/google-news",pr:true}
+      {n:"Design a News Aggregator",h:"Ranking and personalisation over a fast-changing corpus."}
     ]
   }]
 },
@@ -1208,17 +1123,16 @@ GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
 </ul>
 <div class="flag"><b>The move that wins the round</b>For each one, prepare a story: something that broke in production, why, and what you changed. "We had consumer lag spike during a promo because one partition was hot on a popular restaurant ID" beats any amount of documentation recall, and nobody who hasn't run these systems can produce it.</div>`,
     learn:[
-      {t:"Kafka deep dive",u:"https://www.hellointerview.com/learn/system-design/deep-dives/kafka"},
+      {t:"Kafka design docs",u:"https://kafka.apache.org/documentation/#design"},
       {t:"Flink docs: event time and watermarks",u:"https://nightlies.apache.org/flink/flink-docs-stable/docs/concepts/time/"},
       {t:"Flink docs: checkpoints and barriers",u:"https://nightlies.apache.org/flink/flink-docs-stable/docs/concepts/stateful-stream-processing/"},
-      {t:"Redis deep dive",u:"https://www.hellointerview.com/learn/system-design/deep-dives/redis"},
-      {t:"DynamoDB deep dive",u:"https://www.hellointerview.com/learn/system-design/deep-dives/dynamodb"},
-      {t:"Flink deep dive",u:"https://www.hellointerview.com/learn/system-design/deep-dives/flink",pr:true}
+      {t:"Redis reference docs",u:"https://redis.io/docs/latest/develop/reference/"},
+      {t:"The DynamoDB paper (USENIX ATC 2022)",u:"https://www.usenix.org/conference/atc22/presentation/elhemali"}
     ],
     practice:[
-      {n:"Write up Kafka in your own words",h:"One page. Then find the two things you couldn't explain and fix those.",u:"https://www.hellointerview.com/learn/system-design/deep-dives/kafka",core:true},
-      {n:"Write up Redis internals in your own words",h:"Cheapest conversion of recipe knowledge into model knowledge you'll get this quarter.",u:"https://www.hellointerview.com/learn/system-design/deep-dives/redis",core:true},
-      {n:"Write up Flink and one production story",h:"Event time, watermarks, checkpointing, plus the incident that taught you each.",u:"https://www.hellointerview.com/learn/system-design/deep-dives/flink",core:true,pr:true}
+      {n:"Write up Kafka in your own words",h:"One page. Then find the two things you couldn't explain and fix those.",core:true},
+      {n:"Write up Redis internals in your own words",h:"Cheapest conversion of recipe knowledge into model knowledge you'll get this quarter.",core:true},
+      {n:"Write up Flink and one production story",h:"Event time, watermarks, checkpointing, plus the incident that taught you each.",core:true}
     ]
   }]
 },
@@ -1231,7 +1145,7 @@ GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
     tell:"\"Tell me about something you've built,\" or any design prompt you can steer toward risk, payments or abuse.",
     fixes:"Being a generic backend candidate. This is the one answer where your two years count double.",
     work:`<h4>Why this one</h4>
-<p>There is no published breakdown for it, which is exactly the point. Every other candidate is reciting Ticketmaster. You'd be describing a system you've operated, with numbers, in the vocabulary the interviewer uses. Prepare it to the same standard as a Hello Interview write-up and it becomes the strongest forty minutes in your loop.</p>
+<p>There is no published breakdown for it, which is exactly the point. Every other candidate is reciting Ticketmaster. You'd be describing a system you've operated, with numbers, in the vocabulary the interviewer uses. Prepare it to the same standard as a published design doc and it becomes the strongest forty minutes in your loop.</p>
 <h4>Build it out under the framework</h4>
 <ul>
 <li><b>Requirements.</b> Score a transaction in under 100ms on the synchronous path. Catch slow-burn patterns on the async path. Rules changeable by analysts without a deploy. Every decision auditable.</li>
@@ -1244,15 +1158,12 @@ GET  /jobs/{jobId}  → { state: PROCESSING, progress: 0.4 }</code></pre>
 </ul>
 <div class="flag"><b>Prepare it as a written document</b>Full write-up, diagram, numbers. Then present it out loud, timed, three times. By the third run it'll be the most fluent thing you say in any interview.</div>`,
     learn:[
-      {t:"Ad click aggregator, as a structural template",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/ad-click-aggregator"},
-      {t:"Saga pattern, for the compensation vocabulary",u:"https://microservices.io/patterns/data/saga.html"},
-      {t:"Pattern: scaling writes, the nearest one they have to step 07",u:"https://www.hellointerview.com/learn/system-design/patterns/scaling-writes",pr:true},
-      {t:"Payment system, for the vocabulary",u:"https://www.hellointerview.com/learn/system-design/problem-breakdowns/payment-system",pr:true}
+      {t:"Saga pattern, for the compensation vocabulary",u:"https://microservices.io/patterns/data/saga.html"}
     ],
     practice:[
-      {n:"Write the full design document",h:"Requirements through failure modes, with your real numbers in it.",u:"https://www.hellointerview.com/learn/system-design/in-a-hurry/delivery",core:true},
-      {n:"Present it out loud, timed, three times",h:"Record the third. Fix whatever makes you wince.",u:"https://www.hellointerview.com/learn/system-design/in-a-hurry/delivery",core:true},
-      {n:"Prepare the three hardest follow-ups",h:"How do you handle a rule that starts false-positiving in production? How do you backfill after a bad model? What breaks at 10x?",u:"https://www.hellointerview.com/learn/system-design/deep-dives/flink",core:true,pr:true}
+      {n:"Write the full design document",h:"Requirements through failure modes, with your real numbers in it.",core:true},
+      {n:"Present it out loud, timed, three times",h:"Record the third. Fix whatever makes you wince.",core:true},
+      {n:"Prepare the three hardest follow-ups",h:"How do you handle a rule that starts false-positiving in production? How do you backfill after a bad model? What breaks at 10x?",core:true}
     ]
   }]
 }
@@ -1295,12 +1206,11 @@ function cardHTML(t, p){
       '<input type="checkbox"' + on + ' data-key="' + k + '">' +
       '<span class="txt"><span class="nm">' + q.n + '</span>' +
       (q.h ? '<span class="hint">' + q.h + '</span>' : '') + '</span>' +
-      '<a class="sol" href="' + q.u + '" target="_blank" rel="noopener">solution' +
-      (q.pr ? '<span class="pw" title="behind Hello Interview\u2019s paywall">premium</span>' : '') + '</a></label>';
+      (q.u ? '<a class="sol" href="' + q.u + '" target="_blank" rel="noopener">solution</a>' : '') +
+      '</label>';
   }).join("");
 
-  const learn = p.learn.map(l => '<a href="' + l.u + '" target="_blank" rel="noopener">' + l.t +
-    (l.pr ? '<span class="pw" title="behind Hello Interview\u2019s paywall">premium</span>' : '') + '</a>').join("");
+  const learn = p.learn.map(l => '<a href="' + l.u + '" target="_blank" rel="noopener">' + l.t + '</a>').join("");
 
   return '<article class="card" data-pattern="' + p.id + '" data-core="' + (p.core ? 1 : 0) + '">' +
     '<div class="tell"><b>The tell</b>' + p.tell + '</div>' +

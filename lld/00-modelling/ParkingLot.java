@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * Owns the floors (composition) and the open tickets (composition — a ticket is
+ * Owns the floors (composition) and the open tickets (composition, a ticket is
  * meaningless without the lot that issued it).
  *
  * Everything mutable lives here, in one object, which is what makes the gates
@@ -34,7 +34,7 @@ public class ParkingLot {
     /**
      * Optional rather than an exception because "the lot is full" is an
      * expected outcome, not a bug. If the interviewer prefers an exception,
-     * agree and move on — it is not worth two minutes.
+     * agree and move on: it is not worth two minutes.
      */
     public Optional<Ticket> park(Vehicle vehicle, Instant at) {
         for (Floor floor : floors) {

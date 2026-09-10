@@ -9,7 +9,7 @@ import java.util.Map;
  *
  * In production this map is a database index or a Redis key per cell. Nothing
  * about the shape changes: the cell is the shard key, a lookup is exact-match
- * on a string, and the expensive part — the distance calculation — only ever
+ * on a string, and the expensive part, the distance calculation, only ever
  * runs on the handful of rows a cell lookup returned.
  *
  * The precision is the one tuning decision. Cells that are too large mean you
@@ -85,7 +85,7 @@ public final class GeoIndex {
      * The cell lookup is a coarse filter and nothing more. A geohash cell is a
      * rectangle and a radius query is a circle, so some of what the cells
      * return is genuinely outside the radius. Haversine settles it, and it only
-     * runs on the small candidate set — which is the entire point of doing the
+     * runs on the small candidate set: which is the entire point of doing the
      * cell lookup first.
      */
     private static List<Hit> filterByExactDistance(List<Place> candidates, double lat, double lon, double radiusMetres) {

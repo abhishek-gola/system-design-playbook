@@ -1,34 +1,34 @@
 public class Demo {
 
     public static void main(String[] args) {
-        section("Template Method — fix the order, vary the steps");
+        section("Template Method: fix the order, vary the steps");
         TemplateMethodDemo.show();
 
-        section("Proxy — control access, not add features");
+        section("Proxy: control access, not add features");
         ProxyDemo.show();
 
-        section("Facade — one door onto a subsystem you can still walk around");
+        section("Facade: one door onto a subsystem you can still walk around");
         FacadeDemo.show();
 
-        section("Iterator — traverse without exposing the internals");
+        section("Iterator: traverse without exposing the internals");
         IteratorDemo.show();
 
-        section("Flyweight — share the intrinsic, pass the extrinsic");
+        section("Flyweight: share the intrinsic, pass the extrinsic");
         FlyweightDemo.show();
 
-        section("Bridge — two hierarchies instead of their product");
+        section("Bridge: two hierarchies instead of their product");
         BridgeDemo.show();
 
-        section("Mediator — n spokes instead of n-squared references");
+        section("Mediator: n spokes instead of n-squared references");
         MediatorDemo.show();
 
-        section("Memento — snapshot when there is no inverse");
+        section("Memento: snapshot when there is no inverse");
         MementoDemo.show();
 
-        section("Prototype — copy rather than construct");
+        section("Prototype: copy rather than construct");
         PrototypeDemo.show();
 
-        section("Visitor — cheap new operations, expensive new node types");
+        section("Visitor: cheap new operations, expensive new node types");
         VisitorDemo.show();
 
         System.out.println();

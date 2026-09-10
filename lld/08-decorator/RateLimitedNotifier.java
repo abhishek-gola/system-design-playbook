@@ -1,5 +1,5 @@
 /**
- * A fixed quota of sends. Simplified on purpose — the real thing is in
+ * A fixed quota of sends. Simplified on purpose, the real thing is in
  * lld/02-strategy, and a decorator wrapping a strategy is a perfectly good
  * answer if they ask you to combine the two.
  */

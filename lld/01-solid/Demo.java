@@ -28,7 +28,7 @@ public class Demo {
                 System.out.println("  rotated " + sink.getClass().getSimpleName());
             } else {
                 System.out.println("  skipped " + sink.getClass().getSimpleName()
-                        + " — not rotatable, and it never had to pretend it was");
+                        + ", not rotatable, and it never had to pretend it was");
             }
         }
         app.info("first line after rotation");

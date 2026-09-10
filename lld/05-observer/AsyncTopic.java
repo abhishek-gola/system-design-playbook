@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * The version the follow-up question is asking for.
  *
  * Each subscriber gets its own bounded queue and its own thread. publish()
- * hands the event to every queue and returns — a slow subscriber can no longer
+ * hands the event to every queue and returns: a slow subscriber can no longer
  * hold up the publisher or its peers.
  *
  * The bound is the important part. An unbounded queue is not backpressure, it
@@ -71,7 +71,7 @@ public class AsyncTopic implements AutoCloseable {
         }
         if (!deadLetters.isEmpty()) {
             System.out.println("    dead-letter queue holds " + deadLetters.size()
-                    + " event(s) — somebody has to drain this, and in the interview"
+                    + " event(s), somebody has to drain this, and in the interview"
                     + " you should say who");
         }
     }
@@ -135,7 +135,7 @@ public class AsyncTopic implements AutoCloseable {
                 if (event == POISON) return;
 
                 // Same per-subscriber isolation as the synchronous Topic. A
-                // handler that throws must not kill its own worker thread — do
+                // handler that throws must not kill its own worker thread, do
                 // that and the subscriber silently stops receiving anything,
                 // which is far worse than a logged failure.
                 try {

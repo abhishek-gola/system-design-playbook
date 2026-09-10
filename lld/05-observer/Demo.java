@@ -25,7 +25,7 @@ public class Demo {
     }
 
     private static void oneThatThrows() {
-        System.out.println("== One subscriber throws — the others still run ==");
+        System.out.println("== One subscriber throws: the others still run ==");
         Topic orders = new Topic("orders");
         orders.subscribe(named("email",     e -> System.out.println("    email:     ok")));
         orders.subscribe(named("brokenSms", e -> { throw new IllegalStateException("gateway 503"); }));
@@ -78,7 +78,7 @@ public class Demo {
             clicks.publish(new Event("click", "ad-" + i, i));
         }
         System.out.println("  publish() returned in " + millisSince(started)
-                + "ms — the publisher never waited for the slow consumers");
+                + "ms, the publisher never waited for the slow consumers");
         clicks.close();
         clicks.report();
 
@@ -92,13 +92,13 @@ public class Demo {
             payments.publish(new Event("payment.captured", "PAY-" + i, i));
         }
         System.out.println("  publish() took " + millisSince(started)
-                + "ms — nothing was lost, and the publisher paid for it");
+                + "ms. Nothing was lost, and the publisher paid for it");
         payments.close();
         payments.report();
 
         System.out.println();
         System.out.println("  Neither policy is right in general. DROP for metrics, BLOCK for");
-        System.out.println("  the ledger, in the same system — that's the answer that reads as");
+        System.out.println("  the ledger, in the same system. That's the answer that reads as");
         System.out.println("  production experience rather than pattern recall.");
     }
 

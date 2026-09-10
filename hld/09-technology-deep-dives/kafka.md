@@ -16,7 +16,6 @@
 *"If I publish two events for the same order ID, am I guaranteed to read them in
 that order?"*
 
-
 **One alternative:**
 
 **When I'd pick it:**
@@ -26,7 +25,6 @@ that order?"*
 ## Consumer groups and rebalancing
 
 *"One of your consumers dies mid-batch. Walk me through what happens."*
-
 
 **One alternative:**
 
@@ -39,7 +37,6 @@ that order?"*
 *"You've said the pipeline is exactly-once. Exactly-once between which two
 points?"*
 
-
 **One alternative:**
 
 **When I'd pick it:**
@@ -50,7 +47,6 @@ points?"*
 
 *"When would you use a compacted topic rather than just setting a long
 retention?"*
-
 
 **One alternative:**
 
@@ -63,7 +59,6 @@ retention?"*
 *"What exact configuration stops you losing an acknowledged write, and what does
 it cost you?"*
 
-
 **One alternative:**
 
 **When I'd pick it:**
@@ -73,7 +68,6 @@ it cost you?"*
 ## Consumer lag
 
 *"Your lag alarm is firing. Take me through the first ten minutes."*
-
 
 **One alternative:**
 

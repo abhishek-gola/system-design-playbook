@@ -7,7 +7,7 @@
  * can jump a cache forward by an hour and print the same numbers every run.
  *
  * The interviewer's version of this question is "how would you test the TTL
- * behaviour?" — and this interface is the whole answer.
+ * behaviour?", and this interface is the whole answer.
  */
 public interface Ticker {
     long millis();

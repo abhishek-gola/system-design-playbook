@@ -7,8 +7,8 @@
  * third expression type costs a method on every visitor that exists.
  *
  * That is why it lives in compilers, where the node types are fixed by the
- * grammar and the operations keep multiplying — parse, type-check, optimise,
- * emit — and almost nowhere else.
+ * grammar and the operations keep multiplying: parse, type-check, optimise,
+ * emit: and almost nowhere else.
  *
  * It pairs naturally with Composite (lld/12-composite): a uniform tree, plus a
  * way to add reports over it without ten new methods on Node.
@@ -58,6 +58,6 @@ public class VisitorDemo {
         System.out.println("    evaluated: " + expression.accept(new Evaluate()));
         System.out.println("    Two operations, one class each, and the three node types were");
         System.out.println("    never touched. Adding a fourth node type, though, means a new");
-        System.out.println("    method on every visitor — that is the trade you are making.");
+        System.out.println("    method on every visitor. That is the trade you are making.");
     }
 }

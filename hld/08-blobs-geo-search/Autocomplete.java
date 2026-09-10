@@ -21,7 +21,7 @@ import java.util.TreeMap;
  *
  *  - The weights come from a query log, aggregated offline. Suggestions rank by
  *    what people actually searched for, which is also why autocomplete has a
- *    feedback loop — suggesting something makes it more popular, which makes it
+ *    feedback loop: suggesting something makes it more popular, which makes it
  *    rank higher.
  *  - The whole trie is rebuilt offline and swapped in, rather than updated in
  *    place. Rebuilding is a batch job that can take minutes, and suggestions

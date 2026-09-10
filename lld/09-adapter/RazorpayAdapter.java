@@ -4,7 +4,7 @@ import java.util.Map;
  * Translate in, call, translate out. Nothing else.
  *
  * The return trip is the half candidates skip. Handing the caller an RzpOrder
- * back would defeat the entire exercise — the vendor type would be in your
+ * back would defeat the entire exercise: the vendor type would be in your
  * business logic and the migration you were protecting against becomes exactly
  * as expensive as it would have been without the adapter.
  */
@@ -39,7 +39,7 @@ public class RazorpayAdapter implements PaymentGateway {
 
     /**
      * The mapping table. An unmapped code becomes UNKNOWN rather than leaking
-     * through as a string the caller has to interpret — because the day the
+     * through as a string the caller has to interpret: because the day the
      * provider adds a code, you want a clean UNKNOWN in your metrics, not a
      * switch somewhere upstream falling through to "success".
      */

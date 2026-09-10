@@ -21,7 +21,7 @@ public class Demo {
         System.out.println("  " + order);
 
         System.out.println();
-        System.out.println("== Optional means optional — same class, three fields set ==");
+        System.out.println("== Optional means optional: same class, three fields set ==");
         System.out.println("  " + new Order.Builder("cust-12")
                 .clockAt(NOW)
                 .addItem("Filter coffee", 6_000, 1)
@@ -56,14 +56,14 @@ public class Demo {
         try {
             order.items().add(new OrderItem("Sneaky extra", 1_000, 1));
         } catch (UnsupportedOperationException e) {
-            System.out.println("  items() is unmodifiable — no post-validation edits");
+            System.out.println("  items() is unmodifiable, no post-validation edits");
         }
     }
 
     private static void refused(String label, Runnable attempt) {
         try {
             attempt.run();
-            System.out.println("  " + label + ": NOT refused — that's a bug in the builder");
+            System.out.println("  " + label + ": NOT refused. That's a bug in the builder");
         } catch (RuntimeException e) {
             System.out.println("  " + label + ": " + e.getMessage());
         }

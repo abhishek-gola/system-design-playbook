@@ -33,7 +33,7 @@ public class Demo {
             System.out.println("  " + winners + " customers, one seat. That is the bug.");
         } else {
             System.out.println("  It happened to come out as one on this run. The bug is still");
-            System.out.println("  there — an intermittent race is worse than a reliable one,");
+            System.out.println("  there, an intermittent race is worse than a reliable one,");
             System.out.println("  because it reaches production before it reaches your tests.");
         }
         System.out.println();
@@ -69,12 +69,12 @@ public class Demo {
         int unsorted = groupRace(false);
         System.out.println("    groups that succeeded: " + unsorted + " of 2");
         if (unsorted < 2) {
-            System.out.println("    At least one timed out on tryLock — that is a deadlock");
+            System.out.println("    At least one timed out on tryLock. That is a deadlock");
             System.out.println("    caught by the safety net rather than a hang. Without the");
             System.out.println("    timeout, both threads would still be waiting.");
         } else {
             System.out.println("    They missed each other on this run. The cycle is still");
-            System.out.println("    reachable — run it again and it will bite.");
+            System.out.println("    reachable. Run it again and it will bite.");
         }
 
         System.out.println("  with a fixed global order:");
@@ -154,7 +154,7 @@ public class Demo {
                 + (volatileCounter.value() == expected ? "  (got lucky this run)" : "  <- lost updates"));
         System.out.println("  AtomicInteger:   " + atomic.get());
         System.out.println("  volatile gives visibility, not atomicity. count++ is three steps");
-        System.out.println("  — read, add, write — and two threads interleave inside it.");
+        System.out.println("  (read, add, write) and two threads interleave inside it.");
     }
 
     // ------------------------------------------------------------------

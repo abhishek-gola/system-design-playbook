@@ -2,7 +2,7 @@
  * Vehicle *type* is a property, not a subtype.
  *
  * The tempting alternative is Motorbike/Car/Truck classes extending Vehicle.
- * Resist it. Nothing about a truck behaves differently — it just needs a bigger
+ * Resist it. Nothing about a truck behaves differently. It just needs a bigger
  * spot and costs more per hour. Both of those are data. Adding a bus here is
  * one new constant and one new row in PricingRule; with a class hierarchy it
  * would be a new class, a matching Spot subclass, and an edit to every switch

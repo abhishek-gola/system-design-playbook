@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * per request per key, so a limit of 10,000 a minute means 10,000 longs sitting
  * in memory for every active client.
  *
- * Pick this when the limit is a contractual promise — a payment provider that
+ * Pick this when the limit is a contractual promise: a payment provider that
  * allows exactly 100 calls a minute and starts charging you at 101.
  */
 public class SlidingWindowLogStrategy implements RateLimitStrategy {

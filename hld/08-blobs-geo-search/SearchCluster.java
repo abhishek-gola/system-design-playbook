@@ -16,8 +16,8 @@ import java.util.TreeMap;
  * shard failing degrades results rather than breaking the query.
  *
  * Sharded by term, each shard owns a set of terms and the whole posting list
- * for each. It sounds more efficient — a two-term query only touches two shards
- * instead of all of them — and it is a trap. Term frequencies are Zipf
+ * for each. It sounds more efficient, a two-term query only touches two shards
+ * instead of all of them: and it is a trap. Term frequencies are Zipf
  * distributed, so whichever shard owns the common words handles most queries
  * and holds most of the data, and no amount of adding shards helps because the
  * hot term cannot be split. Worse, an intersection now needs posting lists from

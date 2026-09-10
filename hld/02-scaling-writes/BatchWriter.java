@@ -1,7 +1,7 @@
 /**
  * A cost model, not a benchmark, and you should say so if you use these numbers
  * out loud. Every insert path costs two different things: a fixed price per
- * round trip to the database — network hop, parse, transaction commit, fsync —
+ * round trip to the database (network hop, parse, transaction commit, fsync)
  * and a variable price per row for marshalling and index maintenance.
  *
  * Batching attacks the fixed cost only. That is why the first two orders of

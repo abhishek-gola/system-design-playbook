@@ -98,7 +98,7 @@ public final class Order {
          * Every rule lives here, in one place, checked once, before the object
          * exists.
          *
-         * Two of these are cross-field invariants — the coupon minimum needs the
+         * Two of these are cross-field invariants, the coupon minimum needs the
          * items, and the lead time needs the clock. They CANNOT be checked in a
          * setter, because when withCoupon() runs there may be no items yet. That
          * is the argument for a builder in one sentence.

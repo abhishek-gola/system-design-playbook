@@ -42,7 +42,7 @@ public class LockBooking {
      *
      * `sortFirst` is the entire lesson. Two groups grabbing {A1, A2} and
      * {A2, A1} at the same time will each hold one lock and wait forever for the
-     * other — a textbook deadlock. Acquiring in a fixed global order makes it
+     * other: a textbook deadlock. Acquiring in a fixed global order makes it
      * impossible, because there is no cycle to form.
      *
      * tryLock with a timeout is the safety net rather than the fix. It turns a
@@ -67,7 +67,7 @@ public class LockBooking {
                     return false;
                 }
                 if (!acquired) {
-                    return false;               // timed out — treat as a lost race
+                    return false;               // timed out, treat as a lost race
                 }
                 held.add(lock);
 

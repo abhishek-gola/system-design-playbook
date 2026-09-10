@@ -24,7 +24,7 @@ public interface VendingState {
     }
 
     /**
-     * Selection is legal from two states — HAS_MONEY and OUT_OF_STOCK (where
+     * Selection is legal from two states: HAS_MONEY and OUT_OF_STOCK (where
      * you're picking something else instead). Rather than copy it, both delegate
      * here.
      *

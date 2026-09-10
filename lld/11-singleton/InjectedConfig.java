@@ -4,7 +4,7 @@ import java.util.Map;
  * What you would actually build, and the answer to give after you have shown
  * you can write the other four.
  *
- * One instance still exists — the wiring code creates exactly one and passes it
+ * One instance still exists: the wiring code creates exactly one and passes it
  * around. The difference is that the constraint lives in the wiring rather than
  * in the class, so:
  *

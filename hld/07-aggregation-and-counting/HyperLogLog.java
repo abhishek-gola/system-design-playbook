@@ -8,7 +8,7 @@
  * have ever seen is 12, you have probably seen about 2^12 distinct values. One
  * number, any cardinality.
  *
- * That single estimate has enormous variance — one unlucky value ruins it. So
+ * That single estimate has enormous variance: one unlucky value ruins it. So
  * split the hash: use the top p bits to pick one of m = 2^p registers, and
  * track the longest run of zeros per register. Now you have m independent
  * estimates and you average them. HyperLogLog uses a harmonic mean, because

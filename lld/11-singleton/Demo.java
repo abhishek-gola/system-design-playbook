@@ -20,7 +20,7 @@ public class Demo {
         LazyHolderConfig.get();
         System.out.println("  and again:");
         LazyHolderConfig.get();
-        System.out.println("    (silence — the holder class was already initialised)");
+        System.out.println("    (silence, the holder class was already initialised)");
 
         System.out.println("  touching DoubleCheckedConfig for the first time:");
         DoubleCheckedConfig.get();
@@ -76,7 +76,7 @@ public class Demo {
         System.out.println();
         System.out.println("  Two instances, on purpose, and neither test can affect the");
         System.out.println("  other through shared state. Exactly one still exists in");
-        System.out.println("  production — the wiring guarantees it — but the class does not");
+        System.out.println("  production because the wiring guarantees it, but the class does not");
         System.out.println("  enforce it, so nothing has a hidden dependency on a static.");
         System.out.println();
         System.out.println("  The tell that you needed this: two tests that pass alone and");
@@ -84,7 +84,7 @@ public class Demo {
         System.out.println("  and the fix is never a reset() method, because now you have to");
         System.out.println("  remember to call it.");
         System.out.println();
-        System.out.println("  Global state via the enum, for comparison — reads: "
+        System.out.println("  Global state via the enum, for comparison, reads: "
                 + EnumConfig.INSTANCE.reads() + ", shared by every test in the JVM.");
     }
 }

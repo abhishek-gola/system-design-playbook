@@ -6,7 +6,7 @@ import java.util.Deque;
  *
  * The caretaker (the editor's history) holds mementos it cannot read. Only the
  * originator knows how to make one and how to restore from it. That opacity is
- * the pattern — a "snapshot" the caretaker can inspect and edit is just a
+ * the pattern: a "snapshot" the caretaker can inspect and edit is just a
  * public field with extra steps.
  *
  * Use this instead of Command-based undo when the action is not cleanly

@@ -26,7 +26,7 @@ public class Demo {
             System.out.println("  " + board.describe());
         }
         System.out.println("  pieces back to " + board.pieceCount()
-                + " — the captured pawn returned, because the command kept it");
+                + ", the captured pawn returned, because the command kept it");
 
         System.out.println();
         System.out.println("== Redo twice ==");
@@ -40,7 +40,7 @@ public class Demo {
         System.out.println("  redo depth before: " + game.redoDepth());
         play(game, log, board, "b1", "c3");
         System.out.println("  redo depth after:  " + game.redoDepth());
-        System.out.println("  Those futures are gone, and that is correct — redoing them would");
+        System.out.println("  Those futures are gone, and that is correct, redoing them would");
         System.out.println("  replay moves that no longer make sense on this board.");
 
         System.out.println();

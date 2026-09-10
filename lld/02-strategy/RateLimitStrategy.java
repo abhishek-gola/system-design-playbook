@@ -8,6 +8,6 @@
 public interface RateLimitStrategy {
     boolean allow(String key);
 
-    /** For the demo output only — real strategies don't need to name themselves. */
+    /** For the demo output only: real strategies don't need to name themselves. */
     String describe();
 }

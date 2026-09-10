@@ -73,7 +73,7 @@ public final class Chunker {
 
     /**
      * Recomputed from scratch at every position, which is O(n * windowSize).
-     * Production uses a genuine rolling hash — a Rabin fingerprint or buzhash —
+     * Production uses a genuine rolling hash, a Rabin fingerprint or buzhash,
      * where advancing one byte is a shift, an xor to add the entering byte and
      * an xor to remove the leaving one, so the whole scan is O(n). That is an
      * optimisation of this, not a different idea, and doing it the slow and

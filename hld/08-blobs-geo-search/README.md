@@ -86,20 +86,18 @@ the URL expires rather than the object becoming private.
 
 | Problem | What to watch for |
 |---|---|
-| [Dropbox](https://www.hellointerview.com/learn/system-design/problem-breakdowns/dropbox) **(core)** | The anchor. Presigned uploads, chunking, dedup, sync. |
-| [Instagram](https://www.hellointerview.com/learn/system-design/problem-breakdowns/instagram) **(premium)** | Media upload and delivery at consumer scale. |
+| Dropbox **(core)** | The anchor. Presigned uploads, chunking, dedup, sync. |
+| Instagram | Media upload and delivery at consumer scale. |
 | [Distributed cloud storage like S3](https://www.youtube.com/watch?v=UmWtcgC96X8) | Building the object store rather than using it. |
 
-A solution marked **(premium)** is behind Hello Interview's paywall. The problem
-itself is free to attempt, and the folder above is a worked answer to the same
-hard part.
+These are problem statements, not links. Attempt one cold, on a clock, then
+compare against the folder above rather than against somebody's write-up.
 
 ## Read
 
 - [S3 multipart upload, the mechanism itself](https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html)
 - [S3 presigned URL uploads, so bytes skip your servers](https://docs.aws.amazon.com/AmazonS3/latest/userguide/PresignedUrlUploadObject.html)
 - [Canva scaling media uploads](https://www.canva.dev/blog/engineering/from-zero-to-50-million-uploads-per-day-scaling-media-at-canva/)
-- [Pattern: large blobs](https://www.hellointerview.com/learn/system-design/patterns/large-blobs) **(premium)**
 
 ---
 
@@ -158,17 +156,16 @@ path, which is [scaling writes](../02-scaling-writes/), not this pattern.
 
 | Problem | What to watch for |
 |---|---|
-| [Yelp](https://www.hellointerview.com/learn/system-design/problem-breakdowns/yelp) **(core)** **(premium)** | The anchor. Static locations, geohash or quadtree, radius queries. |
-| [Uber](https://www.hellointerview.com/learn/system-design/problem-breakdowns/uber) | Moving drivers, matching, and the write volume of location updates. |
-| [Tinder](https://www.hellointerview.com/learn/system-design/problem-breakdowns/tinder) | Proximity plus a recommendation and swipe-state problem on top. |
+| Yelp **(core)** | The anchor. Static locations, geohash or quadtree, radius queries. |
+| Uber | Moving drivers, matching, and the write volume of location updates. |
+| Tinder | Proximity plus a recommendation and swipe-state problem on top. |
 
-A solution marked **(premium)** is behind Hello Interview's paywall. The problem
-itself is free to attempt, and the folder above is a worked answer to the same
-hard part.
+These are problem statements, not links. Attempt one cold, on a clock, then
+compare against the folder above rather than against somebody's write-up.
 
 ## Read
 
-- [Proximity search deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/proximity-search)
+- [Redis geospatial commands, geohash in a real store](https://redis.io/docs/latest/develop/data-types/geospatial/)
 
 ---
 
@@ -242,17 +239,16 @@ The demo builds one and walks a prefix down to its precomputed list.
 
 | Problem | What to watch for |
 |---|---|
-| [Facebook Post Search](https://www.hellointerview.com/learn/system-design/problem-breakdowns/fb-post-search) **(core)** | The anchor. Inverted index, sharding strategy, two-stage ranking. |
+| Facebook Post Search **(core)** | The anchor. Inverted index, sharding strategy, two-stage ranking. |
 | [Google Search, focusing on typeahead](https://www.youtube.com/watch?v=CeGtqouT8eA) | Crawl, index, rank, then spend the deep dive on autocomplete: trie, precomputed top-K, offline rebuild from query logs. |
-| [News Aggregator](https://www.hellointerview.com/learn/system-design/problem-breakdowns/google-news) **(premium)** | Ranking and personalisation over a fast-changing corpus. |
+| News Aggregator | Ranking and personalisation over a fast-changing corpus. |
 
-A solution marked **(premium)** is behind Hello Interview's paywall. The problem
-itself is free to attempt, and the folder above is a worked answer to the same
-hard part.
+These are problem statements, not links. Attempt one cold, on a clock, then
+compare against the folder above rather than against somebody's write-up.
 
 ## Read
 
-- [Elasticsearch deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/elasticsearch)
+- [Elasticsearch: documents, indices and the inverted index](https://www.elastic.co/guide/en/elasticsearch/reference/current/documents-indices.html)
 
 ---
 

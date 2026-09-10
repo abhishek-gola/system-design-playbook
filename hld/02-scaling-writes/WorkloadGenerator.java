@@ -14,7 +14,7 @@ import java.util.Random;
  * Second, the synthetic clock advances by a millisecond per write, so the whole
  * run covers a couple of minutes of wall time and therefore lands inside a
  * single hourly time bucket. That is not a trick to make time-based sharding
- * look bad — it is what time-based sharding does. At any given moment, all the
+ * look bad: it is what time-based sharding does. At any given moment, all the
  * writes are for the current bucket.
  */
 public class WorkloadGenerator {

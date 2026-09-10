@@ -59,7 +59,7 @@ public class Demo {
         System.out.println();
         System.out.println("Still parked: " + car2.get());
         System.out.println();
-        System.out.println("Second pass — where a pattern would now earn its keep:");
+        System.out.println("Second pass, where a pattern would now earn its keep:");
         System.out.println("  PricingRule  -> Strategy, the moment weekend or member rates appear");
         System.out.println("  Spot status  -> a two-state machine, and it stays that small");
         System.out.println("  findFree     -> a Strategy, and the demo above shows why:");

@@ -60,7 +60,7 @@ public class Demo {
         System.out.println();
         System.out.println("  Taking the whole family from one factory makes that");
         System.out.println("  combination impossible to express. That is the only reason");
-        System.out.println("  abstract factory is worth its ceremony — no consistency");
+        System.out.println("  abstract factory is worth its ceremony, no consistency");
         System.out.println("  requirement, no abstract factory.");
     }
 }

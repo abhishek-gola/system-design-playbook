@@ -1,5 +1,5 @@
 /**
- * One method. That narrowness is what makes anything a subscriber — a lambda,
+ * One method. That narrowness is what makes anything a subscriber, a lambda,
  * a method reference, an existing service with an adapter around it.
  */
 public interface Subscriber {

@@ -256,20 +256,19 @@ follow-up in the signature design round.
 
 ## Read
 
-- [Kafka deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/kafka)
-- [Redis deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/redis)
-- [DynamoDB deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/dynamodb)
+- [Kafka design docs](https://kafka.apache.org/documentation/#design)
+- [Redis reference docs](https://redis.io/docs/latest/develop/reference/)
+- [The DynamoDB paper (USENIX ATC 2022)](https://www.usenix.org/conference/atc22/presentation/elhemali)
+- [The original Dynamo paper (SOSP 2007)](https://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf)
 - [Flink: stateful stream processing, the free source for the same ground](https://nightlies.apache.org/flink/flink-docs-stable/docs/concepts/stateful-stream-processing/)
-- [Flink deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/flink) **(premium)**
 
 ## Practice
 
 | Task | What to watch for |
 |---|---|
-| [Write up Kafka in your own words](https://www.hellointerview.com/learn/system-design/deep-dives/kafka) **(core)** | One page. Then find the two things you couldn't explain and fix those. |
-| [Write up Redis internals in your own words](https://www.hellointerview.com/learn/system-design/deep-dives/redis) **(core)** | The cheapest conversion of recipe knowledge into model knowledge you'll get this quarter. |
-| [Write up Flink and one production story](https://www.hellointerview.com/learn/system-design/deep-dives/flink) **(core)** **(premium)** | Event time, watermarks, checkpointing, plus the incident that taught you each. |
+| Write up Kafka in your own words **(core)** | One page. Then find the two things you couldn't explain and fix those. |
+| Write up Redis internals in your own words **(core)** | The cheapest conversion of recipe knowledge into model knowledge you'll get this quarter. |
+| Write up Flink and one production story **(core)** | Event time, watermarks, checkpointing, plus the incident that taught you each. |
 
-A solution marked **(premium)** is behind Hello Interview's paywall. The problem
-itself is free to attempt, and the folder above is a worked answer to the same
-hard part.
+These are problem statements, not links. Attempt one cold, on a clock, then
+compare against the folder above rather than against somebody's write-up.

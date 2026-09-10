@@ -5,20 +5,6 @@ two-pointer trick. What it has is a script, and candidates who don't run one
 lose the round on pacing rather than knowledge, so
 [00-framework](00-framework/) is not optional and not a warm-up.
 
-Steps 01 to 08 are Hello Interview's pattern taxonomy from
-[*System Design in a Hurry*](https://www.hellointerview.com/learn/system-design/in-a-hurry/introduction),
-with counting and aggregation pulled out into its own step and large blobs
-widened to cover geo and search; step 09 defends the four technologies their
-deep dives lean on hardest. The decomposition is theirs.
-
-Their seven pattern pages are all behind a paywall, so nothing here depends on
-them. Every folder's **Read** list puts free sources first and the paywalled
-link last, marked **(premium)**, and the free ones cover the same ground: the
-Redlock proposal and Kleppmann's rebuttal for contention, microservices.io for
-sagas and the outbox, the Flink docs for watermarks and checkpoints, the System
-Design Primer for caching, sharding and queues. Read those and you lose
-nothing.
-
 | Step | Week | Folder | The pattern |
 |---|---|---|---|
 | 00 | 4 | [00-framework](00-framework/) | The forty-five minute script, and the vocabulary you must be able to defend |

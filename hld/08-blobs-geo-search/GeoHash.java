@@ -14,7 +14,7 @@ import java.util.List;
  * result in base 32. Each character narrows the box: one character is a chunk
  * of a continent, five characters is roughly 5km across, eight is street level.
  * Because the bits interleave, two points that are close together usually share
- * a long prefix — so a prefix match becomes a bounding box query, an ordinary
+ * a long prefix: so a prefix match becomes a bounding box query, an ordinary
  * string index does the work, and sharding by prefix keeps nearby data on the
  * same node.
  *
@@ -132,7 +132,7 @@ public final class GeoHash {
      * Real libraries use base-32 neighbour lookup tables so this is pure string
      * manipulation with no floating point anywhere. The version here is easier
      * to read and behaves the same away from the poles and the antimeridian,
-     * which is a limitation worth admitting rather than hiding — it is also one
+     * which is a limitation worth admitting rather than hiding: it is also one
      * of the reasons S2 and H3 exist, since they cover the sphere without the
      * seams a lat/lon grid has.
      */

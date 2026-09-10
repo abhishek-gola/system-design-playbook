@@ -1,7 +1,7 @@
 /**
  * Abstract factory: a family of objects that must match each other.
  *
- * This earns its complexity for one reason and one reason only — mixing
+ * This earns its complexity for one reason and one reason only: mixing
  * families here would be a real bug. A Razorpay charger paired with a Stripe
  * verifier would check callback signatures against the wrong secret and
  * silently reject every payment confirmation you receive.

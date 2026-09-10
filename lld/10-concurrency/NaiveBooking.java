@@ -9,7 +9,7 @@ import java.util.Map;
  * believe it won the seat.
  *
  * The busy-wait in the middle only widens the window so the demo reproduces
- * reliably. It does not create the bug — removing it makes the race rarer and
+ * reliably. It does not create the bug, removing it makes the race rarer and
  * therefore worse, because a race that shows up once a month in production is
  * far more expensive than one that shows up in every test run.
  */

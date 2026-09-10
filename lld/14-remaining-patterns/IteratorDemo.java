@@ -6,7 +6,7 @@ import java.util.Iterator;
  * Iterator: traverse without exposing the internals.
  *
  * Java's Iterable IS this pattern, so an interview question here is always
- * about writing a custom one — usually over a tree, or over a paginated API
+ * about writing a custom one: usually over a tree, or over a paginated API
  * where hasNext() quietly fetches the next page.
  *
  * The tree below flattens depth-first, and the caller writes a plain for-each

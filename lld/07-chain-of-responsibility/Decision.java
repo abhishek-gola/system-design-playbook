@@ -18,7 +18,7 @@ public class Decision {
 
     public enum Outcome {
         CONTINUE,   // nothing to say, pass it on
-        REVIEW,     // suspicious — keep going, but remember
+        REVIEW,     // suspicious, keep going, but remember
         ALLOW,      // explicitly cleared, skip the rest of the chain
         BLOCK       // stop
     }

@@ -10,7 +10,7 @@ import java.nio.file.StandardOpenOption;
 /**
  * The only sink that can rotate, so the only one that implements RotatableSink.
  *
- * L — note that write() after close() throws IllegalStateException, and every
+ * L: note that write() after close() throws IllegalStateException, and every
  * other Sink in this folder honours the same rule. That consistency is the
  * Liskov contract. The day one subclass decides to silently ignore writes after
  * close, callers start needing to know which sink they hold.

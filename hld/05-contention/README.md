@@ -160,13 +160,12 @@ being refused by its stale fencing token.
 
 | Problem | What to watch for |
 |---|---|
-| [Design Ticketmaster](https://www.hellointerview.com/learn/system-design/problem-breakdowns/ticketmaster) **(core)** | The anchor. Holds, expiry, the queue for high-demand drops. |
-| [Design an Online Auction](https://www.hellointerview.com/learn/system-design/problem-breakdowns/online-auction) **(core)** **(premium)** | Bids arriving faster than you can serialise them. Batching in time windows is the escape hatch. |
-| [Design Robinhood](https://www.hellointerview.com/learn/system-design/problem-breakdowns/robinhood) **(premium)** | Order matching, where correctness under contention is the entire product. |
+| Design Ticketmaster **(core)** | The anchor. Holds, expiry, the queue for high-demand drops. |
+| Design an Online Auction **(core)** | Bids arriving faster than you can serialise them. Batching in time windows is the escape hatch. |
+| Design Robinhood | Order matching, where correctness under contention is the entire product. |
 
-A solution marked **(premium)** is behind Hello Interview's paywall. The problem
-itself is free to attempt, and the folder above is a worked answer to the same
-hard part.
+These are problem statements, not links. Attempt one cold, on a clock, then
+compare against the folder above rather than against somebody's write-up.
 
 ## Read
 
@@ -176,5 +175,4 @@ and being able to give both sides is most of what this pattern is scored on.
 - [Distributed locks with Redis, the Redlock proposal](https://redis.io/docs/latest/develop/clients/patterns/distributed-locks/)
 - [How to do distributed locking, Kleppmann's rebuttal](https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html)
 - [Postgres explicit locking, for the single-node answer](https://www.postgresql.org/docs/current/explicit-locking.html)
-- [Read: Shopify inventory reservations](https://www.hellointerview.com/learn/system-design/in-the-wild/shopify-inventory-reservations)
-- [Pattern: dealing with contention](https://www.hellointerview.com/learn/system-design/patterns/dealing-with-contention) **(premium)**
+- [Postgres transaction isolation, for what the database already gives you](https://www.postgresql.org/docs/current/transaction-iso.html)

@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * Two jobs: count how many times it was asked for a value, and be slow enough
  * that a stampede is actually observable. The sleep is the one piece of real
- * time in this folder and it exists for a reason — a stampede is a race between
+ * time in this folder and it exists for a reason: a stampede is a race between
  * "I found nothing in the cache" and "I have put something in the cache", so if
  * the load returned instantly the window would be too narrow to see.
  *

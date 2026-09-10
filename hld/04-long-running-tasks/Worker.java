@@ -10,8 +10,8 @@
  *
  * This worker is a state machine ticked by the Demo's loop rather than a thread.
  * Threads would add nothing except interleaved output and a demo that prints
- * something different every run. The behaviour being shown — a lease expiring
- * under a worker that is still working — is a timing property, and a hand-cranked
+ * something different every run. The behaviour being shown, a lease expiring
+ * under a worker that is still working: is a timing property, and a hand-cranked
  * clock demonstrates it far more clearly than a real one.
  */
 public class Worker {
@@ -92,7 +92,7 @@ public class Worker {
                 // to write twice.
                 absorbedDuplicates++;
                 log("finished " + job.jobId() + " and found an output already recorded"
-                        + " — duplicate delivery absorbed, no second write");
+                        + ", duplicate delivery absorbed, no second write");
                 confirm();
             }
             case FAILED -> {
@@ -100,11 +100,11 @@ public class Worker {
                 long delay = queue.retryLater(inFlight, receiptId);
                 if (delay < 0) {
                     log(job.jobId() + " failed, but our lease had already expired"
-                            + " — another worker owns it now, so we say nothing");
+                            + ", another worker owns it now, so we say nothing");
                 } else {
                     store.retrying(job.jobId(), attempt, delay);
                     log(job.jobId() + " failed on attempt " + attempt
-                            + " — invisible for " + delay + "ms, then it comes back");
+                            + ", invisible for " + delay + "ms, then it comes back");
                 }
             }
         }

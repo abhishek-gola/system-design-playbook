@@ -3,7 +3,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Cache-aside written the way everyone writes it the first time: look, miss,
- * load, put. Correct, and it is genuinely the right starting point — the bug is
+ * load, put. Correct, and it is genuinely the right starting point, the bug is
  * not in the logic, it is in what happens when a thousand callers run this same
  * correct logic at the same instant on the same key.
  *
@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * The class also carries the TTL jitter, because jitter is a property of the
  * expiry policy rather than of the locking. Two keys written in the same second
  * with the same TTL expire in the same millisecond, and a million keys doing
- * that is a stampede that no amount of single-flight can help with — single
+ * that is a stampede that no amount of single-flight can help with. Single
  * flight collapses many callers on one key, not many keys at once.
  */
 public class NaiveCache implements Cache {

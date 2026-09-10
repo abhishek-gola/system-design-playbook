@@ -220,27 +220,6 @@ or adapt the notes with attribution.
 
 ## Credit
 
-**The HLD track follows Hello Interview's taxonomy.** Folders
-[01](hld/01-scaling-reads/) through [08](hld/08-blobs-geo-search/) are the seven
-patterns from
-[*System Design in a Hurry*](https://www.hellointerview.com/learn/system-design/in-a-hurry/introduction):
-scaling reads, scaling writes, real-time updates, long-running tasks, dealing
-with contention, multi-step processes and large blobs. Two things changed.
-Counting and aggregation is pulled out into a step of its own rather than living
-inside the others, and large blobs is widened to cover geo and search, which is
-why eight folders carry seven patterns. Step
-[09](hld/09-technology-deep-dives/) then works through the four technologies
-their deep dives lean on hardest: Redis, Kafka, Flink and DynamoDB. The
-decomposition is theirs; the Java, the arguments and the drills are mine.
-
-All seven of their pattern pages are paywalled, so nothing here is built to
-need them. Every **Read** list puts free sources first and marks the paywalled
-link **(premium)** at the end: the Redlock proposal and Kleppmann's rebuttal for
-contention, microservices.io for sagas and the outbox, the Apache Flink docs for
-watermarks and checkpoints, the System Design Primer for caching, sharding and
-queues. A gated practice solution is only ever a solution; the problem is free
-to attempt and the folder is the worked answer.
-
 The practice problems point at
 [awesome-low-level-design](https://github.com/ashishps1/awesome-low-level-design),
 [AlgoMaster](https://algomaster.io) and

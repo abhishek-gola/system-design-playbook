@@ -257,7 +257,7 @@ public final class Demo {
         System.out.println();
         System.out.println("And the thing to say unprompted: this whole design assumes the places do not");
         System.out.println("move. Yelp is a read problem. Uber drivers pinging every four seconds are a");
-        System.out.println("write problem with a geospatial index attached — keep current positions in");
+        System.out.println("write problem with a geospatial index attached, keep current positions in");
         System.out.println("memory or Redis with a short TTL, and do not persist every ping.");
     }
 

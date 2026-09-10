@@ -511,8 +511,8 @@ public final class Demo {
         System.out.println("and nobody is harmed by 1040. A payment provider's contractual limit is a");
         System.out.println("promise, and you pay for the round trip on every request.");
         System.out.println();
-        System.out.println("The algorithms underneath — token bucket, sliding window log, fixed window");
-        System.out.println("counter — are implemented properly one level down, in lld/02-strategy,");
+        System.out.println("The algorithms underneath, token bucket, sliding window log, fixed window");
+        System.out.println("counter, are implemented properly one level down, in lld/02-strategy,");
         System.out.println("behind one interface with an injected clock. Same problem, two zoom levels.");
     }
 

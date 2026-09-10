@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * should name before the interviewer does.
  *
  * The boundary problem: with a limit of 5 per minute, a client can send 5 at
- * 11:59:59 and 5 more at 12:00:00 — ten requests in one second, both windows
+ * 11:59:59 and 5 more at 12:00:00, ten requests in one second, both windows
  * technically respected. The demo shows this happening.
  *
  * Ship it anyway when memory is the binding constraint and 2x the limit for one

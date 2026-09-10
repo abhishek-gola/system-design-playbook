@@ -11,7 +11,7 @@ import java.util.TreeMap;
  *
  * A watermark is not a filter and it is not a clock. It is the operator's
  * assertion: "I do not expect to see any more events with a timestamp below
- * this." Everything downstream keys off that assertion — a window fires when
+ * this." Everything downstream keys off that assertion, a window fires when
  * the watermark passes its end, because that is the moment the operator
  * believes the window is complete.
  *
@@ -33,7 +33,7 @@ import java.util.TreeMap;
  * That third case is the one worth being loud about. Flink's default is to drop
  * those events silently. Routing them to a side output instead means you can
  * count them, alert on them, and feed them to the batch path that reprocesses
- * from object storage — which is what a lambda architecture actually is.
+ * from object storage: which is what a lambda architecture actually is.
  */
 public final class EventTimeWindower {
 

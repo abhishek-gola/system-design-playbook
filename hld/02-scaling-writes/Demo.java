@@ -46,7 +46,7 @@ public class Demo {
 
     /**
      * The other half of write scaling, and the cheaper half. Nothing here is
-     * sharded differently — the same rows go to the same places — the only
+     * sharded differently: the same rows go to the same places, the only
      * change is how many network round trips it takes to get them there.
      */
     private static void batching() {
@@ -70,7 +70,7 @@ public class Demo {
         System.out.println();
         System.out.println("The sentence this is all for: \"a good shard key spreads writes evenly and");
         System.out.println("keeps the rows one query needs on few nodes. Those pull against each other,");
-        System.out.println("and here metric plus host satisfies both — timestamp fails the first and");
+        System.out.println("and here metric plus host satisfies both, timestamp fails the first and");
         System.out.println("tenant fails it the moment one customer gets large.\"");
     }
 }

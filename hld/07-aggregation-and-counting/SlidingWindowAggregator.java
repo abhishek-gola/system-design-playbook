@@ -14,7 +14,7 @@ import java.util.TreeMap;
  *
  * The way out, if the aggregation is invertible (counts and sums are, maxima
  * are not), is to keep per-slide buckets and add up the last N of them on read.
- * Say that out loud — it is the difference between having used sliding windows
+ * Say that out loud: it is the difference between having used sliding windows
  * and having read about them.
  */
 public final class SlidingWindowAggregator {

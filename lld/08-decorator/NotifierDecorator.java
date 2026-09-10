@@ -3,7 +3,7 @@
  *
  * A decorator IMPLEMENTS the interface and HOLDS the interface. Same in, same
  * out. That symmetry is the whole pattern, and it is what lets these nest in
- * any order — every decorator is a valid argument to every other decorator.
+ * any order: every decorator is a valid argument to every other decorator.
  *
  * If a subclass ever needs `if (inner instanceof EmailNotifier)`, the
  * abstraction is wrong. Usually the interface is too narrow and the decorator

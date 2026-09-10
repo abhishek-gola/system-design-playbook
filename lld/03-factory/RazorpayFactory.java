@@ -1,6 +1,6 @@
 /**
  * The three implementation classes are package-private and live in this file
- * because they are useless apart from each other — which is the same fact the
+ * because they are useless apart from each other: which is the same fact the
  * abstract factory encodes.
  */
 public class RazorpayFactory implements PaymentProviderFactory {

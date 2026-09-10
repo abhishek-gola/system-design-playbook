@@ -9,14 +9,14 @@ import java.util.concurrent.atomic.AtomicLong;
  *
  * Reserve the seat with a TTL, take payment, then confirm. The point worth
  * stating explicitly in the interview: this converts a lock held for minutes
- * across a payment call — which you must never do — into a row with an expiry.
+ * across a payment call: which you must never do, into a row with an expiry.
  * Nothing is held while you wait on a third party.
  *
  * Expiry here is LAZY: a hold past its TTL is treated as absent the moment
  * anyone asks. That is deliberate. A background sweeper is the answer most
  * candidates give, and it has a window where an expired hold still looks live,
  * plus a dependency on the sweeper being alive. Lazy expiry has neither. Keep
- * the sweeper anyway, but as a tidy-up for memory rather than for correctness —
+ * the sweeper anyway, but as a tidy-up for memory rather than for correctness,
  * which is exactly what sweepExpired() below is for.
  */
 public class HoldThenConfirm {

@@ -22,7 +22,7 @@ where the candidate pauses in the same place. You would be describing a system
 you have operated, with numbers that came off your own dashboards, in the
 vocabulary the interviewer already uses.
 
-Prepared to the standard of a Hello Interview write-up, this becomes the
+Prepared to the standard of a published design doc, this becomes the
 strongest forty minutes in your loop, and it is portable: it fits "tell me about
 something you built", it fits a behavioural round on a difficult trade-off, and
 it fits a straight design prompt about payments, abuse, rate limiting or
@@ -380,19 +380,17 @@ the document; then the runs.
 
 ## Read
 
-- [Ad click aggregator, as a structural template](https://www.hellointerview.com/learn/system-design/problem-breakdowns/ad-click-aggregator)
 - [Saga pattern, for the compensation vocabulary](https://microservices.io/patterns/data/saga.html)
-- [Pattern: scaling writes, the nearest one they have to step 07](https://www.hellointerview.com/learn/system-design/patterns/scaling-writes) **(premium)**
-- [Payment system, for the vocabulary](https://www.hellointerview.com/learn/system-design/problem-breakdowns/payment-system) **(premium)**
+- [Flink: stateful stream processing, for the async path](https://nightlies.apache.org/flink/flink-docs-stable/docs/concepts/stateful-stream-processing/)
+- [07-aggregation-and-counting](../07-aggregation-and-counting/), which is this design's async half at code altitude
 
 ## Practice
 
 | Task | What to watch for |
 |---|---|
-| [Write the full design document](https://www.hellointerview.com/learn/system-design/in-a-hurry/delivery) **(core)** | Requirements through failure modes, with your real numbers in it. |
-| [Present it out loud, timed, three times](https://www.hellointerview.com/learn/system-design/in-a-hurry/delivery) **(core)** | Record the third. Fix whatever makes you wince. |
-| [Prepare the three hardest follow-ups](https://www.hellointerview.com/learn/system-design/deep-dives/flink) **(core)** **(premium)** | How do you handle a rule that starts false-positiving in production? How do you backfill after a bad model? What breaks at 10x? |
+| Write the full design document **(core)** | Requirements through failure modes, with your real numbers in it. |
+| Present it out loud, timed, three times **(core)** | Record the third. Fix whatever makes you wince. |
+| Prepare the three hardest follow-ups **(core)** | How do you handle a rule that starts false-positiving in production? How do you backfill after a bad model? What breaks at 10x? |
 
-A solution marked **(premium)** is behind Hello Interview's paywall. The problem
-itself is free to attempt, and the folder above is a worked answer to the same
-hard part.
+These are tasks, not links. Nobody else can publish a solution to a design
+only you have operated, which is the entire reason this folder exists.

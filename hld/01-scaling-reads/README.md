@@ -168,17 +168,15 @@ the same idea as the `Ticker` in [lld/02-strategy](../../lld/02-strategy/).
 
 | Problem | What to watch for |
 |---|---|
-| [Design Bitly / a URL shortener](https://www.hellointerview.com/learn/system-design/problem-breakdowns/bitly) **(core)** | The anchor. Do this one first and do it properly; half the sheet builds on it. |
-| [Design Instagram](https://www.hellointerview.com/learn/system-design/problem-breakdowns/instagram) **(core)** **(premium)** | Feed read path, media at the edge, and the celebrity problem. |
-| [Design a Distributed Cache](https://www.hellointerview.com/learn/system-design/problem-breakdowns/distributed-cache) **(premium)** | Building the cache rather than using it. Consistent hashing, eviction, replication. |
+| Design Bitly / a URL shortener **(core)** | The anchor. Do this one first and do it properly; half the sheet builds on it. |
+| Design Instagram **(core)** | Feed read path, media at the edge, and the celebrity problem. |
+| Design a Distributed Cache | Building the cache rather than using it. Consistent hashing, eviction, replication. |
 
-A solution marked **(premium)** is behind Hello Interview's paywall. The problem
-itself is free to attempt, and the folder above is a worked answer to the same
-hard part.
+These are problem statements, not links. Attempt one cold, on a clock, then
+compare against the folder above rather than against somebody's write-up.
 
 ## Read
 
 - [Caching strategies](https://algomaster.io/learn/system-design/caching-strategies)
 - [System Design Primer: caching, and the four write strategies](https://github.com/donnemartin/system-design-primer#cache)
-- [Redis deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/redis)
-- [Pattern: scaling reads](https://www.hellointerview.com/learn/system-design/patterns/scaling-reads) **(premium)**
+- [Redis reference docs, for what a cache actually costs you](https://redis.io/docs/latest/develop/reference/)

@@ -5,8 +5,8 @@ import java.util.List;
  * Prototype: copy an existing object rather than building one, when
  * construction is expensive.
  *
- * The Java-specific note worth having ready: Cloneable is broken by design —
- * it is a marker interface with no clone() method on it, Object.clone() is
+ * The Java-specific note worth having ready: Cloneable is broken by design.
+ * It is a marker interface with no clone() method on it, Object.clone() is
  * protected, and the default is a shallow copy that will quietly share your
  * mutable fields. A copy constructor is what you would actually write, and
  * saying so is a better answer than reciting the pattern.
@@ -29,7 +29,7 @@ public class PrototypeDemo {
         RuleSet(RuleSet other, String newName) {
             this.name = newName;
             this.rules = new ArrayList<>(other.rules);     // the fix
-            // no expensiveSetup() — that is the entire reason to copy
+            // no expensiveSetup(). That is the entire reason to copy
         }
 
         RuleSet shallowCopyWithBug(String newName) {

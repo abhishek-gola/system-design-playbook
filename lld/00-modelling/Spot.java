@@ -29,7 +29,7 @@ public class Spot {
         return size.canHold(type.smallestFit());
     }
 
-    /** Single-threaded here on purpose — see lld/10-concurrency for the real version. */
+    /** Single-threaded here on purpose, see lld/10-concurrency for the real version. */
     void occupy() {
         if (occupied) throw new IllegalStateException("spot " + id + " already taken");
         occupied = true;

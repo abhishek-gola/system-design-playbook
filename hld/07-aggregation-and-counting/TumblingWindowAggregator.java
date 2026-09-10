@@ -6,7 +6,7 @@ import java.util.TreeMap;
  *
  * The whole assigner is one line of arithmetic: an event's window is decided by
  * its timestamp alone, with no reference to any other event. That is why
- * tumbling windows are cheap to parallelise and cheap to recover — an operator
+ * tumbling windows are cheap to parallelise and cheap to recover: an operator
  * rebuilding state after a failure does not need to know what order the events
  * came back in.
  *

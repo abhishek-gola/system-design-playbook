@@ -86,7 +86,7 @@ public final class CheckpointedJob {
                 // In a real job there is a gap here while the coordinator waits
                 // for every operator to acknowledge. A checkpoint that never
                 // completes never reaches the line below, and the sink's
-                // pre-committed transaction stays invisible — which is the
+                // pre-committed transaction stays invisible, which is the
                 // whole safety property.
                 sink.onCheckpointComplete(id);
                 checkpointedState = snapshot;

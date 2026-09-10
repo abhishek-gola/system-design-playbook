@@ -7,7 +7,7 @@
  * see this message. That single field is the whole visibility-timeout mechanism,
  * and understanding that it is a timestamp rather than a lock is the difference
  * between explaining SQS and reciting it. Nothing is held, nothing blocks, and
- * nobody is notified when it expires — the message simply becomes visible again
+ * nobody is notified when it expires: the message simply becomes visible again
  * and the next poll finds it.
  *
  * receiveCount is how the dead-letter queue knows when to give up.

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * D — the payoff.
+ * D: the payoff.
  *
  * Because Logger depends on the Sink interface and takes its sinks through the
  * constructor, a test can hand it this and assert on captured output with no

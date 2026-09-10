@@ -61,7 +61,7 @@ public class ChatServer {
     public void crash() {
         crashed = true;
         openConnections.clear();
-        System.out.println("    " + id + " CRASHED — sockets gone, and it did not "
+        System.out.println("    " + id + " CRASHED. Sockets gone, and it did not "
                 + "get to unregister anyone. The registry has not noticed yet.");
     }
 

@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * This is the answer to "what happens when a hot key expires", and it is worth
  * being precise about what it does and does not fix. It collapses N concurrent
  * misses on ONE key into one query. It does nothing about N different keys
- * expiring together — that is what jittered TTLs are for — and nothing about a
+ * expiring together: that is what jittered TTLs are for, and nothing about a
  * cold cache after a restart, which is what warming is for.
  *
  * The lock is per key, taken from a map, so callers for different keys never

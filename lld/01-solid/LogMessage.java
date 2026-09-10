@@ -2,7 +2,7 @@ import java.time.Instant;
 import java.util.Map;
 
 /**
- * S — one reason to change: the shape of a log record.
+ * S: one reason to change: the shape of a log record.
  *
  * Immutable, because a log record that can be edited after the fact is a log
  * record you cannot trust.

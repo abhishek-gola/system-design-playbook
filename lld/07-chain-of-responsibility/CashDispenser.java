@@ -18,11 +18,11 @@ public class CashDispenser {
         int shortfall = head.plan(amount, plan);
 
         // The case everyone forgets. Nothing has moved yet, so refusing here
-        // costs nothing — whereas a chain that dispensed as it went would have
+        // costs nothing, whereas a chain that dispensed as it went would have
         // already handed over most of the money.
         if (shortfall > 0) {
             throw new IllegalStateException(
-                    "cannot make Rs " + amount + " exactly — Rs " + shortfall
+                    "cannot make Rs " + amount + " exactly, Rs " + shortfall
                     + " short with the notes on hand; nothing dispensed");
         }
 

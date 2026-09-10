@@ -71,7 +71,7 @@ public final class BlobMetadataStore {
      *
      * Note that the commit verifies the bytes are actually there. A callback is
      * a claim, not a fact, and a client that calls back without uploading would
-     * otherwise leave you with a COMMITTED row pointing at nothing — which is
+     * otherwise leave you with a COMMITTED row pointing at nothing: which is
      * the worst of the states, because the sweeper will not touch it and a
      * reader will get a 404.
      */
@@ -109,7 +109,7 @@ public final class BlobMetadataStore {
         }
 
         // Direction two: objects nothing references. Note this must run after
-        // the first pass, and note the ordering risk in production — an object
+        // the first pass, and note the ordering risk in production, an object
         // uploaded a moment ago whose PENDING row has not yet replicated to the
         // reader you are sweeping from would look like an orphan. Give orphan
         // deletion its own age threshold rather than deleting on sight.

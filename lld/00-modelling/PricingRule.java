@@ -4,7 +4,7 @@ import java.util.Map;
 
 /**
  * Deliberately a plain class, not an interface, and deliberately not a field on
- * anything. The exit gate takes one as a method parameter — that is what makes
+ * anything. The exit gate takes one as a method parameter. That is what makes
  * the relationship a dependency (dashed line) rather than an association.
  *
  * This is the first place a pattern genuinely wants to appear. The moment the

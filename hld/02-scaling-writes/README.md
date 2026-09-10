@@ -187,17 +187,16 @@ should label it that way if you use the shape of it in an interview.
 
 | Problem | What to watch for |
 |---|---|
-| [Design Metrics Monitoring (Datadog)](https://www.hellointerview.com/learn/system-design/problem-breakdowns/metrics-monitoring) **(core)** **(premium)** | The anchor. Shard key choice, time-series storage, downsampling. |
-| [Design Strava](https://www.hellointerview.com/learn/system-design/problem-breakdowns/strava) **(premium)** | High-volume activity ingest plus geospatial queries on top. |
+| Design Metrics Monitoring (Datadog) **(core)** | The anchor. Shard key choice, time-series storage, downsampling. |
+| Design Strava | High-volume activity ingest plus geospatial queries on top. |
 | [Read: how Discord stores trillions of messages](https://discord.com/blog/how-discord-stores-trillions-of-messages) | A real write-scaling migration, with the reasoning intact. Worth more than three tutorials. |
 
-A solution marked **(premium)** is behind Hello Interview's paywall. The problem
-itself is free to attempt, and the folder above is a worked answer to the same
-hard part.
+These are problem statements, not links. Attempt one cold, on a clock, then
+compare against the folder above rather than against somebody's write-up.
 
 ## Read
 
 - [Database sharding](https://algomaster.io/learn/system-design/sharding)
 - [System Design Primer: sharding and federation](https://github.com/donnemartin/system-design-primer#sharding)
-- [Cassandra deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/cassandra)
-- [Pattern: scaling writes](https://www.hellointerview.com/learn/system-design/patterns/scaling-writes) **(premium)**
+- [Cassandra architecture, the LSM store in production](https://cassandra.apache.org/doc/latest/cassandra/architecture/overview.html)
+- [DynamoDB partition key design](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-design.html)

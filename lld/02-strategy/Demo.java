@@ -50,7 +50,7 @@ public class Demo {
         System.out.println("  That is the whole reason the pattern is worth its weight.");
 
         System.out.println();
-        System.out.println("== Keys are independent — user-99 is unaffected by user-42 ==");
+        System.out.println("== Keys are independent: user-99 is unaffected by user-42 ==");
         fire(limiter, "/checkout", "user-99", 2);
     }
 

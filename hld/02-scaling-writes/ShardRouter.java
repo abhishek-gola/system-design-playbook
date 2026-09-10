@@ -11,7 +11,7 @@ import java.util.Set;
  * ready for the follow-up though: modulus means adding a shard remaps almost
  * every key, so a real system uses consistent hashing with virtual nodes and
  * moves roughly 1/N of the data when N changes. Consistent hashing fixes
- * resharding. It does not fix a bad key — if seventy per cent of your writes
+ * resharding. It does not fix a bad key, if seventy per cent of your writes
  * share one key, every placement scheme in the world puts them on one node.
  *
  * The distinct-key count per shard is tracked because it answers the question

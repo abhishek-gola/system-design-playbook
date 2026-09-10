@@ -8,7 +8,7 @@ import java.util.List;
  * one interface, adding failover is a class that implements that interface and
  * no business code changes at all.
  *
- * Structurally this is a decorator over a list — see lld/08-decorator. It is
+ * Structurally this is a decorator over a list: see lld/08-decorator. It is
  * also the one place a routing DECISION is allowed to live, which is exactly
  * why it is here and not inside RazorpayAdapter.
  */
@@ -35,8 +35,8 @@ public class FailoverGateway implements PaymentGateway {
             }
 
             // The key is namespaced per provider. Reusing one key across two
-            // providers is meaningless — idempotency is enforced by each
-            // provider's own store — and namespacing it keeps your own
+            // providers is meaningless, idempotency is enforced by each
+            // provider's own store, and namespacing it keeps your own
             // reconciliation honest about which attempt went where.
             IdempotencyKey scoped = new IdempotencyKey(provider.name() + ":" + key.value());
             last = provider.charge(amount, instrument, scoped);

@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * token; no tokens means rejected.
  *
  * The default answer for an API gateway. Two numbers of state per key, and the
- * burst up to `capacity` is usually a feature — clients retry in clusters and
+ * burst up to `capacity` is usually a feature, clients retry in clusters and
  * you would rather absorb that than reject it.
  *
  * Refill is lazy: rather than a background thread topping up every bucket, each

@@ -7,12 +7,12 @@ import java.util.function.Supplier;
  *
  * Two versions here on purpose.
  *
- * of()          — the switch. This is the switch you are ALLOWED to keep: the
+ * of()           the switch. This is the switch you are ALLOWED to keep: the
  *                 factory is the one place that is supposed to know every type,
  *                 and confining it here is the entire point. What OCP objects
  *                 to is the same switch appearing in six other files.
  *
- * fromRegistry()— suppliers in a map, so a new channel is a new entry that can
+ * fromRegistry() suppliers in a map, so a new channel is a new entry that can
  *                 come from config with no recompile. Show this if they push on
  *                 OCP; don't lead with it, because the switch reads better and
  *                 clarity wins the first pass.
@@ -50,7 +50,7 @@ public class NotifierFactory {
         return supplier.get();
     }
 
-    /** A new channel at runtime — the reason the registry version exists. */
+    /** A new channel at runtime: the reason the registry version exists. */
     public void register(Channel channel, Supplier<Notifier> supplier) {
         registry.put(channel, supplier);
     }

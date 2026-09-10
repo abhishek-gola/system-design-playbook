@@ -201,13 +201,12 @@ then finds and repairs.
 
 | Problem | What to watch for |
 |---|---|
-| [Design a Payment System](https://www.hellointerview.com/learn/system-design/problem-breakdowns/payment-system) **(core)** **(premium)** | The anchor. Saga, idempotency, reconciliation, and the ledger. |
-| [Design Uber](https://www.hellointerview.com/learn/system-design/problem-breakdowns/uber) **(core)** | The ride lifecycle is a long saga with a matching problem bolted on. |
-| [Design a Local Delivery Service (GoPuff)](https://www.hellointerview.com/learn/system-design/problem-breakdowns/gopuff) | Inventory, order and fulfilment across warehouses. |
+| Design a Payment System **(core)** | The anchor. Saga, idempotency, reconciliation, and the ledger. |
+| Design Uber **(core)** | The ride lifecycle is a long saga with a matching problem bolted on. |
+| Design a Local Delivery Service (GoPuff) | Inventory, order and fulfilment across warehouses. |
 
-A solution marked **(premium)** is behind Hello Interview's paywall. The problem
-itself is free to attempt, and the folder above is a worked answer to the same
-hard part.
+These are problem statements, not links. Attempt one cold, on a clock, then
+compare against the folder above rather than against somebody's write-up.
 
 ## Read
 
@@ -215,4 +214,3 @@ hard part.
 - [Transactional outbox, the same source](https://microservices.io/patterns/data/transactional-outbox.html)
 - [Idempotency](https://algomaster.io/learn/system-design/idempotency)
 - [Read: how Airbnb avoids double payments](https://medium.com/airbnb-engineering/avoiding-double-payments-in-a-distributed-payments-system-2981f6b070bb)
-- [Pattern: multi-step processes](https://www.hellointerview.com/learn/system-design/patterns/multi-step-processes) **(premium)**

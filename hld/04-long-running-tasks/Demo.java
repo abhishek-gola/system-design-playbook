@@ -7,8 +7,8 @@ import java.util.List;
  * pull. The client polls or gets a webhook. That part takes two minutes to
  * explain and nobody is impressed by it.
  *
- * What is actually being assessed is the two paragraphs after it — what happens
- * when a worker stalls, when a job fails, when it fails forever — so that is
+ * What is actually being assessed is the two paragraphs after it: what happens
+ * when a worker stalls, when a job fails, when it fails forever, so that is
  * what this Demo spends its time on. Five upload jobs go through a queue with a
  * five-second visibility timeout and a retry limit of three, and between them
  * they cover the clean path, the overrunning worker whose duplicate delivery has

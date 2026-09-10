@@ -12,7 +12,7 @@ import java.util.TreeMap;
  * get different numbers out. For an ad click aggregator that bills advertisers,
  * that is disqualifying.
  *
- * Processing time is still the right choice sometimes — monitoring a consumer's
+ * Processing time is still the right choice sometimes: monitoring a consumer's
  * own throughput, or any window whose meaning genuinely is "in the last minute
  * of real time". Knowing when it is acceptable is the follow-up question.
  *

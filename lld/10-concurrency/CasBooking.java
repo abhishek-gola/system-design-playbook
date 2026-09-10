@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * Note that ConcurrentHashMap is not magic here. Writing
  * `if (!map.containsKey(k)) map.put(k, v)` on a ConcurrentHashMap has exactly
- * the same bug as NaiveBooking — the individual operations are thread-safe, the
+ * the same bug as NaiveBooking: the individual operations are thread-safe, the
  * combination is not. The atomicity has to come from one call.
  */
 public class CasBooking {

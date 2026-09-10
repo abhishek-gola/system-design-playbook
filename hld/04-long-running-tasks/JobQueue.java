@@ -9,7 +9,7 @@ import java.util.Random;
  *
  * Everything here exists because of one assumption: a worker can die, stall or
  * be network-partitioned at any moment, and the queue will never be told. Given
- * that, a message cannot be removed when it is handed out — it has to be hidden
+ * that, a message cannot be removed when it is handed out. It has to be hidden
  * for a while and then reappear if nobody confirms. That is the visibility
  * timeout, and every other feature in this class follows from it.
  *
@@ -18,7 +18,7 @@ import java.util.Random;
  * twice. There is no configuration that prevents it, so the handler has to be
  * idempotent instead. See TranscodeService.
  *
- * The linear scan in receive() is not how a real broker works — SQS keeps
+ * The linear scan in receive() is not how a real broker works, SQS keeps
  * per-partition structures and Kafka does not have per-message visibility at
  * all. It is written this way because the timing rules are the lesson and a
  * priority queue would hide them.
@@ -83,7 +83,7 @@ public class JobQueue {
                 deadLetters.add(message);
                 System.out.println("    [queue] " + message.job().jobId() + " has been delivered "
                         + message.receiveCount() + " times and failed every time"
-                        + " — moved to the dead-letter queue, not retried again");
+                        + ", moved to the dead-letter queue, not retried again");
                 continue;
             }
             message.markReceived(now + visibilityTimeoutMillis, nextReceiptId++);
@@ -132,7 +132,7 @@ public class JobQueue {
      * outage retries at the same instant, so the service that just fell over
      * gets a synchronised wall of traffic the moment it comes back and falls
      * over again. Spreading the retries across a window turns that spike into a
-     * ramp. This is equal jitter — half the delay fixed, half random — which
+     * ramp. This is equal jitter, half the delay fixed and half random, which
      * keeps a floor under the delay while still smearing the herd.
      */
     private long backoffMillis(int receiveCount) {
@@ -154,7 +154,7 @@ public class JobQueue {
         System.out.println("  queue");
         System.out.println("    messages sent        : " + sent);
         System.out.println("    deliveries made      : " + received
-                + "   (more than sent — that is at-least-once working, not a bug)");
+                + "   (more than sent. That is at-least-once working, not a bug)");
         System.out.println("    deletes accepted     : " + deleted);
         System.out.println("    deletes refused      : " + refusedDeletes
                 + "   (a stale receipt from a worker that overran its lease)");

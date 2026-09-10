@@ -204,17 +204,15 @@ the backlog in order, and the consistent-hashing alternative for contrast.
 
 | Problem | What to watch for |
 |---|---|
-| [Design WhatsApp](https://www.hellointerview.com/learn/system-design/problem-breakdowns/whatsapp) **(core)** | The anchor. Connection routing, offline delivery, ordering, multi-device. |
-| [Design Facebook Live Comments](https://www.hellointerview.com/learn/system-design/problem-breakdowns/fb-live-comments) **(core)** | Massive fan-out to viewers of one stream. Different shape from chat. |
-| [Design Google Docs](https://www.hellointerview.com/learn/system-design/problem-breakdowns/google-docs) **(premium)** | Collaborative editing, so operational transforms or CRDTs. The hardest one in this group. |
+| Design WhatsApp **(core)** | The anchor. Connection routing, offline delivery, ordering, multi-device. |
+| Design Facebook Live Comments **(core)** | Massive fan-out to viewers of one stream. Different shape from chat. |
+| Design Google Docs | Collaborative editing, so operational transforms or CRDTs. The hardest one in this group. |
 
-A solution marked **(premium)** is behind Hello Interview's paywall. The problem
-itself is free to attempt, and the folder above is a worked answer to the same
-hard part.
+These are problem statements, not links. Attempt one cold, on a clock, then
+compare against the folder above rather than against somebody's write-up.
 
 ## Read
 
 - [Long polling vs WebSockets](https://blog.algomaster.io/p/long-polling-vs-websockets)
 - [MDN: using server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events)
 - [Read: real-time messaging at Slack](https://slack.engineering/real-time-messaging/)
-- [Pattern: real-time updates](https://www.hellointerview.com/learn/system-design/patterns/realtime-updates) **(premium)**

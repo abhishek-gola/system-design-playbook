@@ -141,4 +141,3 @@ Timed runs for the pacing half: [Vending Machine](https://github.com/ashishps1/a
 - [Class diagram notation](https://algomaster.io/learn/lld/class-diagram)
 - [Association / aggregation / composition](https://algomaster.io/learn/lld/composition)
 - [How to answer an LLD problem](https://blog.algomaster.io/p/how-to-answer-a-lld-interview-problem)
-- [Hello Interview: how to prepare for LLD](https://www.hellointerview.com/blog/how-to-prepare-lld)

@@ -175,24 +175,21 @@ write up one vocabulary item in your own words.
 
 | Problem | What to watch for |
 |---|---|
-| [Run the script on Bitly, timed](https://www.hellointerview.com/learn/system-design/problem-breakdowns/bitly) **(core)** | Then do it again three days later. The second run is where the pacing sticks. |
-| [Run the script on a Distributed Cache](https://www.hellointerview.com/learn/system-design/problem-breakdowns/distributed-cache) **(premium)** | Small scope, forces you to fill 45 minutes with depth rather than breadth. |
-| [Run the script on LeetCode](https://www.hellointerview.com/learn/system-design/problem-breakdowns/leetcode) | A system small enough that a monolith is defensible. Practise arguing for the simple answer. |
+| Run the script on Bitly, timed **(core)** | Then do it again three days later. The second run is where the pacing sticks. |
+| Run the script on a Distributed Cache | Small scope, forces you to fill 45 minutes with depth rather than breadth. |
+| Run the script on LeetCode | A system small enough that a monolith is defensible. Practise arguing for the simple answer. |
 | [Write up caching strategies + stampede](https://algomaster.io/learn/system-design/caching-strategies) **(core)** | Cache-aside, write-through, write-back, and three ways to stop a stampede. |
 | [Write up sharding and consistent hashing](https://algomaster.io/learn/system-design/consistent-hashing) **(core)** | Include what happens when you add a node, and what a virtual node is for. |
 | [Write up SQL vs NoSQL from access patterns](https://algomaster.io/learn/system-design/sql-vs-nosql) | Pick a real table from a system you have worked on and argue both sides for it. |
 
-A solution marked **(premium)** is behind Hello Interview's paywall. The problem
-itself is free to attempt, and the folder above is a worked answer to the same
-hard part.
+These are problem statements, not links. Attempt one cold, on a clock, then
+compare against the folder above rather than against somebody's write-up.
 
 ## Read
 
-- [Hello Interview: delivery framework](https://www.hellointerview.com/learn/system-design/in-a-hurry/delivery)
 - [AlgoMaster: answering framework](https://algomaster.io/learn/system-design-interviews/answering-framework)
 - [30 core concepts](https://blog.algomaster.io/p/30-system-design-concepts)
 - [Top 15 trade-offs](https://blog.algomaster.io/p/system-design-top-15-trade-offs)
-- [Hello Interview: core concepts](https://www.hellointerview.com/learn/system-design/in-a-hurry/core-concepts)
+- [System Design Primer: the core concept index](https://github.com/donnemartin/system-design-primer#index-of-system-design-topics)
 - [Full resource index](https://github.com/ashishps1/awesome-system-design-resources)
-- [Numbers to know](https://www.hellointerview.com/learn/system-design/core-concepts/numbers-to-know) **(premium)**. The
-  [estimation cheatsheet](estimation-cheatsheet.md) next to this file has the same numbers, free.
+- [The estimation cheatsheet](estimation-cheatsheet.md) next to this file, which is the numbers you actually need

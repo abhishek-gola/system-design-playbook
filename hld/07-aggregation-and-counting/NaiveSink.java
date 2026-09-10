@@ -5,7 +5,7 @@ import java.util.TreeMap;
  * Writes every record the moment it arrives. At-least-once, and the "at least"
  * is doing real work.
  *
- * There is nothing wrong with this sink in isolation — the job's own state is
+ * There is nothing wrong with this sink in isolation: the job's own state is
  * still checkpointed and still correct. What is wrong is that the sink has
  * already published results derived from records the checkpoint does not cover.
  * When the job restarts from the last complete checkpoint and replays those
@@ -15,7 +15,7 @@ import java.util.TreeMap;
  * This is fine, and cheaper, when the operation is idempotent: an upsert of a
  * computed value keyed by window, rather than an increment. If an interviewer
  * pushes on exactly-once and you do not want to build two-phase commit, "I made
- * the sink idempotent instead" is a strong answer — as long as you can say why
+ * the sink idempotent instead" is a strong answer, as long as you can say why
  * an increment is not idempotent and an upsert is.
  */
 public final class NaiveSink implements Sink {

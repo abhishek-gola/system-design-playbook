@@ -1,6 +1,6 @@
 /**
  * The unit of work. A row in your jobs table and a message in the queue, and
- * the two are not the same thing — the table is the truth the user polls, the
+ * the two are not the same thing: the table is the truth the user polls, the
  * message is a delivery attempt at it.
  *
  * jobId is the important field, and not because it identifies the job. It is

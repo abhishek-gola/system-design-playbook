@@ -1,7 +1,7 @@
 /**
  * Hand-rolled so the folder stays dependency-free. In real code this is Jackson,
- * and saying "I'd use a real serialiser here" is the correct interview answer —
- * writing your own JSON escaper is a bug farm.
+ * and saying "I'd use a real serialiser here" is the correct interview answer.
+ * Writing your own JSON escaper is a bug farm.
  */
 public class JsonFormatter implements Formatter {
     @Override

@@ -16,7 +16,6 @@
 
 *"Model this access pattern in a single table."*
 
-
 **One alternative:**
 
 **When I'd pick it:**
@@ -27,7 +26,6 @@
 
 *"GSI or LSI here, and what does each cost you in consistency?"*
 
-
 **One alternative:**
 
 **When I'd pick it:**
@@ -37,7 +35,6 @@
 ## Hot partitions, adaptive capacity, on-demand versus provisioned
 
 *"One customer is a large share of your traffic. What happens?"*
-
 
 **One alternative:**
 

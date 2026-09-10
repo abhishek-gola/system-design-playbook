@@ -6,11 +6,11 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * The two attacks it closes:
  *
- * Serialisation — a hand-rolled singleton read back from a stream is a second
+ * Serialisation: a hand-rolled singleton read back from a stream is a second
  * instance unless you write readResolve(). An enum constant deserialises to the
  * same constant by definition.
  *
- * Reflection — setAccessible(true) on a private constructor defeats every other
+ * Reflection: setAccessible(true) on a private constructor defeats every other
  * version here. The JVM refuses to construct an enum reflectively.
  *
  * The demo shows both. The cost is that an enum cannot extend a class and feels

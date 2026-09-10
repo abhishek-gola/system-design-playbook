@@ -39,7 +39,7 @@ public class Demo {
         s1.accept(Message.draft("m-001", convo, "alice", "bob", "are you coming?"));
 
         section("2. The recipient is offline");
-        System.out.println("  carol has no socket anywhere in the fleet. Nothing is lost —");
+        System.out.println("  carol has no socket anywhere in the fleet. Nothing is lost:");
         System.out.println("  the message is already durable, it just cannot be pushed.");
         clock.advance(1_000);
         s1.accept(Message.draft("m-002", "alice:carol", "alice", "carol", "dinner friday?"));
@@ -98,7 +98,7 @@ public class Demo {
 
     /**
      * The contrast. With a ring, any server works out the owner of a user id
-     * locally — no Redis round trip on the hot path of every single message.
+     * locally: no Redis round trip on the hot path of every single message.
      * The catch is in ConsistentHashRing's comment and it is the sentence that
      * matters: the ring says where the connection should be, not where it is.
      */
@@ -132,7 +132,7 @@ public class Demo {
         }
         System.out.println("  chat-2 removed: " + ring.distribute(users));
         System.out.println("  users whose owner changed: " + moved + " of 3000 ("
-                + (moved * 100 / 3_000) + "%) — only the dead node's share reshuffles,");
+                + (moved * 100 / 3_000) + "%), only the dead node's share reshuffles,");
         System.out.println("  which is the whole point of the ring over a plain modulo.");
         System.out.println("  But note what just happened: those users' phones are still");
         System.out.println("  connected wherever they were. The ring changed its mind about");

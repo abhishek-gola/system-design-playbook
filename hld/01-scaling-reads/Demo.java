@@ -78,7 +78,7 @@ public class Demo {
 
     /**
      * Identical setup, one rule added. Note that the waiters are not served
-     * stale data and are not rejected — they block for the length of one query
+     * stale data and are not rejected: they block for the length of one query
      * and then take the fresh value, which is why this is an easy sell.
      */
     private static void singleFlight() throws InterruptedException {
@@ -102,7 +102,7 @@ public class Demo {
     /**
      * Single flight fixes many callers on one key. This is the other stampede:
      * many keys, written together, expiring together. Nothing about locking
-     * helps here — the fix is to stop the expiry times lining up in the first
+     * helps here: the fix is to stop the expiry times lining up in the first
      * place, which costs one call to a random number generator.
      */
     private static void jitteredTtls() {
@@ -134,7 +134,7 @@ public class Demo {
     private static void closing() {
         System.out.println();
         System.out.println("The sentence this is all for: \"a hot key that expires is a stampede,");
-        System.out.println("so I would single-flight the refill and jitter the TTLs — one query");
+        System.out.println("so I would single-flight the refill and jitter the TTLs. One query");
         System.out.println("instead of one per caller, and the keys stop expiring in lockstep.\"");
     }
 
@@ -162,7 +162,7 @@ public class Demo {
         }
         start.countDown();
         for (Thread worker : workers) {
-            worker.join();            // join everything, then print aggregates — never interleave prints
+            worker.join();            // join everything, then print aggregates, never interleave prints
         }
     }
 }

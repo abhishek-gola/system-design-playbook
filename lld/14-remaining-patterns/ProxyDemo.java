@@ -5,7 +5,7 @@ import java.util.Map;
  * Proxy: same shape as a Decorator, different intent.
  *
  * A decorator adds behaviour the caller wants. A proxy CONTROLS ACCESS to
- * something the caller cannot or should not reach directly — here, an expensive
+ * something the caller cannot or should not reach directly: here, an expensive
  * report the caller would rather not pay for twice, plus a permission check the
  * caller is not allowed to skip.
  *
@@ -38,7 +38,7 @@ public class ProxyDemo {
         @Override
         public String render(String user) {
             if (!user.startsWith("finance-")) {
-                return "denied — " + user + " may not read this";   // access control
+                return "denied: " + user + " may not read this";   // access control
             }
             return cache.computeIfAbsent(user, real::render);       // lazy + cached
         }

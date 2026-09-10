@@ -4,8 +4,8 @@ import java.util.Random;
  * Rate limiting is this whole folder in miniature: a counter, a window, and a
  * decision about where the counter lives.
  *
- * The algorithms themselves — token bucket, sliding window log, fixed window
- * counter — are implemented properly one level down, in
+ * The algorithms themselves: token bucket, sliding window log, fixed window
+ * counter: are implemented properly one level down, in
  * lld/02-strategy, behind a single interface with an injected clock. That is
  * the LLD answer. This file is the HLD answer, and it is a different question:
  * fifty API servers are enforcing one limit, so where does the counter live?
@@ -20,7 +20,7 @@ import java.util.Random;
  * closed. Fail open and an outage becomes a free-for-all; fail closed and a
  * Redis blip takes the whole product down. For rate limiting the usual answer
  * is fail open, because the limiter protects you from load rather than from
- * fraud — but say which and why.
+ * fraud: but say which and why.
  *
  * Local fast path: each server admits a small batch on its own view and syncs
  * with the shared counter periodically. Almost all requests are decided in

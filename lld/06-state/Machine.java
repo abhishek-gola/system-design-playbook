@@ -7,7 +7,7 @@ import java.util.Map;
  *
  * It holds the balance, the inventory and a reference to the current state, and
  * delegates every event. There is no switch in this class, and that absence is
- * the entire gain — if Machine still decided what to do based on which state it
+ * the entire gain: if Machine still decided what to do based on which state it
  * was in, you would have written the enum version with extra ceremony.
  */
 public class Machine {

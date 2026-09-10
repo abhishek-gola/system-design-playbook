@@ -1,6 +1,6 @@
 /**
  * The three shard keys a candidate reaches for on a metrics problem, and the
- * reason this folder has code in it at all — the difference between them is
+ * reason this folder has code in it at all: the difference between them is
  * obvious in a histogram and easy to hand-wave in prose.
  *
  * Note what a shard key is: a function from a row to a string, which is then

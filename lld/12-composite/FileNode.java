@@ -3,7 +3,7 @@ import java.util.function.Predicate;
 
 /**
  * The leaf. Called FileNode rather than File only to stay clear of java.io.File
- * — in an interview, calling it File is fine and nobody will mind.
+ *, in an interview, calling it File is fine and nobody will mind.
  */
 public class FileNode implements Node {
 

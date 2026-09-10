@@ -11,9 +11,9 @@ import java.util.Map;
  * The check-then-write below is not safe as literal code in a distributed
  * system, and it is worth saying so before anyone points it out. Two workers
  * can both read "no output" and both write. In production the same idea is
- * expressed as a single conditional write — INSERT ... ON CONFLICT DO NOTHING,
+ * expressed as a single conditional write: INSERT ... ON CONFLICT DO NOTHING,
  * an UPDATE guarded by the current state, a conditional PUT with the job id as
- * the key — so that the database, not the worker, decides who won. The
+ * the key: so that the database, not the worker, decides who won. The
  * behaviour is what is being modelled here; the atomicity belongs to the
  * storage engine.
  *

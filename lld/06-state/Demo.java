@@ -74,7 +74,7 @@ public class Demo {
     private static void illegal(String label, Runnable attempt) {
         try {
             attempt.run();
-            System.out.println("    " + label + ": ALLOWED — that's a hole in the state machine");
+            System.out.println("    " + label + ": ALLOWED. That's a hole in the state machine");
         } catch (RuntimeException e) {
             System.out.println("    " + label + ": " + e.getMessage());
         }

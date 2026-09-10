@@ -45,7 +45,7 @@ public final class EventStream {
      * Two separate causes of disorder, and they need different answers:
      *
      *  1. Ordinary network jitter. Every event can slip a few positions. This
-     *     is what a watermark delay is for — you wait a bounded amount and you
+     *     is what a watermark delay is for: you wait a bounded amount and you
      *     get almost everything.
      *
      *  2. A client that was offline and flushed its buffer minutes later. No

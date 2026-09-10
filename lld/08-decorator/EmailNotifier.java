@@ -1,7 +1,7 @@
 /**
  * The base component: the only class here that does the actual work.
  *
- * Deliberately flaky, on a fixed schedule so the demo is reproducible — the
+ * Deliberately flaky, on a fixed schedule so the demo is reproducible, the
  * first attempt at each message fails, the second succeeds. That is enough to
  * show retry behaviour without any randomness.
  */

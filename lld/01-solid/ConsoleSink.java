@@ -12,7 +12,7 @@ public class ConsoleSink implements Sink {
 
     @Override
     public void close() {
-        // Nothing to release. Not a no-op that hides a problem — there genuinely
+        // Nothing to release. Not a no-op that hides a problem. There genuinely
         // is no resource here, which is why close() belongs on Sink and rotate()
         // does not.
     }

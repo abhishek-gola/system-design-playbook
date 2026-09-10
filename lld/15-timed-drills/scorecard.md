@@ -35,20 +35,15 @@ Same rubric every time, because the trend is the point, not the number.
 
 **Patterns I used, and whether the problem actually asked for them:**
 
-
 **The `if` statements I wrote that a pattern should have absorbed:**
 
-
 **What I'd have to edit to add one new type or rule: one file, or several?**
-
 
 ### The honest bit
 
 **What I couldn't remember and had to invent:**
 
-
 **Where I lost time and why:**
-
 
 **One thing to fix before the next run** (exactly one; a list of five is a list
 you'll ignore):

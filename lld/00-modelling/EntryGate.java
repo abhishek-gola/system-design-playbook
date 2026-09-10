@@ -25,7 +25,7 @@ public class EntryGate {
         if (ticket.isPresent()) {
             System.out.println("  [" + id + "] issued " + ticket.get());
         } else {
-            System.out.println("  [" + id + "] turned away " + vehicle + " — no spot fits");
+            System.out.println("  [" + id + "] turned away " + vehicle + ", no spot fits");
         }
         return ticket;
     }

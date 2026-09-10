@@ -21,6 +21,6 @@ public class DispensingState implements VendingState {
 
     @Override
     public void refund(Machine machine) {
-        reject("refund", "too late — the item is already on its way down");
+        reject("refund", "too late, the item is already on its way down");
     }
 }

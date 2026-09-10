@@ -343,9 +343,12 @@ crash so the double count is a printed number rather than an assertion.
 
 | Problem | What to watch for |
 |---|---|
-| [Design an Ad Click Aggregator](https://www.hellointerview.com/learn/system-design/problem-breakdowns/ad-click-aggregator) **(core)** | The anchor. Windowing, watermarks, exactly-once, and the reprocessing path. |
-| [Design YouTube Top K](https://www.hellointerview.com/learn/system-design/problem-breakdowns/top-k) **(core)** | Sketches plus sorted sets. The one where approximate structures earn their keep. |
-| [Design a Distributed Rate Limiter](https://www.hellointerview.com/learn/system-design/problem-breakdowns/distributed-rate-limiter) **(core)** | The rate limiter from [lld/02-strategy](../../lld/02-strategy/), at system scale. Make this one an answer you can give without thinking. |
+| Design an Ad Click Aggregator **(core)** | The anchor. Windowing, watermarks, exactly-once, and the reprocessing path. |
+| Design YouTube Top K **(core)** | Sketches plus sorted sets. The one where approximate structures earn their keep. |
+| Design a Distributed Rate Limiter **(core)** | The rate limiter from [lld/02-strategy](../../lld/02-strategy/), at system scale. Make this one an answer you can give without thinking. |
+
+These are problem statements, not links. Attempt one cold, on a clock, then
+compare against the folder above rather than against somebody's write-up.
 
 The rate limiter is the one to over-prepare, because it is the cheapest bridge
 between this folder and [lld/02-strategy](../../lld/02-strategy/). Being able to
@@ -357,9 +360,7 @@ where it goes.
 
 - [Flink: timely stream processing, which is event time and watermarks](https://nightlies.apache.org/flink/flink-docs-stable/docs/concepts/time/)
 - [Flink: stateful stream processing, which is checkpoints and barriers](https://nightlies.apache.org/flink/flink-docs-stable/docs/concepts/stateful-stream-processing/)
-- [Kafka deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/kafka)
+- [Kafka design docs, the log and the consumer group](https://kafka.apache.org/documentation/#design)
 - [Rate limiting algorithms with code](https://blog.algomaster.io/p/rate-limiting-algorithms-explained-with-code)
 - [Redis HyperLogLog, with the error bound stated](https://redis.io/docs/latest/develop/data-types/probabilistic/hyperloglogs/)
 - [Count-Min Sketch, explained from scratch](https://florian.github.io/count-min-sketch/)
-- [Flink deep dive](https://www.hellointerview.com/learn/system-design/deep-dives/flink) **(premium)**
-- [Data structures for big data](https://www.hellointerview.com/learn/system-design/deep-dives/data-structures-for-big-data) **(premium)**

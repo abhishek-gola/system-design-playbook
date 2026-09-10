@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * S — one reason to change: how logging is orchestrated. Which is almost never.
- * D — depends on the Formatter and Sink interfaces, and receives both through
+ * S: one reason to change: how logging is orchestrated. Which is almost never.
+ * D: depends on the Formatter and Sink interfaces, and receives both through
  *     the constructor. It has never heard of a file.
- * O — a new format or a new destination is a new class. Nothing in here moves.
+ * O: a new format or a new destination is a new class. Nothing in here moves.
  *
  * Count the `if`s: one, and it's a level threshold, not a type check.
  */
@@ -44,7 +44,7 @@ public class Logger {
 
         for (Sink sink : sinks) {
             // One broken sink must not swallow the others. This is the same
-            // per-subscriber isolation that Observer needs — see lld/05-observer.
+            // per-subscriber isolation that Observer needs, see lld/05-observer.
             try {
                 sink.write(line);
             } catch (RuntimeException e) {

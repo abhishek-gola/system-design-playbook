@@ -5,7 +5,7 @@ import java.util.Map;
  * The classic version of the pattern, and the one most interviewers reach for
  * by default.
  *
- * One concrete class, not a Rs2000Handler / Rs500Handler hierarchy — the
+ * One concrete class, not a Rs2000Handler / Rs500Handler hierarchy, the
  * denomination is data, not behaviour, exactly as in lld/00-modelling. Being
  * consistent about that across two very different problems is the sort of thing
  * that reads as taste rather than recall.
@@ -13,7 +13,7 @@ import java.util.Map;
  * The important part is plan-then-commit. A naive chain hands out notes as it
  * goes, and when the last handler discovers it cannot make the remaining Rs 50,
  * the customer has already been given Rs 4,950 of a Rs 5,000 withdrawal. So the
- * chain computes a full plan first, and only the dispenser commits it — and
+ * chain computes a full plan first, and only the dispenser commits it, and
  * only if the remainder came out at zero.
  */
 public class DenominationHandler {

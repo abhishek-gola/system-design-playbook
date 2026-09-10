@@ -12,7 +12,7 @@ import java.util.function.Predicate;
  * uniformity for the client, at the price of a Liskov violation you signed up
  * for on purpose. Swing's Component took that route.
  *
- * Neither is right. Say the trade-off out loud — interviewers know there is no
+ * Neither is right. Say the trade-off out loud, interviewers know there is no
  * clean winner and are listening for whether you know it too.
  */
 public interface Node {

@@ -15,7 +15,6 @@
 
 *"Redis is single-threaded. Why is it still fast, and when does that hurt you?"*
 
-
 **One alternative:**
 
 **When I'd pick it:**
@@ -25,7 +24,6 @@
 ## The data structures that are not GET and SET
 
 *"Which structure would you use for this, and why not a sorted set?"*
-
 
 **One alternative:**
 
@@ -37,7 +35,6 @@
 
 *"The Redis box hard-reboots. How much do you lose?"*
 
-
 **One alternative:**
 
 **When I'd pick it:**
@@ -47,7 +44,6 @@
 ## Cluster hash slots and resharding
 
 *"Why can't I run `MULTI` across these two keys?"*
-
 
 **One alternative:**
 
@@ -59,7 +55,6 @@
 
 *"How do you make a read-modify-write atomic? And would you use Redlock for a
 distributed lock?"*
-
 
 **One alternative:**
 

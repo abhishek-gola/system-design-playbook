@@ -7,8 +7,8 @@ import java.util.function.Supplier;
  * The chain built from an ordered list of rule names, rather than hard-wired.
  *
  * This is the part that turns the pattern into an operational answer. The list
- * comes from config, so risk analysts reorder the pipeline — or drop a rule
- * that has started false-positiving — without waiting for a deploy.
+ * comes from config, so risk analysts reorder the pipeline, or drop a rule
+ * that has started false-positiving, without waiting for a deploy.
  *
  * It is also how you order by cost without anyone having to remember to: put
  * the cheap checks first in the config and the expensive scorer last, and the
@@ -56,7 +56,7 @@ public class RiskChain {
         return order;
     }
 
-    /** Handy for the demo — a registry keyed by the names the config uses. */
+    /** Handy for the demo: a registry keyed by the names the config uses. */
     public static Map<String, Supplier<RiskCheck>> registry(FeatureStore features,
                                                             Map<String, Double> modelScores,
                                                             boolean modelServerDown) {

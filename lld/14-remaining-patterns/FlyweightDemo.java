@@ -8,8 +8,8 @@ import java.util.Map;
  *
  * The split is the whole idea, and it is what to say when asked:
  *
- *   intrinsic — shared, immutable, belongs to the type   (colour, kind, glyph)
- *   extrinsic — per use, passed in                        (which square, which pixel)
+ *   intrinsic: shared, immutable, belongs to the type   (colour, kind, glyph)
+ *   extrinsic: per use, passed in                        (which square, which pixel)
  *
  * Java's Integer.valueOf cache is a flyweight you use every day without
  * noticing. So is String interning.

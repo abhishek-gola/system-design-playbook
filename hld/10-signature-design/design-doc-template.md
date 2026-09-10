@@ -23,7 +23,6 @@ each outcome.
 *Then one sentence on your part in it: what you built, what you operated, what
 you inherited. Be exact. This sentence protects everything below it.*
 
-
 ## 2. Requirements
 
 Four functional requirements, written as constraints:
@@ -49,7 +48,6 @@ Non-functional, as numbers:
 
 Explicitly out of scope, and say this out loud in the interview:
 
-
 ## 3. Estimation
 
 Show the arithmetic. Compute only what changes a decision.
@@ -71,23 +69,19 @@ Show the arithmetic. Compute only what changes a decision.
 behind each, because "how do you measure that?" is the immediate follow-up and a
 shrug there undoes the number.*
 
-
 ## 4. API and the decision record
 
 The endpoints, four to six at most:
 
-
 The decision record, field by field. Include the rules that ran, what each
 returned, the feature values **as they were at scoring time**, the final
 decision, and the model version:
-
 
 Access patterns for it, and what storage that implies:
 
 - by transaction ID
 - by user over a window
 - by rule, for "everything this rule blocked yesterday"
-
 
 ## 5. High-level design: the two paths
 
@@ -98,18 +92,14 @@ prose, because the prose is what you will actually say.
 
 What it does, what it is allowed to call, and the timeout on each dependency:
 
-
 Where the 100ms goes. Break the budget down by stage and put the measured
 numbers next to the intended ones: `[__ get from tracing if you have it ]`
-
 
 ### The asynchronous path
 
 What runs in Flink, over what windows, keyed by what:
 
-
 What it writes back, and what it raises as a case:
-
 
 ### Why some checks cannot be synchronous
 
@@ -120,54 +110,42 @@ own system:
 2. Data that has not arrived:
 3. Cost:
 
-
 ## 6. Feature store
 
 What is precomputed, keyed how, with what TTL:
 
-
 How stale it is, and why that is acceptable: `[__ measure the lag between event
 and aggregate visibility ]`
 
-
 How many round trips a scoring call makes, and what happens when the store is
 unavailable, per check:
-
 
 ## 7. Rule engine
 
 The chain, in cost order, with the actual checks from your config:
 
-
 How it is loaded and changed, and what an analyst can and cannot do without an
 engineer:
-
 
 What each check does when its dependency is unreachable, fail open or fail
 closed, per check, with the reason:
 
-
 The decision types, and what review buys you that a boolean does not:
-
 
 *Cross-reference: [lld/07-chain-of-responsibility](../../lld/07-chain-of-responsibility/)
 is this component at code altitude. Keep the two consistent: if you change the
 story here, change it there.*
-
 
 ## 8. Feedback loop
 
 Where labels come from and how delayed each source is: `[__ typical chargeback
 delay for your payment mix ]`
 
-
 How a new rule or model is introduced: shadow mode, what you compare, and what
 promotion requires:
 
-
 The bias in the labels, since you only learn the outcome of transactions you
 allowed, and what, if anything, you do about it:
-
 
 ## 9. The trade-off
 
@@ -175,15 +153,11 @@ Write this section properly; it is the one they remember.
 
 What a false positive costs, in your business, beyond the value of the order:
 
-
 What a false negative costs:
-
 
 Who owns the threshold, how it is set, and when it moves:
 
-
 Why accuracy is the wrong headline number here:
-
 
 ## 10. Failure modes and bottlenecks
 
@@ -200,7 +174,6 @@ failure has to resolve to a decision rather than to an error.
 
 **What breaks at ten times the load**, component by component, ending with the
 one that is not a machine: the review queue and the analysts behind it.
-
 
 ## 11. What I would do differently
 

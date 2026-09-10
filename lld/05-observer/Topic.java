@@ -6,12 +6,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
  *
  * Two deliberate choices worth narrating as you write them:
  *
- * CopyOnWriteArrayList — a subscriber can unsubscribe from inside its own
+ * CopyOnWriteArrayList: a subscriber can unsubscribe from inside its own
  * onEvent() without a ConcurrentModificationException. Reads are lock-free,
  * writes copy the array, which is the right trade when subscriptions are rare
  * and publishes are frequent.
  *
- * try/catch per subscriber — one broken handler must not cancel the rest.
+ * try/catch per subscriber, one broken handler must not cancel the rest.
  * This is the cheapest of the three fixes for "what if a subscriber
  * misbehaves", and there is no reason not to have it even here.
  */

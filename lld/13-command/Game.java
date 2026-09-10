@@ -7,7 +7,7 @@ import java.util.List;
  * Two stacks, and one rule that people forget.
  *
  * play() clears the redo stack. Undo three moves, then make a different move,
- * and those three are no longer reachable — which is correct, because redoing
+ * and those three are no longer reachable: which is correct, because redoing
  * them would replay moves that no longer make sense on the current board.
  * Leaving the redo stack intact gives you a corrupt history, and it is the bug
  * an interviewer will go looking for.

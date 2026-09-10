@@ -10,7 +10,7 @@ import java.util.TreeMap;
  * where they live.
  *
  * Every server holds the same ring, so any of them can work out the owner of a
- * user id with a hash and a tree lookup — no network hop, no Redis, no cache to
+ * user id with a hash and a tree lookup: no network hop, no Redis, no cache to
  * go stale. The virtual nodes exist because a ring with one point per server
  * distributes keys badly; a hundred points per server smooths it out, and the
  * number is a tuning knob rather than a design decision.
@@ -21,7 +21,7 @@ import java.util.TreeMap;
  * connection. It does not open the connection. A phone connects through a load
  * balancer that knows nothing about the ring, so either you put a routing tier
  * in front that redirects the client to the right node, or you accept that the
- * ring's answer and reality can disagree — which is the same stale-route
+ * ring's answer and reality can disagree, which is the same stale-route
  * problem you were trying to avoid, minus the TTL that fixed it.
  *
  * Where the ring genuinely wins is a system where the server, not the client,
@@ -50,7 +50,7 @@ public class ConsistentHashRing {
         }
     }
 
-    /** No lookup, no network call — the same input gives every server the same answer. */
+    /** No lookup, no network call, the same input gives every server the same answer. */
     public String ownerOf(String userId) {
         if (ring.isEmpty()) {
             return null;

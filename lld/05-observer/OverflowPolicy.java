@@ -12,6 +12,6 @@ public enum OverflowPolicy {
     /** Slow the whole system rather than lose an event. Ordering-critical work. */
     BLOCK,
 
-    /** Keep it, deal with it later — but only if you can say who drains the DLQ. */
+    /** Keep it, deal with it later, but only if you can say who drains the DLQ. */
     DEAD_LETTER
 }

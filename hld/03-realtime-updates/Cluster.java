@@ -66,7 +66,7 @@ public class Cluster {
         if (already != null) {
             duplicatesAbsorbed++;
             System.out.println("      duplicate: clientMessageId=" + draft.clientMessageId()
-                    + " was already accepted as seq " + already + " — dropped, nothing re-sent");
+                    + " was already accepted as seq " + already + ", dropped, nothing re-sent");
             return;
         }
 
@@ -84,7 +84,7 @@ public class Cluster {
         inbox.append(message);
 
         // (4) Route. The origin server has no idea where the recipient is and
-        // no way to guess, so it asks. Note that the answer is only a hint — we
+        // no way to guess, so it asks. Note that the answer is only a hint, we
         // check that the server it named actually still holds the socket.
         System.out.println("      accepted as seq " + seq + "; " + origin.id()
                 + " asks the registry where " + message.to() + " is");
@@ -93,7 +93,7 @@ public class Cluster {
             queuedOffline++;
             pushNotifications++;
             System.out.println("      no registry entry for " + message.to()
-                    + " — message sits in the inbox (" + inbox.undeliveredCount()
+                    + ", message sits in the inbox (" + inbox.undeliveredCount()
                     + " undelivered) and APNs/FCM gets a push notification instead");
             return;
         }
@@ -109,7 +109,7 @@ public class Cluster {
             queuedOffline++;
             pushNotifications++;
             System.out.println("      registry says " + owner.get() + " holds " + message.to()
-                    + ", but that server has no such socket — STALE ROUTE. Message stays in "
+                    + ", but that server has no such socket, STALE ROUTE. Message stays in "
                     + "the inbox (" + inbox.undeliveredCount() + " undelivered).");
             return;
         }

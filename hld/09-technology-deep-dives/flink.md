@@ -17,7 +17,6 @@
 *"Why does Flink make you choose a time semantic at all? Which one do you use,
 and why?"*
 
-
 **One alternative:**
 
 **When I'd pick it:**
@@ -28,7 +27,6 @@ and why?"*
 
 *"An event turns up an hour late. What happens to it?"*
 
-
 **One alternative:**
 
 **When I'd pick it:**
@@ -38,7 +36,6 @@ and why?"*
 ## State backends and state that outgrows memory
 
 *"What changes when your keyed state stops fitting in memory?"*
-
 
 **One alternative:**
 
@@ -51,7 +48,6 @@ and why?"*
 *"How does a checkpoint work, and how does that become end-to-end
 exactly-once?"*
 
-
 **One alternative:**
 
 **When I'd pick it:**
@@ -61,7 +57,6 @@ exactly-once?"*
 ## Backpressure
 
 *"The job is slow. How do you tell a slow sink from a hot key?"*
-
 
 **One alternative:**
 
